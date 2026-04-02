@@ -1,0 +1,80 @@
+<?php
+return [
+    'site_title' => 'د افغان محصلینو لپاره ډیجیټل کتابتون',
+    'home' => 'کور',
+    'books' => 'کتابونه',
+    'categories' =>'کتګوریانې',
+    'about' => 'زموږ په اړه',
+    'contact' => 'اړیکه',
+    'login' => 'ننوتل',
+    'register' => 'راجستر',
+    'dashboard' => 'ډشبورډ',
+    'admin_dashboard' => 'داډمین ډشبورډ',
+    'notitifacation'=>'پیغامونه',
+    'logout' => 'وتل',
+    'add_record'=>'د کتاب اضافه کول',
+    'hero_title' => 'د افغان محصلینو لپاره ډیجیټل کتابتون',
+    'hero_subtitle' => 'زرګونه علمي کتابونه او تعلیمي مواد آنلاین ترلاسه کولای شی.',
+    'hero_description' => 'افغان ډیجیټل کتابتون یو آنلاین پلیټ فارم دی چې زده کونکو ته د زده کړو کتابونو او تعلیمي موادو وړیا لاسرسی برابروي. دلته د کمپیوټر ساینس، ادبیاتو، ساینس، تاریخ او نورو مضامینو کتابونه شته.',
+    'browse_books' => 'کتابونه وګورئ',
+    'search_placeholder' => 'کتابونه، لیکوالان ولټوئ...',
+    'search' => 'لټون',
+    'browse_categories' => 'کتګورۍ وګورئ',
+    'latest_books' => '  نوي کتابونه',
+    'view' => 'کتنه',
+    'no_results' => 'هیڅ پایله ونه موندل شوه',
+    'description'=>'تشریح',
+    'book_title'=> 'عنوان',
+    'author'=>'لیکوال',
+    'select_category'=>'د کټګوري انتخابول',
+    'isbn'=>'آی  ایس بي این',
+    'upload_book'=>'د کتاب انتخابول',
+    'upload_image'=>'دانځور انتخابول',
+    'isbn_placeholder'=>'۹۷۸-۰۱۳۲۳۵۰۸۸۴',
+    'profile'=>'پروفایل',
+    'admin'=>'اډمین',
+    'name'=>'نوم',
+    'email'=>'ایمیل',
+    'password'=>"پاسورډ",
+    'confirm_password'=> 'د پاسورد تاییدول',
+    'have_acount'=>'مخکې له مخکې اکونټ لرم؟',
+    'message'=>'که تاسو کومه پوښتنه،غوښتنه او یا هم کومک ته اړتیا وي، نو له موږ سره په اړیکه کې شی!',
+    'send_message'=>'د پیغام لیږل',
+    'mobile'=>'ټلیفون',
+    'address'=>'پته',
+    'search_result'=>'د لټون پایله د :',
+      'edit' => 'سمول',
+    'delete' => 'ړنګول',
+    'no_books' => 'تر اوسه کوم کتاب نه دی پورته شوی.',
+
+    'table_hash'      => '#',
+    'table_title'     => 'سرلیک',
+    'table_author'    => 'لیکوال',
+    'table_category'  => 'کتګوري',
+    'table_status'    => 'حالت',
+    'table_uploaded'  => 'پورته شوی په',
+    'table_actions'   => 'عملیات',
+    'confirm_delete' => 'ایا تاسو ډاډه یاست؟',
+    'status_pending'  => 'په تمه',
+  'status_approved' => 'منل شوی',
+  'status_rejected' => 'رد شوی',  
+    'status'=>'حالت',
+    'read'=>'لوستل',
+    'update' => 'نوی کول',  // Pashto for "Update"
+    'cancel' => 'لغوه کول',  // Pashto
+   'title_ps' => 'عنوان (پشتو)',
+  'title_en' => 'سرلیک (انګلیسي)',
+  'title_fa' => 'سرلیک (دري)',
+  'description_en' => 'توضیحات (انگلیسی)',
+  'description_ps' => 'توضیحات (پشتو)',
+  'description_fa' => 'توضیحات (دری)',
+// resources/lang/ps/message.php
+'thumbnail' => 'لنډ عکس',  // Pashto
+
+
+
+
+
+
+
+];
