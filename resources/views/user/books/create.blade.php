@@ -18,15 +18,15 @@
                     @csrf                
                  <!-- English Title (Required) -->
                 <div class="mb-3">
-                    <label class="form-label">{{ __('message.book_title') }} (English) *</label>
-                    <input type="text" name="title_en" class="form-control" value="{{ old('title_en') }}" required>
+                    <label class="form-label">{{ __('message.book_title') }} (English)<span class="text-danger">*</span></label>
+                    <input type="text" name="title_en" class="form-control" value="{{ old('title_en') }}" >
                     @error('title_en') <small class="text-danger">{{ $message }}</small> @enderror
                 </div>                               
                     {{-- ========================= --}}
                     {{-- ✍️ AUTHOR --}}
                     {{-- ========================= --}}
                     <div class="mb-3">
-                        <label class="form-label">{{ __('message.author') }} *</label>
+                        <label class="form-label">{{ __('message.author') }}<span class="text-danger">*</span></label>
                         <input type="text" name="author" class="form-control" value="{{ old('author') }}">
                         @error('author') <small class="text-danger">{{ $message }}</small> @enderror
                     </div>
@@ -35,7 +35,7 @@
                     {{-- 📂 CATEGORY (DYNAMIC) --}}
                     {{-- ========================= --}}
                     <div class="mb-3">
-                        <label class="form-label">{{ __('message.categories') }} *</label>
+                        <label class="form-label">{{ __('message.categories') }}<span class="text-danger">*</span></label>
                         <select name="category_id" class="form-select">
                             <option value="">{{ __('message.select_category') }}</option>
 
@@ -69,15 +69,6 @@
                         placeholder="{{ __('message.isbn_placeholder') }}">
                         @error('isbn') <small class="text-danger">{{ $message }}</small> @enderror
                     </div>
-
-                    {{-- ========================= --}}
-                    {{-- 📄 BOOK FILE --}}
-                    {{-- ========================= --}}
-                    <div class="mb-3">
-                        <label class="form-label">{{ __('message.upload_book') }} (PDF / EPUB) *</label>
-                        <input type="file" name="file" class="form-control" value="{{ old('file') }}">
-                        @error('file') <small class="text-danger">{{ $message }}</small> @enderror
-                    </div>
                     {{-- ========================= --}}
                     {{-- 🖼️ THUMBNAIL --}}
                     {{-- ========================= --}}
@@ -86,7 +77,29 @@
                         <input type="file" name="thumbnail" class="form-control" value="{{ old('thumbnail') }}">
                         @error('thumbnail') <small class="text-danger">{{ $message }}</small> @enderror
                     </div>
+                    
                     {{-- ========================= --}}
+                    {{-- 📄 BOOK FILE --}}
+                    {{-- ========================= --}}
+                    <div class="mb-3">
+                        <label class="form-label">{{ __('message.upload_book') }} (PDF / EPUB)<span class="text-danger">*</span> </label>
+                        <input type="file" name="file" class="form-control" value="{{ old('file') }}">
+                        @error('file') <small class="text-danger">{{ $message }}</small> @enderror
+                    </div>
+                    {{-- ========================= --}}
+                          <!-- EDITION  -->
+                    {{-- ========================= --}}
+                    <div class="mb-3">
+                        <label class="form-label">{{ __('message.edition') }}<span class="text-danger">*</span></label>
+                        <input type="text" name="edition" class="form-control" value="{{ old("edition") }}" placeholder="{{ __('message.edition_placeholder') }}">
+                        @error('edition') <small class="text-danger">{{ $message }}</small> @enderror
+                        {{-- ========================= --}}
+                        
+                    </div>
+                    
+                        <span class="text-danger">*</span> required
+
+               
                     {{-- 🚀 SUBMIT --}}
                     {{-- ========================= --}}
                     <button class="btn btn-primary w-100">
@@ -98,4 +111,5 @@
         </div>
     </div>
 </div>
+@include('footer.footer')
 @endsection

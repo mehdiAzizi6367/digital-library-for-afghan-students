@@ -19,5 +19,10 @@ class CategoryController extends Controller
          $book=Book::findOrFail($id);
          return view('categories.show', compact('category','book'));
     }
+     public function create()
+    {
+        $categories=Category::all();
+        return view('user.books.create',compact('categories'));
+    }
  
 }

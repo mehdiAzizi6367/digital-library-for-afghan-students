@@ -1,21 +1,18 @@
 @extends('layouts.admin')
 
 @section('title','Users')
-
 @section('content')
 <div class="container-fluid">
     <div class="d-flex justify-content-between mb-3">
         <h1>All Users</h1>
         <a href="{{ route('admin.users.create') }}" class="btn btn-primary">Add User</a>
     </div>
-
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-
+    @endif 
     <div class="table-responsive">
     <table class="table table-bordered table-hover">
-        <thead>
+        <thead class="table-dark">
             <tr>
                 <th>Name</th>
                 <th>Email</th>
@@ -25,9 +22,12 @@
             </tr>
         </thead>
         <tbody>
+              @php
+                $new= "New";
+              @endphp
             @foreach($users as $user)
             <tr>
-                <td>{{ $user->name }}</td>
+                <td>{{ $user->name }} <sup class=" badge text-white bg-danger">{{ ($user->name_ps || $user->name_fa)? '':$new}}</sup></td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->role }}</td>
                 <td>{{ $user->created_at->format('d M Y') }}</td>

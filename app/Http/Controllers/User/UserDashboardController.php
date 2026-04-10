@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Download;
 use App\Models\Book;
+use App\Models\Category;
 use App\Models\Favorite;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class UserDashboardController extends Controller
@@ -17,8 +19,10 @@ class UserDashboardController extends Controller
     $totalBooks = Book::where('uploaded_by', $userId)->count();
     // Use separate downloads table
     $downloads =Download::where('user_id', $userId)->count();
+   
 
     $favorites =Favorite::where('user_id',$userId)->count();
+    $categories=Category::all();
 
     $monthlyUploads = Book::select(
             DB::raw('MONTH(created_at) as month'),
@@ -38,7 +42,10 @@ class UserDashboardController extends Controller
         'downloads',
         'favorites',
         'monthlyUploads',
-        'userBooks'
+        'userBooks',
+        'categories'
     ));
-}
+
     }
+   
+}

@@ -18,7 +18,7 @@
 
 <div class="container py-5">
     <h2 class="fw-bold mb-4 text-center">
-        {{ $category->name }} Books
+        {{ $category->getname() }} 
     </h2>
 
     <div class="row g-4">
@@ -39,12 +39,12 @@
                                 $avg = round($book->ratings->avg('rating'), 1);
                             @endphp
                             <p>Ratted:{{ $avg ?? 'No rating yet' }} {{ ($avg>1)?'times': 'time' }}</p>
-                        <h6 class="card-title h4">{{ $book->title }}</h6>
+                        <h6 class="card-title h5">{{ $book->getTitle() }}</h6>
                         <p class="text-muted">{{ $book->author }}</p>
 
                         <a href="{{ route('books.read', $book->id) }}" 
                            class="btn btn-primary w-100">
-                           View
+                           {{ __('message.view') }}
                         </a>
                     </div>
                 </div>

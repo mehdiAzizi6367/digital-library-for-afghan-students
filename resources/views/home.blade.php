@@ -38,12 +38,12 @@
                 <li class="nav-item"><a class="nav-link text-white" href="/"><i class="fas fa-home"></i> {{ __('message.home') }}</a></li>
                 @auth
                     @if(auth()->user()->role == 'admin' || auth()->user()->role == 'user')
-                        <li class="nav-item"><a class="nav-link text-white" href="{{ url('allbooks') }}"> <i class="bi bi-book m-1"></i> {{ __('message.books') }}</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="#cateSection"> <i class="fas fa-tags ms-1"></i>{{ __('message.categories') }}</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{{ url('allbooks') }}"> <i class="bi bi-book me-1"></i> {{ __('message.books') }}</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="#cateSection"> <i class="fas fa-tags me-1"></i>{{ __('message.categories') }}</a></li>
                     @endif
                 @endauth
-                <li class="nav-item"><a class="nav-link text-white" href="/about"><i class="fas fa-about"></i> {{ __('message.about') }}</a></li>
-                <li class="nav-item"><a class="nav-link text-white" href="/contact"><i class="bi bi-phone ms-1"></i> {{ __('message.contact') }}</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="/about">    <i class="fas fa-info-circle me-2"></i>{{ __('message.about') }}</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="/contact"><i class="fas fa-phone ms-2"></i> {{ __('message.contact') }}</a></li>
             </ul>
 
             <!-- Right Side -->
@@ -162,38 +162,49 @@
 const input = document.getElementById("searchInput");
 const results = document.getElementById("searchResults");
 
-document.addEventListener("click", function(e) {
-    if (!input.contains(e.target) && !results.contains(e.target)) {
-        results.innerHTML = "";
-    }
-});
+if (input) {
 
-input.addEventListener("keyup", function() {
-    let query = this.value;
-    if(query.length < 2){
-        results.innerHTML = "";
-        return;
-    }
-    fetch(`/search-books?query=` + encodeURIComponent(query))
-        .then(res => res.json())
-        .then(data => {
-            let html = "";
-            if(data.length === 0){
-                html = `<div class="search-item">{{ __('message.no_results') }}</div>`;
-            } else {
-                data.forEach(book => {
-                    html += `
-                    <div class="search-item">
-                        <a href="/books/${book.id}" style="text-decoration:none;color:black;">
-                            <div class="search-title">${book.title}</div>
-                            <div class="search-author">${book.author}</div>
-                        </a>
-                    </div>`;
-                });
-            }
-            results.innerHTML = html;
-        });
-});
+    document.addEventListener("click", function(e) {
+        if (!input.contains(e.target) && !results.contains(e.target)) {
+            results.innerHTML = "";
+        }
+    });
+
+    input.addEventListener("keyup", function() {
+        let query = this.value;
+
+        if(query.length < 2){
+            results.innerHTML = "";
+            return;
+        }
+
+        fetch(`{{ url('/search-books') }}?query=` + encodeURIComponent(query))
+            .then(res => res.json())
+            .then(data => {
+                let html = "";
+
+                if(data.length === 0){
+                    html = `<div class="search-item">No results</div>`;
+                } else {
+                    data.forEach(book => {
+                        html += `
+                        <div class="search-item">
+                            <a href="/books/${book.id}" style="text-decoration:none;color:black;">
+                                <div>${book.title}</div>
+                                <div>${book.author}</div>
+                            </a>
+                        </div>`;
+                    });
+                }
+
+                results.innerHTML = html;
+            })
+            .catch(error => {
+                console.error("Search error:", error);
+            });
+    });
+
+}
 </script>
 
 </body>

@@ -14,9 +14,12 @@
     @endif
     <div class="table-responsive">
         <table class="table table-bordered table-hover text-center">
-            <thead>
+            <thead class="table-dark">
                 <tr>
-                    <th>Name</th>
+                    <th>#</th>
+                    <th>Name(English)</th>
+                    <th>Name(Dari)</th>
+                    <th>Name(Pashto)</th>
                     <th>Created At</th>
                     <th>Actions</th>
                 </tr>
@@ -24,7 +27,10 @@
             <tbody>
                 @foreach($categories as $category)
                 <tr>
-                    <td>{{ $category->name }}</td>
+                    <td class="">{{ $category->id }}</td>
+                    <td>{{ $category->getname() }}</td>
+                    <td>{{ $category->name_fa}}</td>
+                    <td>{{ $category->name_ps}}</td>
                     <td>{{ $category->created_at->format('d M Y') }}</td>
                     <td class="d-flex ms-1">
                         <a href="{{ route('admin.categories.edit', $category) }}" class="btn btn-sm btn-warning me-3">Edit</a>

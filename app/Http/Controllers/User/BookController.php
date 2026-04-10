@@ -15,6 +15,7 @@ use App\Models\Category;
 use App\Models\Rating;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Stmt\Global_;
 
 class BookController extends Controller
 {
@@ -24,19 +25,16 @@ class BookController extends Controller
     public function index()
     {
         // latest() orders by newest first, paginate(10) shows 10 per page
-        $userBooks = Book::where('uploaded_by', Auth::id())->latest()->paginate(10); 
-        return view('user.books.index', compact('userBooks'));
+        $userBooks = Book::where('uploaded_by', Auth::id())->latest()->paginate(8); 
+         $user=User::where('name_ps',0)->count('name_ps');
+        $categories=Category::all();
+        return view('user.books.index', compact('userBooks','categories','user'));
     }
 
     /**
      * Show the form for creating a new book
      */
-    public function create()
-    {
-        $categories=Category::all();
-        return view('user.books.create',compact('categories'));
-    }
-    /**
+       /**
      * Store a newly created book in storage
      */
   public function store(Request $request)
@@ -46,49 +44,73 @@ class BookController extends Controller
         'title_en' => 'required|string|max:255',
         'description_en' => 'nullable|string',
         'author' => 'required|string|max:255',
+        'edition' => 'required|string|max:255',
         'category_id' => 'required|exists:categories,id',
         'file' => 'required|mimes:pdf,epub|max:10240', // 10MB
         'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         'isbn' => 'nullable|string|max:255',
     ]);
-
     // 2️⃣ Handle file upload
-    $filePath = $request->file('file')->store('books', 'public');
-    //  $filename=time()."_".$request->image->getClientOriginalName()
-    $thumbnailPath = $request->file('thumbnail') ? $request->file('thumbnail')->store('thumbnails', 'public') : null;
+     $filename=$request->file->getClientOriginalName();
+    $filePath = $request->file('file')->storeAs('books', $filename);
+    $thumbnailPath = $request->file('thumbnail') ? $request->file('thumbnail')->store('thumbnails','public') : null;
 
     // 3️⃣ Create book record
-    $book = Book::create([
-        'title_en' => $request->title_en,
-        'description_en' => $request->description_en,
-        'author' => $request->author,
-        'category_id' => $request->category_id,
-        'file_path' => $filePath,
-        'thumbnail' => $thumbnailPath,
-        'isbn' => $request->isbn,
-        'uploaded_by' => auth::id(),    
-        // ✅ Leave translations NULL for now
-        'title_ps' => null,
-        'title_fa' => null,
-        'description_ps' => null,
-        'description_fa' => null,
-    ]);
-    // 4️⃣ Redirect with success message
-    return redirect()->route('user.books.index')->with('success', __('message.book_added_success'));
+    // 4️⃣ Redirect with success message 
+    
+    
+     $books=Book::all();
+     foreach($books as $tbook)
+    {   Global $tbook;
+        //  dd($tbook->author);
+    
+    }
+        //  dd($tbook->author);
+        //  dd($request->author);
+        //  dd($request->title_en);
+        //  dd($request->edition);
+     if($tbook->author == $request->author && $tbook->title_en ==$request->title_en && $tbook->edition == $request->edition)
+    {
+        // $msg ="<div class='badge bg-danger'>Book is already exist</div>" ;
+        return redirect()->route('user.books.create')->with('success', __('Book is already exist choose diffirent one'));;
+        
+    }else{
+        $book = Book::create([
+    
+            'title_en' => $request->title_en,
+            'description_en' => $request->description_en,
+            'author' => $request->author,
+            'edition'=>$request->edition,
+            'category_id' => $request->category_id,
+            'file_path' => $filePath,
+            'thumbnail' => $thumbnailPath,
+            'isbn' => $request->isbn,
+            'uploaded_by' => auth::id(),    
+            // ✅ Leave translations NULL for now
+            'title_ps' => null,
+            'title_fa' => null,
+            'description_ps' => null,
+            'description_fa' => null,
+        ]);
+        if(isset($msg)?? ' ');
+        return redirect()->route('user.books.index')->with('success', __('message.book_added_success'));
+    }
+  
 }
 
     /**
      * Display a single book
      */
- public function show(Book $book)
-{
-    // Only allow approved books for non-owners
-    if ($book->status !== 'approved') {
-        abort(404); // hide unapproved books
+    public function show(Book $book)
+    {
+        // Only allow approved books for non-owners
+        if ($book->status !== 'approved') {
+            abort(404); // hide unapproved books
+        }
+        $user=User::where('name_ps',0)->count('name_ps');
+        return view('user.books.show', compact('book','user'));
     }
 
-    return view('user.books.show', compact('book'));
-}
     public function read($id)
     {
         $book = Book::findOrFail($id);
@@ -117,7 +139,6 @@ class BookController extends Controller
         if ($book->uploaded_by !== Auth::id()) {
             abort(403, 'Unauthorized');
         }
-    
         // Validate request
         $validated = $request->validate([
             'title'       => 'required|string|max:255',
@@ -177,10 +198,19 @@ class BookController extends Controller
 
         $book->delete();
 
-        return redirect()->route('user.favorites.index')
-                         ->with('success', 'Book deleted successfully!');
+        return redirect()->back();
     }
-    
+    public function booksChart()
+    {
+        $books = Book::where('uploaded_by', Auth::id())
+            ->selectRaw('DATE(created_at) as date, COUNT(*) as total')
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get();
+
+        return response()->json($books);
+    }
+
     public function mybook()
     {
         $books = Book::where('uploaded_by', auth::id())->latest()->get();
@@ -192,10 +222,10 @@ class BookController extends Controller
         $books=Book::where('status','approved')->paginate(12);
         $categories=Category::all();
         $Books=Book::count();
-        $Categories=Category::count();
+        $Categories=Category::all();
         $Students=User::count();
         $Downloads=Download::count();
-        return view('book',compact('books','Books','Categories','Students','Downloads'));
+        return view('book',compact('books','categories'));
     }
      public function userHistory()
     {
@@ -208,17 +238,14 @@ class BookController extends Controller
      public function searchPage(Request $request)
     {
         $query = $request->query('query');
-
         $books = Book::where('status', 'approved')
                     ->where(function ($q) use ($query) {
                         $q->where('title_en', 'LIKE', "%{$query}%")
                         ->orWhere('author', 'LIKE', "%{$query}%");
                     })
                     ->paginate(12);
-
         return view('search-results', compact('books', 'query'));
     }
-    
     
     // method for notification 
         public function toggleFavorite($bookId)
@@ -242,11 +269,11 @@ class BookController extends Controller
     public function download($id)
     {
         $book = Book::findOrFail($id);
-        $alreadyDownloaded = DB::table('downloads')
+          $alreadyDownloaded = DB::table('downloads')
             ->where('user_id', auth::id())
             ->where('book_id', $book->id)
             ->exists();
-        
+
         if (!$alreadyDownloaded) {
             DB::table('downloads')->insert([
                 'user_id' => auth::id(),
@@ -266,25 +293,25 @@ class BookController extends Controller
         return response()->download($filePath);
     }
 
-public function rate(Request $request, $bookId)
-{
-    $request->validate([
-        'rating' => 'required|integer|min:1|max:5'
-    ]);
+    public function rate(Request $request, $bookId)
+    {
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5'
+        ]);
 
-        Rating::updateOrCreate(
-        [
-            'user_id' => Auth::id(),
-            'book_id' => $bookId
-        ],
-        [
-            'rating' => $request->rating
-        ]
-    );
+            Rating::updateOrCreate(
+            [
+                'user_id' => Auth::id(),
+                'book_id' => $bookId
+            ],
+            [
+                'rating' => $request->rating
+            ]
+        );
 
-    return response()->json([
-        'success' => true
-    ]);
-}
+        return response()->json([
+            'success' => true
+        ]);
+    }
 
 }

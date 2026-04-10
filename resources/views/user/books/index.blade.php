@@ -9,7 +9,7 @@
 
     <div class="card p-4 shadow-sm">
         <div class="table-responsive">
-            <table class="table table-striped table-bordered">
+            <table class="table table-striped table-bordered text-center">
                 <thead class="table-dark">
                     <tr>
                         <th>{{ __('message.table_hash') }}</th>
@@ -24,14 +24,18 @@
                 <tbody>
                     @forelse($userBooks as $key => $book)
                         <tr>
-                            <td>{{ $key + 1 }}</td>
+                            <td>{{ $book->id }}</td>
                             <td>{{ $book->getTitle() }}</td>
                             <td>{{ $book->author }}</td>
                             <td>{{ $book->category->getname() ?? 'N/A' }}</td> 
-                            <td>{{ $book->status ??  'N/A' }}</td> 
+                            <td>{{ $book->status??  'N/A' }}</td> 
                             <td>{{ $book->created_at->format('Y-m-d') }}</td>
-                            <td>
-                                <a href="{{ route('books.show', $book->id) }}" class="btn btn-info btn-sm">{{ __('message.view') }}</a>
+                            <td> 
+                                @if($book->status == 'pending' || $book->status =="rejected")
+                                 <a href="{{ route('books.show', $book->id) }}" class="btn btn-info btn-sm disabled" >{{ __('message.view') }}</a>
+                                @else
+                                 <a href="{{ route('books.show', $book->id) }}" class="btn btn-info btn-sm " >{{ __('message.view') }}</a>
+                                @endif
                                 <a href="{{ route('user.books.edit', $book->id) }}" class="btn btn-primary btn-sm">{{ __('message.edit') }}</a>
                                 <form action="{{ route('user.books.destroy', $book->id) }}" 
                                         method="POST" 
@@ -60,4 +64,5 @@
     {{ $userBooks->links() }}
 </div>
 </div>
+@include('footer.footer')
 @endsection

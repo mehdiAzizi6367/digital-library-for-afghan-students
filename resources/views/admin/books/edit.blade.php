@@ -65,6 +65,16 @@
         </div>
 
         <!-- Thumbnail -->
+           {{-- ========================= --}}
+                          <!-- EDITION  -->
+                    {{-- ========================= --}}
+                <div class="mb-3">
+                    <label class="form-label">{{ __('message.edition') }}<span class="text-danger">*</span></label>
+                    <input type="text" name="edition" class="form-control" value="{{ old("edition") }}" placeholder="{{ __('message.edition_placeholder') }}">
+                    @error('edition') <small class="text-danger">{{ $message }}</small> @enderror
+                    {{-- ========================= --}}
+                    
+                </div>
         <div class="mb-3">
             <label>{{ __('message.thumbnail') }}</label>
             <input type="file" name="thumbnail" class="form-control">
@@ -74,23 +84,6 @@
                 </div>
             @endif
         </div>
-
-        <!-- Status -->
-        <div class="mb-3">
-            <label>{{ __('message.status') }}</label>
-            <select name="status" class="form-select">
-                <option value="pending" {{ $book->status=='pending'?'selected':'' }}>{{ __('message.status_pending') }}</option>
-                <option value="approved" {{ $book->status=='approved'?'selected':'' }}>{{ __('message.status_approved') }}</option>
-                <option value="rejected" {{ $book->status=='rejected'?'selected':'' }}>{{ __('message.status_rejected') }}</option>
-            </select>
-        </div>
-
-        <!-- Rejection Reason -->
-        <div class="mb-3">
-            <label>{{ __('message.status_rejected') }}</label>
-            <textarea name="rejection_reason" class="form-control">{{ old('rejection_reason', $book->rejection_reason) }}</textarea>
-        </div>
-
         <!-- Submit -->
         <button class="btn btn-success">{{ __('message.update') }}</button>
         <a href="{{ route('admin.books.index') }}" class="btn btn-secondary">{{ __('message.cancel') }}</a>

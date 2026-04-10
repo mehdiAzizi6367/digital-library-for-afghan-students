@@ -19,6 +19,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'name_ps',
+        'name_fa',
         'email',
         'password',
     ];
@@ -32,6 +34,10 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+      public function getUsername()
+    {
+        return $this->{'name_' . app()->getLocale()} ?? $this->name;
+    }
 
     /**
      * Get the attributes that should be cast.

@@ -17,25 +17,22 @@
         @method('PUT')
 
         <div class="mb-3">
-            <label>Name</label>
+            <label>Name(English)</label>
             <input type="text" name="name" class="form-control" value="{{ old('name',$user->name) }}" required>
+        </div>
+         <div class="mb-3">
+            <label>Name(Pashto)</label>
+            <input type="text" name="name_ps" class="form-control" value="{{ old('name',$user->name_fa) }}" required>
+        </div>
+        <div class="mb-3">
+            <label>Name(Dari)</label>
+            <input type="text" name="name_fa" class="form-control" value="{{ old('name',$user->name_ps) }}" required>
         </div>
 
         <div class="mb-3">
             <label>Email</label>
             <input type="email" name="email" class="form-control" value="{{ old('email',$user->email) }}" required>
         </div>
-
-        <div class="mb-3">
-            <label>Password (Leave blank if not changing)</label>
-            <input type="password" name="password" class="form-control">
-        </div>
-
-        <div class="mb-3">
-            <label>Confirm Password</label>
-            <input type="password" name="password_confirmation" class="form-control">
-        </div>
-
         <div class="mb-3">
             <label>Role</label>
             <select name="role" class="form-control" required>

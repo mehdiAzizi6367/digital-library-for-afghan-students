@@ -67,6 +67,17 @@ return [
 
 // resources/lang/fa/message.php
 'thumbnail' => 'تصویر کوچک',  // Dari/Farsi
+'remember'=>'مرا به یاد داسشت؟',
+  'forgot'=>'پراموش رمز',
+   'prev'=>'پس رفتن',
+    'next'=>'پیش رفتن',
+    'zommIn'=> 'نزدیک کردن',
+    'zommOut'=> 'دور کردن',
+    'users'=>'استعمال کننده',
+     'edition'=>'ایدیشن کتاب',
+     'edition_placeholder'=>"مثال: ۲یدیشن",
+
+
 
 
 

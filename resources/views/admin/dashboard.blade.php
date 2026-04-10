@@ -3,56 +3,46 @@
 @section('title','Dashboard')
 <link rel="stylesheet" href="{{ asset('all.css') }}">
 @section('content')
-
 <div class="container-fluid">
     <!-- Dashboard Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3">{{ __('message.admin_dashboard') }}</h1>
-        <div class="dropdown">
-            <button class="btn btn-light position-relative" type="button" data-bs-toggle="dropdown">
-                🔔 {{ __('message.notitifacation') }}
-                <span class="badge bg-danger">
-                    {{ auth()->user()->unreadNotifications->count() }}
-                </span>
-            </button>
-            <!-- notification arean -->
-            <div class="dropdown-menu dropdown-menu-end p-3" style="width: 320px; max-height: 400px; overflow-y: auto;">
-                @forelse(auth()->user()->unreadNotifications->take(5) as $notification)
-                <div class="mb-3 border-bottom pb-2">
-                    <strong>{{ $notification->data['title'] }}</strong><br>
-                    <small>{{ $notification->data['message'] }}</small>
-
-                    @if(isset($notification->data['reason']))
-                    <br>
-                    <small class="text-danger">
-                        Reason: {{ $notification->data['reason'] }}
-                    </small>
-                    @endif
-
-                    @if(isset($notification->data['url']))
-                    <br>
-                    <a href="{{ $notification->data['url'] }}" class="btn btn-sm btn-primary mt-1">
-                        {{ __('message.view') }}
-                    </a>
-                    @endif
-                </div>
-                @empty
-                <p class="text-center">No new notifications</p>
-                @endforelse
-
-            </div>
-        </div>
-        <a href="{{ route('home') }}" class="btn btn-primary">
-            <i class="fas fa-home" title="Back"></i>
-        </a>
     </div>
+    <div class="d-flex flex-column gap-2">
+    <!-- New Users Alert -->
+     @if ($newUser==0)
+     
+     @else
+        <a href="{{ route('admin.users.index') }}" class="alert alert-success text-decoration-none d-flex align-items-center justify-content-between">
+            <div>
+                <i class="fas fa-user me-2"></i>
+            {{ $newUser }}  {{ ($newUser==1)? "New user ragestered!":'New users ragestered!'}}
+            </div>
+            <span class="badge bg-light text-dark rounded-pill">
+                {{ $newUser ?? "0" }}
+            </span>
+        </a>
+     @endif     
+    <!-- Pending Books Alert -->
+     @if ($notifications==0)
+     @else
+        <a href="{{ route('admin.books.pending') }}" class="alert alert-warning text-decoration-none d-flex align-items-center justify-content-between">
+            <div>
+                <i class="fas fa-book me-2"></i>
+                {{ $notifications }}  {{ ($notifications== 1)?" book is pending!": " books are pinding!" }} 
+            </div>
+            <span class="badge bg-dark rounded-pill">
+                {{ $notifications ?? "0" }}
+            </span>
+        </a>
+     @endif
+</div>
     <!-- Statistics Cards -->
     <div class="row mb-4">
         <div class="col-md-3">
             <div class="card text-white bg-primary mb-3">
                 <div class="card-body">
                     <h5 class="card-title">{{ __('dashboard.total_books') }}</h5>
-                     <i class="bi bi-book " style="font-size: 2rem;"></i>
+                     <i class="fas fa-book-open " style="font-size: 2rem;"></i>
                     <h2 class="card-text">{{ $books ?? 0 }}</h2>
                 </div>
             </div>
@@ -61,7 +51,7 @@
             <div class="card text-white bg-success mb-3">
                 <div class="card-body">
                     <h5 class="card-title">{{ __('dashboard.all_users') }}</h5>
-                    <i class="bi bi-" style="font-size: 2rem;"></i>
+                    <i class="fas fa-user" style="font-size: 2rem;"></i>
                     <h2 class="card-text">{{ $users ?? 0 }}</h2>
                 </div>
             </div>
@@ -79,51 +69,39 @@
             <div class="card text-white bg-danger mb-3">
                 <div class="card-body">
                     <h5 class="card-title">{{ __('dashboard.favorites') }}</h5>
-                       <i class="bi bi-star fs-2 text-danger"></i>
+                        <i class="fas fa-heart fs-2"></i> Favorite
                     <h2 class="card-text">{{ $favorites ?? 0 }}</h2>
                 </div>
             </div>
         </div>
     </div>
     <!-- Charts Section -->
-    <div class="row">
-        <!-- Books Uploaded Per Month (Line Chart) -->
-        <div class="col-md-8">
-            <div class="card mb-4">
-                <div class="card-header">{{ __('dashboard.downloaded_books') }}</div>
-                <div class="card-body">
-                    <canvas id="booksMonthChart"></canvas>
-                </div>
+        <div class="p-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">📊 Book Downloads</h5>
+                <canvas id="downloadsChart"></canvas>
             </div>
         </div>
-        <!-- User Roles Distribution (Pie Chart) -->
-        <div class="col-md-4">
-            <div class="card mb-4">
-                <div class="card-header">User Roles Distribution</div>
-                <div class="card-body">
-                    <canvas id="rolesChart"></canvas>
-
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Recent Books Table -->
     <div class="card">
         <div class="card-header">{{ __('message.latest_books') }}</div>
         <div class="card-body table-responsive">
             <table class="table table-bordered table-hover">
-                <thead>
+                <thead class="table-dark">
                     <tr>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Category</th>
-                        <th>Uploaded By</th>
-                        <th>Status</th>
+                        <th>{{ __('message.table_hash') }}</th>
+                        <th>{{ __('message.table_title') }}</th>
+                        <th>{{ __('message.table_author') }}</th>
+                        <th>{{ __('message.table_category') }}</th>
+                        <th>{{ __('message.table_uploaded') }}</th>
+                        <th>{{ __('message.table_status') }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($recentBooks as $book)
                     <tr>
+                        <td>{{ $book->id }}</td>
                         <td>{{ $book->getTitle()}}</td>
                         <td>{{ $book->author }}</td>
                         <td>{{ $book->category->getname() ?? '-' }}</td>
@@ -140,59 +118,40 @@
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-// Books Uploaded Per Month (Line Chart)
-const ctxBooksMonth = document.getElementById('booksMonthChart').getContext('2d');
-const booksMonthChart = new Chart(ctxBooksMonth, {
-    type: 'line',
-    data: {
-        labels: {
-            !!json_encode($booksPerMonthData['labels'] ?? []) !!
-        },
-        datasets: [{
-            label: 'Books Uploaded',
-            data: {
-                !!json_encode($booksPerMonthData['data'] ?? []) !!
-            },
-            backgroundColor: 'rgba(54, 162, 235, 0.3)',
-            borderColor: 'rgba(54, 162, 235, 1)',
-            borderWidth: 2,
-            fill: true,
-            tension: 0.3
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            y: {
-                beginAtZero: true,
-                stepSize: 1
-            }
-        }
-    }
-});
+<!-- Chart HTML -->
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h5>📊 Book Downloads</h5>
+        <canvas id="downloadsChart"></canvas>
+    </div>
+</div>
 
-// User Roles Pie Chart
-const ctxRoles = document.getElementById('rolesChart').getContext('2d');
-const rolesChart = new Chart(ctxRoles, {
-    type: 'pie',
-    data: {
-        labels: {
-            !!json_encode($rolesData['labels'] ?? []) !!
-        },
-        datasets: [{
-            label: 'User Roles',
+<!-- Chart JS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('downloadsChart');
+    if (ctx) {
+        new Chart(ctx, {
+            type: 'bar',
             data: {
-                !!json_encode($rolesData['data'] ?? []) !!
+                labels: @json($booksPerMonthData['labels'] ?? []), // Correct labels
+                datasets: [{
+                    label: 'Books Uploaded',
+                    data: @json($booksPerMonthData['data'] ?? []), // Correct data
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
             },
-            backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545']
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
     }
-});
 </script>
 @endsection

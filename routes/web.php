@@ -166,7 +166,7 @@ Route::middleware('auth')->group(function () {
 
 });
 Route::get('/books/{book}/read', [BookController::class, 'read'])->name('books.read')->middleware('auth');
-Route::get('/user/books/create', [BookController::class, 'create'])->name('user.books.create')->middleware('auth');
+Route::get('/user/books/create', [CategoryController::class, 'create'])->name('user.books.create')->middleware('auth');
 route::get('/user-history', [BookController::class,'userHistory'])->name('user.history')->middleware('auth');
 Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy'])
     ->name('favorites.destroy')

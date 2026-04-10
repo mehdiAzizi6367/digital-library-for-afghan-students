@@ -11,7 +11,7 @@ return [
     'welcome' => 'بیا ښه راغلاست',
     'my_books' => 'زما کتابونه',
     'favorites' => 'خوښ شوي',
-    'downloads' => 'ډاونلوډونه',
+    'downloads' => 'ډاونلوډول',
     'upload_book' => 'کتاب پورته کول',
     'upload_books'=>'دمیاشت په اساس د کتابونو اپلوډ',
     'manage_users'=>'د استعمالونکي مدریت کول',

@@ -86,18 +86,21 @@
               <h5 class="card-title h4" style="min-height:30px;">
                   {{ Str::limit($book->{'title_' . app()->getLocale()} ?? $book->title_en,20) }}
                  </h5>
-
                 <!-- Author -->
                 <p class="text-muted">
-                     <small>Author: {{ $book->author }}</small>
+                     <small>{{__("message.author")}} : {{ $book->author }}</small>
+                </p>
+                <!-- category -->
+                <p class="text-muted mb-2">
+                     <small>{{ __('message.table_category') }}: {{ $book->category->getname() }}</small>
                 </p>
 
                 <!-- Push buttons to bottom -->
-                <div class="mt-auto">
+                <div class="mt-auto ">
 
                     <a href="{{ route('books.read',$book->id) }}" 
                         class="btn btn-primary w-100 mb-2">
-                        Read More
+                        {{ __('message.read') }}
                     </a>
 
                     @php

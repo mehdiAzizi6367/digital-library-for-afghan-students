@@ -23,7 +23,8 @@ public function index()
     $users =User::count();
     $downloads =Download::count();
     $favorites =Favorite::count();
-
+    $notifications=Book::where('status','pending')->count('status');
+    $newUser=User::whereNull('name_ps')->count();
     // Recent books (latest 5)
     $recentBooks = Book::latest()->take(5)->get();
 
@@ -57,6 +58,7 @@ public function index()
 
     return view('admin.dashboard', compact(
         'books','users','downloads','favorites','recentBooks','booksPerMonthData','rolesData'
-,'rolesData'    ));
+        ,'rolesData','notifications','newUser'));
 }
+
 }

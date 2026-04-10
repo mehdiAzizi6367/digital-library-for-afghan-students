@@ -2,7 +2,7 @@
 return [
     'title' => 'Dashboard',
     'add_record'=> 'add book',
-    'total_books'=>'total books',
+    'total_books'=>'Total books',
     'view_books' => 'View books you added',
     'saved_books' => 'Your saved books',
     'downloaded_books' => 'Downloaded books',

@@ -8,8 +8,9 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
         <!-- bootstrap CDN link -->
          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        {{-- custom bootsrap link --}}
+          {{-- custom bootsrap link --}}
         <link rel="stylesheet" href="{{ asset('bootstrap.css') }}">
+        
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
         {{-- fontawsome  --}}
         <link href="{{ asset('all.css') }}" rel="stylesheet">

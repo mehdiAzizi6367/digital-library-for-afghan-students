@@ -39,15 +39,15 @@
    <div class="container ">
        <div class="row my-4">
             <div class=" col-md-6  m-auto">
-               <button id="prev" class="btn btn-secondary">Prev</button>
-               <button id="next" class="btn btn-secondary">Next</button>
-               <button id="zoomIn" class="btn btn-info">Zoom +</button>
-               <button id="zoomOut" class="btn btn-info">Zoom -</button>
+               <button id="prev" class="btn btn-secondary">{{ __('message.prev') }}</button>
+               <button id="next" class="btn btn-secondary">{{ __('message.next') }}</button>
+               <button id="zoomIn" class="btn btn-info">{{ __('message.zommIn')}}+</button>
+               <button id="zoomOut" class="btn btn-info">{{ __('message.zommOut') }}-</button>
             </div>
             <div class="col-md-6 mt-3">
                <button id="darkMode" class="btn btn-dark">Dark Mode</button>
                @auth
-                  <a href="{{ route('books.download', $book->id) }}" class="btn btn-success">Download </a>               
+                  <a href="{{ route('books.download', $book->id) }}" class="btn btn-success">{{ __('dashboard.downloads') }} </a>               
                @endauth
             </div>
       </div>
@@ -74,7 +74,7 @@
          <div class="row">
             <div class="col-md-12">
                <input type="text" id="searchText" placeholder="Search text..." class="form-control w-25 d-inline">
-               <button id="searchBtn" class="btn btn-primary">Search</button>
+               <button id="searchBtn" class="btn btn-primary">{{ __('message.search') }}</button>
             </div>
          </div>
       </div>
@@ -82,7 +82,6 @@
 {{-- javascript link for pdf viewer --}}
 <script>
       const url = "{{ asset('storage/'.$book->file_path) }}";
-      console.log(url);
       let pdfDoc = null,
       pageNum = 1,
       scale = 1.4;

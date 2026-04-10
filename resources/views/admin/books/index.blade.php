@@ -2,7 +2,7 @@
 @section('title','Books')
 
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid"> 
     <div class="d-flex justify-content-between mb-3">
         <h1>All Books</h1>
         <a href="{{ route('admin.books.create') }}" class="btn btn-primary">{{ __('message.add_record') }}</a>
@@ -12,10 +12,10 @@
     @endif
      <div class="table-responsive">
         <table class="table table-bordered table-hover text-center">
-            <thead>
+            <thead class="table-dark">
                 <tr>
                     <th>Title</th>
-                    <th>Author</th>
+                    <th>Author</th> 
                     <th>Category</th>
                     <th>Uploaded By</th>
                     <th>Status</th>
@@ -26,22 +26,17 @@
                 @foreach($books as $book) 
                     <!-- @if($book->status == 'approved') -->
                         <tr>
-                        
                         <td>{{ $book->getTitle() }}</td>
                             <td>{{ $book->author }}</td>
                             <td>{{ substr($book->category->getname(),0,15) ?? '-' }}</td>
                             <td>{{ $book->user->name ?? '-' }}</td>
-                            <td>
-                                
-                                    {{ $book->status }}
-                            
-                            </td>
+                            <td>{{ $book->status }}</td>                            
                             <td class="d-flex justify-center">             
-                            <a href="{{ route('admin.books.edit', $book) }}" class="btn btn-sm btn-warning me-2">Edit</a>
+                              <a href="{{ route('admin.books.edit', $book) }}" class="btn btn-sm btn-warning me-2 ">{{ __('message.edit') }}</a>
                                 <form action="{{ route('admin.books.destroy', $book) }}" method="POST" style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')
-                                    <button onclick="return confirm('Are you sure?')" class="btn btn-sm btn-danger">Delete</button>
+                                    <button onclick="return confirm('{{ __('message.confirm_delete') }}')" class="btn btn-sm btn-danger">{{ __('message.delete') }}</button>
                                 </form>
                             </td>
                         </tr>

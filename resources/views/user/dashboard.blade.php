@@ -21,7 +21,7 @@
 
         <!-- Welcome & Stats -->
         <h2 class="fw-bold mb-4">
-            {{ __('dashboard.welcome') }},{{ auth()->user()->name }}
+            {{ __('dashboard.welcome') }} , {{ auth()->user()->getUsername() }}
         </h2>
         <div class="container py-4">
 
@@ -61,7 +61,7 @@
     <!-- Navigation Cards -->
     <div class="row g-4">
 
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="card p-4 shadow-sm border-0 rounded-4 nav-card h-100">
                 <div class="mb-3">
                     <i class="bi bi-journal-bookmark fs-2 text-primary"></i>
@@ -74,7 +74,7 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="card p-4 shadow-sm border-0 rounded-4 nav-card h-100">
                 <div class="mb-3">
                     <i class="bi bi-heart fs-2 text-danger"></i>
@@ -87,7 +87,7 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="card p-4 shadow-sm border-0 rounded-4 nav-card h-100">
                 <div class="mb-3">
                     <i class="bi bi-download fs-2 text-success"></i>
@@ -98,19 +98,7 @@
                 <a href="{{ route('user.downloads.index') }}" class="btn btn-success w-100">{{ __('message.view') }}</a>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card p-4 shadow-sm border-0 rounded-4 nav-card h-100">
-                <div class="mb-3">
-                   <i class="bi bi-clock-history fs-2"></i>
-                </div>
-                <h5 class="fw-bold">{{ __('dashboard.history') }}</h5>
-                <p class="text-muted">{{ __('dashboard.history') }}
-                </p>
-                <a href="{{ route('user.history') }}" class="btn btn-warning w-100">{{ __('message.view')  }}</a>
-            </div>
-        </div>
-
-    </div>
+     </div>
 
 </div>
         <!-- Monthly Upload Chart -->
@@ -121,7 +109,6 @@
             <canvas id="booksChart" height="100"></canvas>
         </div>
     </div>
-
     @include('footer.footer')
     <!-- Chart.js Script -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

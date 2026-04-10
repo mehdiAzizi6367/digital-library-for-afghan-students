@@ -52,7 +52,7 @@ return [
     'table_author'    => 'لیکوال',
     'table_category'  => 'کتګوري',
     'table_status'    => 'حالت',
-    'table_uploaded'  => 'پورته شوی په',
+    'table_uploaded'  => 'پورته کوونکی',
     'table_actions'   => 'عملیات',
     'confirm_delete' => 'ایا تاسو ډاډه یاست؟',
     'status_pending'  => 'په تمه',
@@ -70,11 +70,16 @@ return [
   'description_fa' => 'توضیحات (دری)',
 // resources/lang/ps/message.php
 'thumbnail' => 'لنډ عکس',  // Pashto
-
-
-
-
-
+'remember'=>'په یاد ساتل',
+  'forgot'=>'پاسورډ هیرشوی',
+   'prev'=>'وروسته تلل',
+    'next'=>'مخکې تلل',
+    'zommIn'=> 'نژدې کول',
+    'zommOut'=> 'لرې کول',
+    'quick_links' => 'چټک لینکونه',
+      'edition'=>'د کتاب ایډیشن',
+     'edition_placeholder'=>"مثال ۲ دوهم ایډیشن",
+    
 
 
 ];

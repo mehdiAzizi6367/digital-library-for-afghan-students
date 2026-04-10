@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Book;
 
 class AdminCategoryController extends Controller
 {
@@ -12,46 +13,49 @@ class AdminCategoryController extends Controller
     public function index()
     {
         $categories = Category::latest()->paginate(10);
-        return view('admin.categories.index', compact('categories'));
+        $notifications=Book::where('status','pending')->count('status');
+        return view('admin.categories.index', compact('categories','notifications'));
     }
 
     // Show create form
     public function create()
     {
-        return view('admin.categories.create');
+         $notifications=Book::where('status','pending')->count('status');
+        return view('admin.categories.create',compact('notifications'));
     }
 
     // Store new category
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255|unique:categories,name',
+            'name_en' => 'required|string|max:255|unique:categories,name_en',
+            'name_fa' => 'nullable|string|max:255|unique:categories,name_fa',
+            'name_ps' => 'nullable|string|max:255|unique:categories,name_ps',
         ]);
 
         Category::create([
-            'name' => $request->name,
+             'name_en' => $request->name_en,
         ]);
-
         return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
     }
 
     // Show edit form
     public function edit(Category $category)
     {
-        return view('admin.categories.edit', compact('category'));
+        return view('admin.categories.edit', compact('category'));  
     }
 
     // Update category
     public function update(Request $request, Category $category)
     {
         $request->validate([
-            'name' => "required|string|max:255|unique:categories,name,{$category->id}",
-        ]);
-
-        $category->name = $request->name;
-        $category->save();
-
-        return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully.');
+            'name_en' => "required|string|max:255|unique:categories,name_en,{$category->id}",
+            ]);
+            $category->name_fa=$request->name_fa;
+            $category->name_ps=$request->name_ps;
+            $category->name_fa=$request->name_fa;
+            $category->save();
+            return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully.');
     }
 
     // Delete category

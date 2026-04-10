@@ -40,10 +40,11 @@
             @endphp
             <p>Ratted:{{ $avg ?? 'No rating yet' }} {{ ($avg>1)?'times': 'time' }}</p>
                   <!-- Title -->
-                  <h5 class="card-title" style="min-height:50px;">
-                     {{ Str::limit($download->book->title, 40) }}
-                  </h5>
+                  <h3 class="card-title" style="min-height:50px;">
+                     {{ Str::limit($download->book->getTitle(), 40) }}
+                  </h3>
 
+                  
                   <!-- Author -->
                   <p class="text-muted mb-3">
                      {{ $download->book->author }}

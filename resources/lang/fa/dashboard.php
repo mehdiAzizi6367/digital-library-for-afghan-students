@@ -3,7 +3,7 @@ return [
     'title' => 'داشبورد ',
     'add_record'=>'اضافه کردن کتاب',
     'manage_books'=>'مدیریت کردن کتاب ها',
-    'total_books'=>'توتل کتل ها',
+    'total_books'=>'کتاب های توتل',
     'view_books' => 'کتاب‌هایی که اضافه کرده‌اید',
     'saved_books' => 'کتاب‌های ذخیره‌شده شما',
     'downloaded_books' => 'کتاب‌های دانلود شده',

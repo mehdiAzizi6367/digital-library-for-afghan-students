@@ -23,6 +23,7 @@ class Book extends Model
     'description_fa',
 
     'author',
+    'edition',
     'category_id',
     'isbn',
     'file_path',

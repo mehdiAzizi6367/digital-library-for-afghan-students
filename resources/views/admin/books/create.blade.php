@@ -5,18 +5,19 @@
 @section('content')
 <div class="container-fluid">
     <h1>Add New Book</h1>
-
+ 
     @if($errors->any())
         <div class="alert alert-danger">
             <ul>@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>
         </div>
-    @endif
-
+    @endif    
+    
     <form action="{{ route('admin.books.store') }}" method="POST" enctype="multipart/form-data">
+           
         @csrf
         <div class="mb-3">
             <label>Title</label>
-            <input type="text" name="title_en" class="form-control" value="{{ old('title') }}" required>
+            <input type="text" name="title_english" class="form-control" value="{{ old('title_english') }}" required>
         </div>
 
         <div class="mb-3">
@@ -50,17 +51,27 @@
             @error('isbn') <small class="text-danger">{{ $message }}</small> @enderror
         </div>
 
-                {{-- Book File --}}
-         <div class="mb-3">
-            <label>Book File (PDF)</label>
-            <input type="file" name="file" class="form-control" required>
-        </div>
-
+       
         {{-- Book Cover Image --}}
         <div class="mb-3">
             <label class="form-label">Book Cover Image</label>
             <input type="file" name="thumbnail" class="form-control">
             @error('image') <small class="text-danger">{{ $message }}</small> @enderror
+        </div>
+         {{-- Book File --}}
+         <div class="mb-3">
+            <label>Book File (PDF)</label>
+            <input type="file" name="file" class="form-control" required>
+        </div>
+        {{-- ========================= --}}
+                <!-- EDITION  -->
+        {{-- ========================= --}}
+        <div class="mb-3">
+            <label class="form-label">{{ __('message.edition') }}<span class="text-danger">*</span></label>
+            <input type="text" name="edition" class="form-control" value="{{ old("edition") }}" placeholder="{{ __('message.edition_placeholder') }}">
+            @error('edition') <small class="text-danger">{{ $message }}</small> @enderror
+            {{-- ========================= --}}
+            
         </div>
 
 

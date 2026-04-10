@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Download;
 use App\Models\Favorite;
+use App\Models\Book;
 
 class AdminReportController extends Controller
 { 
@@ -17,7 +18,8 @@ class AdminReportController extends Controller
             ->groupBy('book_id')
             ->with('book') // eager load the related book
             ->get();
-
+            
+             $notifications=Book::where('status','pending')->count('status');
         $downloadsData = [
             'labels' => $downloadsRaw->map(fn($d) => $d->book->title ?? 'Unknown')->toArray(),
             'data' => $downloadsRaw->pluck('total')->toArray(),
@@ -37,6 +39,6 @@ class AdminReportController extends Controller
 
 
         // 3️⃣ Pass to Blade
-        return view('admin.reports.index', compact('downloadsData', 'favoritesData'));
+        return view('admin.reports.index', compact('downloadsData','favoritesData','notifications'));
     }
 }
