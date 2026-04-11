@@ -30,13 +30,19 @@ This project is designed to provide a simple and powerful platform for managing 
 * **Version Control:** Git & GitHub
 
 ---
+# 📸 Screenshots
 
-## 📸 Screenshots
+###  Dashboard
+![Dashboard](screenshots/home.png)
 
-> *(Add your project screenshots here)*
+### 📚 home page
+![Books](screenshots/home1.png)
 
----
-
+### 🏠 Admin dashboard
+![Login](screenshots/adminDashboard.png)
+### 🏠 User Dashboard English
+![Login](screenshots/userDashboardEnglish.png)
+![Login](screenshots/userDashboardpashto.png)
 ## ⚙️ Installation Guide
 
 Follow these steps to run the project locally:
