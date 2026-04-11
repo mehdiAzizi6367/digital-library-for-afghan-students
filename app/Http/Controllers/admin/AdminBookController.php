@@ -19,8 +19,8 @@ class AdminBookController extends Controller
     {
         $books = Book::with(['category', 'user'])->latest()->paginate(10);
          $notifications=Book::where('status','pending')->count('status');
-        //  $user=User::where('name_fa',0)->count('name_ps');
-        return view('admin.books.index', compact('books','notifications'));
+         $newUser=User::where('name_ps','0')->count();
+        return view('admin.books.index', compact('books','notifications','newUser'));
     }
     // Show create form
     public function show()
@@ -33,7 +33,9 @@ class AdminBookController extends Controller
     {
          $categories = Category::all();
          $notifications=Book::where('status','pending')->count('status');
-        return view('admin.books.create',compact('categories','notifications'));
+    $newUser=User::where('name_ps','0')->count();
+
+        return view('admin.books.create',compact('categories','notifications','newUser'));
     }
 
     // Store new book
@@ -72,8 +74,10 @@ class AdminBookController extends Controller
     public function edit(Book $book)
     {
          $categories = Category::all();
+    $newUser=User::where('name_ps','0')->count();
+
          $notifications=Book::where('status','pending')->count('status');
-        return view('admin.books.edit', compact('book', 'categories','notifications'));
+        return view('admin.books.edit', compact('book','newUser', 'categories','notifications'));
     }
 
     public function update(Request $request, Book $book)
@@ -112,8 +116,10 @@ class AdminBookController extends Controller
     public function pending()
     {
         $books = Book::where('status', 'pending')->latest()->get();
-         $notifications=Book::where('status','pending')->count('status');
-        return view('admin.books.pending', compact('books','notifications'));
+        $notifications=Book::where('status','pending')->count('status');
+       $newUser=User::where('name_ps','0')->count();
+
+        return view('admin.books.pending', compact('books','notifications','newUser'));
     }
     public function approve($id)
     {

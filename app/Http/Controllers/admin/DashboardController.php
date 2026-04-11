@@ -24,7 +24,7 @@ public function index()
     $downloads =Download::count();
     $favorites =Favorite::count();
     $notifications=Book::where('status','pending')->count('status');
-    $newUser=User::whereNull('name_ps')->count();
+    $newUser=User::where('name_ps','0')->count();
     // Recent books (latest 5)
     $recentBooks = Book::latest()->take(5)->get();
 

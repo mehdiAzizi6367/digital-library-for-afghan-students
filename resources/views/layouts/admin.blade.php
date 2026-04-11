@@ -159,19 +159,16 @@
     <h4 class="text-center mb-4">📚 {{ __('message.admin') }}</h4>
 
     <ul class="nav flex-column">
-
         <li>
             <a href="{{ route('admin.dashboard') }}"
                class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                 <i class="bi bi-speedometer2 me-2"></i> {{ __('message.dashboard') }}
             </a>
         </li>
-
         <li>
             <a class="nav-link" data-bs-toggle="collapse" href="#booksMenu">
                 <i class="bi bi-book me-2"></i> {{ __('dashboard.manage_books') }}
             </a>
-
             <div class="collapse {{ request()->routeIs('admin.books.*') ? 'show' : '' }}" id="booksMenu">
                 <ul class="nav flex-column ms-3">
                     <li>
@@ -274,14 +271,12 @@
         </div>
         
         <div class="d-flex align-items-center " id="admin_d">
-            <div class="d-flex">
-             @isset($newUser)
+            <div class="d-flex align-items-center">
              <span> <i class="fas fa-user"></i><sup >
              <a href="{{ route('admin.users.index') }}" class="text-white badge bg-danger text-decoration-none">
                  {{ ($newUser ?? '0' ) ? $newUser ?? '0' :'0'}}</a>
             </span>
            </sup>
-          @endisset
     <span><i class="fas fa-bell ms-2"></i>    </span><small> <sup style="cursor: pointer" class="py-1 badge bg-danger">
         <a href="{{ route('admin.books.pending') }}"
          class="text-white text-decoration-none" title="Pending books" >
@@ -291,8 +286,8 @@
          
 
             <div class="dropdown">
-                <button class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">
-                    <i class="bi bi-person-circle"></i> {{ auth()->user()->getUsername() }}
+                <button class="btn btn-light dropdown-toggle ms-2" data-bs-toggle="dropdown">
+                  {{ auth()->user()->getUsername() }}
                 </button>
 
                 <ul class="dropdown-menu dropdown-menu-end">

@@ -27,11 +27,11 @@
               @endphp
             @foreach($users as $user)
             <tr>
-                <td>{{ $user->name }} <sup class=" badge text-white bg-danger">{{ ($user->name_ps || $user->name_fa)? '':$new}}</sup></td>
+                <td>{{ $user->name }} <small><sup class=" badge text-white bg-danger">{{ ($user->name_ps || $user->name_fa)? '':$new}}</small> </sup></td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->role }}</td>
                 <td>{{ $user->created_at->format('d M Y') }}</td>
-                <td>
+                <td class="">
                     <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-warning">Edit</a>
                     <form action="{{ route('admin.users.destroy', $user) }}" method="POST" style="display:inline-block;">
                         @csrf

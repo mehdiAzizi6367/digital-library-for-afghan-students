@@ -80,6 +80,12 @@ return [
     'quick_links' => 'Quick Links',
     'edition'=>'Book edition',
      'edition_placeholder'=>"example: 2'nd",
+     'other'=>'Other',
+     'pending_state'=>'New user ragestered',
+     'pending_states'=>'New users ragestered',
+     'book_pending'=>'book is pending!',
+     'books_pending'=>'book are pending!',
+
 
 
     ];

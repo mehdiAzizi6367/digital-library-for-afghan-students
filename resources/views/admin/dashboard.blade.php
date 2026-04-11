@@ -9,8 +9,9 @@
     </div>
     <div class="d-flex flex-column gap-2">
     <!-- New Users Alert -->
-     @if ($newUser==0)
      
+     @if ($newUser==0)
+
      @else
         <a href="{{ route('admin.users.index') }}" class="alert alert-success text-decoration-none d-flex align-items-center justify-content-between">
             <div>

@@ -139,7 +139,9 @@ Route::prefix('user')->middleware(['auth','role:user'])->name('user.')->group(fu
     route::get('/mybooks',[BookController::class,'mybook'])->name('mybook');
     route::post('/user/favorite',[FavoriteController::class,'index'])->name('favorite');
 
+
     // new added routes
+   route::get('/add-category',[CategoryController::class,'category'])->name('add-category');
 
 });
 

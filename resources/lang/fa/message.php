@@ -76,6 +76,14 @@ return [
     'users'=>'استعمال کننده',
      'edition'=>'ایدیشن کتاب',
      'edition_placeholder'=>"مثال: ۲یدیشن",
+     'other'=>'دیګر',
+      'pending_state'=>'کابرد نو اضافه ګردیده!',
+      'pending_states'=>'کابردهای نو اضافه ګردیده!',
+
+     'book_pending'=>'کتاب د حالت انتظار است!',
+     'books_pending'=>'کتاب ها د حالت انتظار هستند!',
+  
+
 
 
 

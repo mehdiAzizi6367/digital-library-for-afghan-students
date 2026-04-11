@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Book;
+use App\Models\User;
 
 class AdminCategoryController extends Controller
 {
@@ -14,14 +15,18 @@ class AdminCategoryController extends Controller
     {
         $categories = Category::latest()->paginate(10);
         $notifications=Book::where('status','pending')->count('status');
-        return view('admin.categories.index', compact('categories','notifications'));
+    $newUser=User::where('name_ps','0')->count();
+
+        return view('admin.categories.index', compact('categories','notifications','newUser'));
     }
 
     // Show create form
     public function create()
     {
          $notifications=Book::where('status','pending')->count('status');
-        return view('admin.categories.create',compact('notifications'));
+        $newUser=User::where('name_ps','0')->count();
+
+        return view('admin.categories.create',compact('notifications','newUser'));
     }
 
     // Store new category
@@ -42,7 +47,11 @@ class AdminCategoryController extends Controller
     // Show edit form
     public function edit(Category $category)
     {
-        return view('admin.categories.edit', compact('category'));  
+    $newUser=User::where('name_ps','0')->count();
+    $notifications=Book::where('status','pending')->count();
+    
+   
+        return view('admin.categories.edit', compact('category','newUser','notifications'));  
     }
 
     // Update category

@@ -46,7 +46,6 @@ return [
       'edit' => 'سمول',
     'delete' => 'ړنګول',
     'no_books' => 'تر اوسه کوم کتاب نه دی پورته شوی.',
-
     'table_hash'      => '#',
     'table_title'     => 'سرلیک',
     'table_author'    => 'لیکوال',
@@ -56,30 +55,33 @@ return [
     'table_actions'   => 'عملیات',
     'confirm_delete' => 'ایا تاسو ډاډه یاست؟',
     'status_pending'  => 'په تمه',
-  'status_approved' => 'منل شوی',
-  'status_rejected' => 'رد شوی',  
+    'status_approved' => 'منل شوی',
+    'status_rejected' => 'رد شوی',  
     'status'=>'حالت',
     'read'=>'لوستل',
     'update' => 'نوی کول',  // Pashto for "Update"
     'cancel' => 'لغوه کول',  // Pashto
-   'title_ps' => 'عنوان (پشتو)',
-  'title_en' => 'سرلیک (انګلیسي)',
-  'title_fa' => 'سرلیک (دري)',
-  'description_en' => 'توضیحات (انگلیسی)',
-  'description_ps' => 'توضیحات (پشتو)',
-  'description_fa' => 'توضیحات (دری)',
-// resources/lang/ps/message.php
-'thumbnail' => 'لنډ عکس',  // Pashto
-'remember'=>'په یاد ساتل',
-  'forgot'=>'پاسورډ هیرشوی',
-   'prev'=>'وروسته تلل',
+    'title_ps' => 'عنوان (پشتو)',
+    'title_en' => 'سرلیک (انګلیسي)',
+    'title_fa' => 'سرلیک (دري)',
+    'description_en' => 'توضیحات (انگلیسی)',
+    'description_ps' => 'توضیحات (پشتو)',
+    'description_fa' => 'توضیحات (دری)',
+    // resources/lang/ps/message.php
+    'thumbnail' => 'لنډ عکس',  // Pashto
+    'remember'=>'په یاد ساتل',
+    'forgot'=>'پاسورډ هیرشوی',
+    'prev'=>'وروسته تلل',
     'next'=>'مخکې تلل',
     'zommIn'=> 'نژدې کول',
     'zommOut'=> 'لرې کول',
     'quick_links' => 'چټک لینکونه',
-      'edition'=>'د کتاب ایډیشن',
-     'edition_placeholder'=>"مثال ۲ دوهم ایډیشن",
-    
-
+    'edition'=>'د کتاب ایډیشن',
+    'edition_placeholder'=>"مثال ۲ دوهم ایډیشن",
+    'other'=>'بل',
+    'pending_state'=>'نوی استعمالوونکی ثبت شو.',
+    'pending_states'=>'نوی استعمالوونکي ثبت شوي دي.',
+    'book_pending'=>'کتاب د انتظار حالت کې!',
+    'books_pending'=>'کتابونه د انتظار حالت کې!',
 
 ];

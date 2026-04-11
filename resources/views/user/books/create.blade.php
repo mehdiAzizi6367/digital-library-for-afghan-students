@@ -36,18 +36,34 @@
                     {{-- ========================= --}}
                     <div class="mb-3">
                         <label class="form-label">{{ __('message.categories') }}<span class="text-danger">*</span></label>
-                        <select name="category_id" class="form-select">
+                        <!-- <select name="category_id" class="form-select">
                             <option value="">{{ __('message.select_category') }}</option>
 
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}"
                                     {{ old('category_id') == $category->id ? 'selected' : '' }}>
                                     {{-- 🔥 Dynamic localization --}}
-                                     {{ $category->getName() }}
+                                    {{ $category->getName() }}
                                 </option>
-                            @endforeach
+                                @endforeach
+                                
+                            </select> -->
+                            <select name="category" id="category" class="form-control">
+                                <option value="">Select Category</option>
+                                @foreach($categories as $cat)
+                                <option value="{{ $cat->id }}"   {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                        {{-- 🔥 Dynamic localization --}}
+                                    {{ $cat->getName() }}
+                                </option>
+                                @endforeach
 
-                        </select>
+                                <option value="other"> <a href=""></a> Other</option>
+                            </select>
+
+                            <!-- Hidden input -->
+                            <div id="otherCategoryDiv" style="display:none;">
+                            <input type="text" name="other_category" class="form-control mt-2" placeholder="Enter new category">
+                           </div>
                         @error('category_id') <small class="text-danger">{{ $message }}</small> @enderror
                     </div>
 
@@ -112,4 +128,15 @@
     </div>
 </div>
 @include('footer.footer')
+<script>
+document.getElementById('category').addEventListener('change', function () {
+    let otherDiv = document.getElementById('otherCategoryDiv');
+
+    if (this.value === 'other') {
+        otherDiv.style.display = 'block';
+    } else {
+        otherDiv.style.display = 'none';
+    }
+});
+</script>
 @endsection

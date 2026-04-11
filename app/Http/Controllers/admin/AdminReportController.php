@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Download;
 use App\Models\Favorite;
 use App\Models\Book;
+use App\Models\User;
 
 class AdminReportController extends Controller
 { 
@@ -39,6 +40,8 @@ class AdminReportController extends Controller
 
 
         // 3️⃣ Pass to Blade
-        return view('admin.reports.index', compact('downloadsData','favoritesData','notifications'));
+    $newUser=User::where('name_ps','0')->count();
+
+        return view('admin.reports.index', compact('downloadsData','favoritesData','notifications','newUser'));
     }
 }

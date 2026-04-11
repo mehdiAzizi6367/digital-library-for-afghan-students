@@ -14,17 +14,19 @@ class AdminUserController extends Controller
     public function index()
     {
         $users = User::latest()->paginate(10);
+       $newUser=User::where('name_ps','0')->count();
         
         $notifications=Book::where('status','pending')->count('status');
-        return view('admin.users.index', compact('notifications','users'));
+        return view('admin.users.index', compact('notifications','users','newUser'));
     }
 
     // Show create user form
     public function create()
     {
         $notifications=Book::where('status','pending')->count('status');
+    $newUser=User::where('name_ps','0')->count();
         
-        return view('admin.users.create',compact('notifications'));
+        return view('admin.users.create',compact('notifications','newUser'));
     }
 
     // Store new user

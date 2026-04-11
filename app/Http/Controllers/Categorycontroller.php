@@ -24,5 +24,10 @@ class CategoryController extends Controller
         $categories=Category::all();
         return view('user.books.create',compact('categories'));
     }
+    public function category() {
+        return view('add-category');
+        
+    }
+    
  
 }
