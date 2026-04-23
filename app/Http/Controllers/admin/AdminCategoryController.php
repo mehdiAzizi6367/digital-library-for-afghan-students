@@ -50,7 +50,6 @@ class AdminCategoryController extends Controller
     $newUser=User::where('name_ps','0')->count();
     $notifications=Book::where('status','pending')->count();
     
-   
         return view('admin.categories.edit', compact('category','newUser','notifications'));  
     }
 

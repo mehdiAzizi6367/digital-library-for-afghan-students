@@ -44,6 +44,8 @@ return [
     'address'=>'ادرس',
     'search_result'=>'نتیجه جستجوی برای:',
       'edit' => 'ویرایش',
+     'change' => 'تغیر دادن',
+
     'delete' => 'حذف',
     'no_books' => 'هیچ کتابی هنوز آپلود نشده است.',
     'table_hash'      => '#',
@@ -52,6 +54,7 @@ return [
     'table_category'  => 'دسته‌بندی',
     'table_status'    => 'وضعیت',
     'table_uploaded'  => 'زمان بارگذاری',
+    'table_rejection_reason'   => 'علت در شدن',
     'table_actions'   => 'عملیات',
     'confirm_delete' => 'آیا مطمئن هستید؟',
     'status_pending'  => 'در انتظار',
@@ -82,6 +85,10 @@ return [
 
      'book_pending'=>'کتاب د حالت انتظار است!',
      'books_pending'=>'کتاب ها د حالت انتظار هستند!',
+
+    "book_exists"=>"این کتاب قبلاً ثبت شده است!",
+    'enter_category'=>'نام دسته بندی را وارد کنید',
+    
   
 
 

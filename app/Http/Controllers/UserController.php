@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -16,7 +17,6 @@ class UserController extends Controller
     // Update profile
     public function updateProfile(Request $request) {
         $user = Auth::user();
-
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => "required|email|unique:users,email,{$user->id}",
@@ -29,6 +29,7 @@ class UserController extends Controller
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
+      
 
         $user->save();
 
@@ -42,6 +43,15 @@ class UserController extends Controller
         $user->delete();
 
         return redirect('/')->with('success', 'Your account has been deleted.');
+    }
+    public function toggleStatus($id)
+    {
+
+       
+        $user = User::findOrFail($id);
+        $user->is_active = !$user->is_active;
+        $user->save();
+        return back()->with('success', 'User status updated successfully');
     }
 }
 

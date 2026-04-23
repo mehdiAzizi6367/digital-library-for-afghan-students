@@ -14,13 +14,13 @@
 {{-- custom css --}}
 <style>
    
-   @media screen and(max-width:768px) {
-
-      #thumbnails
-      {
+   @media screen and (max-width:768px) {
+      #thumbnails {
          display: none;
       }
-      
+      #searchText {
+         width: 100% !important;
+      }
    }
    .dark-reader {
       background:#121212;
@@ -58,15 +58,15 @@
       <div class="row"> 
          <!-- PDF Viewer -->
             <div class="col-md-10">
-               <canvas id="pdf-render" style="width:90%; border:1px solid #ddd;"></canvas>
+               <canvas id="pdf-render" class="w-100" style="border:1px solid #ddd;"></canvas>
                <p class="mt-2">
                Page <span id="page-num"></span> of <span id="page-count"></span>
                </p>
             </div>
              <!-- Thumbnails -->
-            <div class="col-md-2" style="overflow-y:auto;height: 1050px;">
-                  <div id="thumbnails">
-                     <img src="{{ $book->thumbnail }}" alt="">
+            <div class="col-md-2">
+                  <div id="thumbnails" class="overflow-auto" style="max-height:80vh;">
+                     <img src="{{ $book->thumbnail }}" alt="" class="img-fluid">
                   </div>
             </div> 
       </div>

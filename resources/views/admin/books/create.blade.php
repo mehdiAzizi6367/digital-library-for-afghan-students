@@ -17,7 +17,7 @@
         @csrf
         <div class="mb-3">
             <label>Title</label>
-            <input type="text" name="title_english" class="form-control" value="{{ old('title_english') }}" required>
+            <input type="text" name="title_en" class="form-control" value="{{ old('title_en') }}" required>
         </div>
 
         <div class="mb-3">

@@ -45,6 +45,7 @@ return [
     'address'=>'Address',
     'search_result'=>'Search result for: ',
      'edit' => 'Edit',
+     'change' => 'change',
     'delete' => 'Delete',
     'no_books' => 'No books uploaded yet.',
     'table_hash'      => '#',
@@ -54,6 +55,7 @@ return [
     'table_status'    => 'Status',
     'table_uploaded'  => 'Uploaded At',
     'table_actions'   => 'Actions',
+    'table_rejection_reason'   => 'Rejection reason',
     'confirm_delete' => 'Are you sure?',
     'status_pending'  => 'Pending',
     'status_approved' => 'Approved',
@@ -85,6 +87,9 @@ return [
      'pending_states'=>'New users ragestered',
      'book_pending'=>'book is pending!',
      'books_pending'=>'book are pending!',
+    "book_exists"=>"This book already exists!",
+    'enter_category'=>'Enter category name',
+
 
 
 

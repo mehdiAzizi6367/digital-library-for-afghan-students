@@ -14,8 +14,8 @@ class BookSeeder extends Seeder
 
         $books = [
             [
-                'title' => 'Introduction to Algorithms',
-                'description' => 'A comprehensive guide to algorithms and data structures.',
+                'title_en' => 'Introduction to Algorithms',
+                'description_en' => 'A comprehensive guide to algorithms and data structures.',
                 'author' => 'Thomas H. Cormen',
                 'category_id' => 1,
                 'file_path' => 'books/algorithms.pdf',

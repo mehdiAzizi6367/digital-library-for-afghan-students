@@ -16,7 +16,7 @@
     .social_media a:hover{
      transform: translateX(-5px);
        transition: all 0.3s ease-in-out;
-       font-size: 3rem;
+       font-size: 2rem;
        
     }
    
@@ -49,6 +49,7 @@
 
         </div>
     </div>
+    
 </section>
 
 <!-- Footer -->
@@ -64,8 +65,8 @@
                 <div class="d-flex gap-3">
                     <a href="#" class="text-white"><i class="fab fa-facebook"></i></a>
                     <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
-                    <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-white"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://github.com/mehdiAzizi6367" class="text-white"> <i class="fab fa-github"></i></a>
+                    <a href="https://wa.me/message/BB2KIIABW4MEA1" class="text-white"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
 

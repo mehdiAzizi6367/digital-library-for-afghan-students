@@ -12,6 +12,7 @@ class HomeController extends Controller
 
   public function index()
   {
+    
     $categories= Category::withCount('books')->get();
     $books = Book::where('status', 'approved')->latest()->paginate(4);
       // $categories = Category::all();

@@ -18,13 +18,33 @@
     </style>
     @section('content')
     <div class="container py-5">
-
+       
         <!-- Welcome & Stats -->
         <h2 class="fw-bold mb-4">
             {{ __('dashboard.welcome') }} , {{ auth()->user()->getUsername() }}
         </h2>
+        <div class="container">
+            @if(!$book_reasons )
+            @else
+                <div class="row alert alert-danger">
+                    <div class="col-md-12">               
+                        <div class="">
+                            <span><i class="fas fa-book me-2"></i> </span> 
+                            <span style="cursor: pointer" class="py-1  ">
+                                @php
+                                $reject_="Your $book_reasons book was rejected! due to this ";
+                                $rejects= "Your $book_reasons books were rejected";
+                                @endphp     
+                            <a href="{{route('Rj_reason') }}">
+                                {{ ($book_reasons==1) ? $reject_ : $rejects}}   
+                            </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        </div>
         <div class="container py-4">
-
     <!-- Stats Cards -->
     <div class="row g-4 mb-4">
         <div class="col-md-4">

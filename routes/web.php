@@ -18,8 +18,7 @@ use App\Http\Controllers\Admin\AdminBookController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminReportController;
-
-
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Book;
@@ -128,9 +127,6 @@ Route::prefix('user')->middleware(['auth','role:user'])->name('user.')->group(fu
     // User Books CRUD
     Route::resource('/books', BookController::class);
 
-    // Favorites
-    // Route::get('favorites', [FavoriteController::class, 'index'])->name('favorites.index');
-
     // Downloads
     Route::get('downloads', [DownloadController::class, 'index'])->name('downloads.index');
    
@@ -138,7 +134,6 @@ Route::prefix('user')->middleware(['auth','role:user'])->name('user.')->group(fu
     Route::get('books-chart', [BookController::class, 'booksChart'])->name('books.chart');
     route::get('/mybooks',[BookController::class,'mybook'])->name('mybook');
     route::post('/user/favorite',[FavoriteController::class,'index'])->name('favorite');
-
 
     // new added routes
    route::get('/add-category',[CategoryController::class,'category'])->name('add-category');
@@ -154,18 +149,13 @@ Route::middleware('auth')->group(function () {
     // Add to favorite
     Route::post('/books/{book}/favorite', [FavoriteController::class, 'store'])
         ->name('books.favorite');
-
     // Remove from favorite
     Route::delete('/books/{book}/favorite', [FavoriteController::class, 'destroy'])
         ->name('books.unfavorite');
-
 });
-
 Route::middleware('auth')->group(function () {
     Route::get('/books/download/{book}', [BookController::class, 'download'])
         ->name('books.download');
-
-
 });
 Route::get('/books/{book}/read', [BookController::class, 'read'])->name('books.read')->middleware('auth');
 Route::get('/user/books/create', [CategoryController::class, 'create'])->name('user.books.create')->middleware('auth');
@@ -177,7 +167,6 @@ Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy'])
 // ratting system
 Route::post('/books/{book}/rate', [BookController::class, 'rate'])
     ->name('books.rate');
-
 // language switch route
 Route::get('/lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'ps', 'fa'])) {
@@ -190,7 +179,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('books/{book}/edit', [AdminBookController::class, 'edit'])->name('books.edit');
     Route::put('books/{book}', [AdminBookController::class, 'update'])->name('books.update');
 });
-// Route::get('/books/{id}', [CategoryController::class, 'show'])->name('books.show');
+Route::post('/admin/users/{id}/toggle-status', [UserController::class, 'toggleStatus'])
+    ->name('admin.users.toggle');
 route::get('/translate/{id}',[AdminBookController::class,'translate'])->name('translate');
 
+route::get('/rejected-books',[BookController::class,'rejection_reason'])->name('Rj_reason');
 require __DIR__.'/auth.php';

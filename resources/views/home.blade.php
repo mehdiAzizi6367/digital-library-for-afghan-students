@@ -94,7 +94,6 @@
     </form>
 </div>
 @endauth
-
 <!-- Categories Section -->
 @if(auth()->check())
 <section class="bg-white py-5" id="cateSection">
@@ -102,15 +101,16 @@
         <h3 class="text-center fw-bold mb-5">{{ __('message.browse_categories') }}</h3>
         <div class="row g-4">
             @foreach($categories as $category)
-            <div class="col-6 col-md-3">
-                <a href="{{ route('categories.show', $category->id) }}" class="text-decoration-none">
-                    <div class="card border-0 shadow-sm text-center p-4 h-100 category-card">
-                        <div class="mb-3"><i class="bi bi-book fs-1 text-primary"></i></div>
-                        <h5 class="fw-bold text-dark">{{ $category->getname() }}</h5>
-                        <small class="text-muted">{{ $category->books_count ?? 0 }} {{ __('message.books') }}</small>
-                    </div>
-                </a>
-            </div>
+                <div class="col-6 col-md-3">
+                    <a href="{{ route('categories.show', $category->id) }}" class="text-decoration-none">
+                        <div class="card border-0 shadow-sm text-center p-4 h-100 category-card">
+                            <div class="mb-3"><i class="bi bi-book fs-1 text-primary"></i></div>
+                            <h5 class="fw-bold text-dark">{{ $category->getname() }}</h5>
+                            <small class="text-muted">{{ $category->books_count ?? 0 }} {{ __('message.books') }}</small>
+                        </div>
+                    </a>
+                 </div>
+              
             @endforeach
         </div>
     </div>

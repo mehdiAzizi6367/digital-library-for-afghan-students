@@ -44,6 +44,7 @@ return [
     'address'=>'پته',
     'search_result'=>'د لټون پایله د :',
       'edit' => 'سمول',
+     'change' => 'تغیرول',
     'delete' => 'ړنګول',
     'no_books' => 'تر اوسه کوم کتاب نه دی پورته شوی.',
     'table_hash'      => '#',
@@ -52,6 +53,7 @@ return [
     'table_category'  => 'کتګوري',
     'table_status'    => 'حالت',
     'table_uploaded'  => 'پورته کوونکی',
+    'table_rejection_reason'   => 'د رد کیدلو سبب',
     'table_actions'   => 'عملیات',
     'confirm_delete' => 'ایا تاسو ډاډه یاست؟',
     'status_pending'  => 'په تمه',
@@ -83,5 +85,7 @@ return [
     'pending_states'=>'نوی استعمالوونکي ثبت شوي دي.',
     'book_pending'=>'کتاب د انتظار حالت کې!',
     'books_pending'=>'کتابونه د انتظار حالت کې!',
+    "book_exists"=> "دا کتاب مخکې له مخکې موجود دی!",
+    'enter_category'=>'د کتګورۍ نوم داخل کړئ',
 
 ];

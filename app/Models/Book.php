@@ -17,14 +17,13 @@ class Book extends Model
     'title_en',
     'title_ps',
     'title_fa',
-
     'description_en',
     'description_ps',
     'description_fa',
-
     'author',
     'edition',
     'category_id',
+    'rejection_reason',
     'isbn',
     'file_path',
     'thumbnail',

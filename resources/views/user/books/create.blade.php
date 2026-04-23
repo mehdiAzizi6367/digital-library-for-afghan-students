@@ -1,8 +1,6 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="container py-5">
-    
     @if(session('success'))
     <div class="alert alert-success text-center">
         {{ session('success') }}
@@ -30,42 +28,37 @@
                         <input type="text" name="author" class="form-control" value="{{ old('author') }}">
                         @error('author') <small class="text-danger">{{ $message }}</small> @enderror
                     </div>
-
                     {{-- ========================= --}}
                     {{-- 📂 CATEGORY (DYNAMIC) --}}
                     {{-- ========================= --}}
                     <div class="mb-3">
                         <label class="form-label">{{ __('message.categories') }}<span class="text-danger">*</span></label>
-                        <!-- <select name="category_id" class="form-select">
-                            <option value="">{{ __('message.select_category') }}</option>
+                            <select name="category_id" id="category" class="form-select">
+                                <option value="">{{ __('message.select_category') }}</option>
 
-                            @foreach($categories as $category)
-                                <option value="{{ $category->id }}"
-                                    {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                                    {{-- 🔥 Dynamic localization --}}
-                                    {{ $category->getName() }}
-                                </option>
-                                @endforeach
-                                
-                            </select> -->
-                            <select name="category" id="category" class="form-control">
-                                <option value="">Select Category</option>
-                                @foreach($categories as $cat)
-                                <option value="{{ $cat->id }}"   {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                                        {{-- 🔥 Dynamic localization --}}
-                                    {{ $cat->getName() }}
-                                </option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                        {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->getName() }}
+                                    </option>
                                 @endforeach
 
-                                <option value="other"> <a href=""></a> Other</option>
+                                <option value="other" {{ old('category_id') == 'other' ? 'selected' : '' }}>
+                                    {{ __('message.other') }}
+                                </option>
                             </select>
-
-                            <!-- Hidden input -->
-                            <div id="otherCategoryDiv" style="display:none;">
-                            <input type="text" name="other_category" class="form-control mt-2" placeholder="Enter new category">
-                           </div>
                         @error('category_id') <small class="text-danger">{{ $message }}</small> @enderror
+        
                     </div>
+                    <div id="otherCategoryDiv" class="mt-2" style="display: none;">
+                        <input type="text" name="custom_category" class="form-control"
+                            placeholder="{{ __('message.enter_category') }}"
+                            value="{{ old('custom_category') }}">
+                    </div>
+
+                    @error('custom_category') 
+                        <small class="text-danger">{{ $message }}</small> 
+                    @enderror
 
                     {{-- ========================= --}}
                     {{-- 📝 DESCRIPTION (OPTIONAL MULTI-LANGUAGE) --}}
@@ -129,14 +122,22 @@
 </div>
 @include('footer.footer')
 <script>
-document.getElementById('category').addEventListener('change', function () {
-    let otherDiv = document.getElementById('otherCategoryDiv');
+document.addEventListener('DOMContentLoaded', function () {
+    const category = document.getElementById('category');
+    const otherDiv = document.getElementById('otherCategoryDiv');
 
-    if (this.value === 'other') {
-        otherDiv.style.display = 'block';
-    } else {
-        otherDiv.style.display = 'none';
+    function toggleOther() {
+        if (category.value === 'other') {
+            otherDiv.style.display = 'block';
+        } else {
+            otherDiv.style.display = 'none';
+        }
     }
+
+    category.addEventListener('change', toggleOther);
+
+    // 🔥 Important: keep state after validation error
+    toggleOther();
 });
 </script>
 @endsection

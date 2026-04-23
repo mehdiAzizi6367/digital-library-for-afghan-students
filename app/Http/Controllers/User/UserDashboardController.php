@@ -17,13 +17,12 @@ class UserDashboardController extends Controller
 {
     $userId = auth()->id();
     $totalBooks = Book::where('uploaded_by', $userId)->count();
+    $book_reasons=Book::where('status','rejected')->where('uploaded_by',$userId)->count();
     // Use separate downloads table
+    $reject_reason=Book::whereNotNull('rejection_reason')->get();
     $downloads =Download::where('user_id', $userId)->count();
-   
-
     $favorites =Favorite::where('user_id',$userId)->count();
     $categories=Category::all();
-
     $monthlyUploads = Book::select(
             DB::raw('MONTH(created_at) as month'),
             DB::raw('count(*) as total')
@@ -43,7 +42,8 @@ class UserDashboardController extends Controller
         'favorites',
         'monthlyUploads',
         'userBooks',
-        'categories'
+        'categories',
+        'book_reasons'
     ));
 
     }

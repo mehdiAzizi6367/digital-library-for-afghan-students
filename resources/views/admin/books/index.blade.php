@@ -14,21 +14,23 @@
         <table class="table table-bordered table-hover text-center">
             <thead class="table-dark">
                 <tr>
-                    <th>Title</th>
-                    <th>Author</th> 
-                    <th>Category</th>
-                    <th>Uploaded By</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                    <th>{{ __('message.table_hash') }}</th>
+                    <th>{{ __('message.table_title') }}</th> 
+                    <th>{{ __('message.table_category') }}</th>
+                    <th>{{ __('message.table_uploaded') }}</th>
+                    <th>{{ __('message.author') }}</th>
+                    <th>{{ __('message.table_status') }}</th>
+                    <th>{{ __('message.table_actions') }}</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($books as $book) 
                     <!-- @if($book->status == 'approved') -->
                         <tr>
+                            <td>{{ $book->id}}</td>
                         <td>{{ $book->getTitle() }}</td>
-                            <td>{{ $book->author }}</td>
-                            <td>{{ substr($book->category->getname(),0,15) ?? '-' }}</td>
+                        <td>{{ substr($book->category->getname(),0,15) ?? '-' }}</td>
+                        <td>{{ $book->author }}</td>
                             <td>{{ $book->user->name ?? '-' }}</td>
                             <td>{{ $book->status }}</td>                            
                             <td class="d-flex justify-center">             

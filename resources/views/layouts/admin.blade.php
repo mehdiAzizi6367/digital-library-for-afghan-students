@@ -16,8 +16,8 @@
 
     <style>
         html, body {
-            height: 100%;
-            overflow: hidden;
+            min-height: 100%;
+            overflow-x: hidden;
         }
 
         /* SIDEBAR */
@@ -40,12 +40,13 @@
 
         /* CONTENT */
         .content {
-            width: 100%;
+            width: calc(100% - 250px);
             margin-left: 250px;
             margin-top: 60px;
-            height: calc(100vh - 60px);
+            min-height: calc(100vh - 60px);
             overflow-y: auto;
             transition: all 0.3s ease-in-out;
+            padding-bottom: 30px;
         }
 
         [dir="rtl"] .content {
@@ -277,10 +278,13 @@
                  {{ ($newUser ?? '0' ) ? $newUser ?? '0' :'0'}}</a>
             </span>
            </sup>
-    <span><i class="fas fa-bell ms-2"></i>    </span><small> <sup style="cursor: pointer" class="py-1 badge bg-danger">
-        <a href="{{ route('admin.books.pending') }}"
-         class="text-white text-decoration-none" title="Pending books" >
-            {{ ($notifications ?? 0)? $notifications?? 0:'No pending book'}}</a>
+           
+        <span><i class="fas fa-bell ms-2"></i>
+        </span><small>
+       <sup style="cursor: pointer" class="py-1 badge bg-danger">
+        <a href="{{ route('admin.books.pending') }}" class="text-white text-decoration-none" title="Pending books" >
+            {{ ($notifications ?? 0)? $notifications?? 0:'No pending book'}}
+        </a>
         </sup></small>
             </div>
          
@@ -336,5 +340,6 @@
     });
 </script>
 
+@yield('scripts')
 </body>
 </html>

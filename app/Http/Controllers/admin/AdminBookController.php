@@ -19,7 +19,8 @@ class AdminBookController extends Controller
     {
         $books = Book::with(['category', 'user'])->latest()->paginate(10);
          $notifications=Book::where('status','pending')->count('status');
-         $newUser=User::where('name_ps','0')->count();
+         $newUser=User::whereNotNull('name_ps')->count();
+         dd($newUser);
         return view('admin.books.index', compact('books','notifications','newUser'));
     }
     // Show create form
@@ -51,21 +52,24 @@ class AdminBookController extends Controller
         ]);
 
         $filePath = $request->file('file')->store('books', 'public');
+         $filename=$request->file->getClientOriginalName();
+        $filePath = $request->file('file')->storeAs('books', $filename);
+        $thumbnailPath = $request->file('thumbnail') ? $request->file('thumbnail')->store('thumbnails','public') : null;
+
        $book=Book::create([
             'title_en' => $request->title_en,
             'author' => $request->author,
             'edition'=>$request->edition,
             'category_id' => $request->category_id,
             'description_en'=>$request->description_en,
+            'thumbnail' => $thumbnailPath,
             'uploaded_by' => Auth::id(),
             'file_path' => $filePath,
             'status' => 'approved',
-           
         ]);
 
         // after saving book
         $admins = User::where('role', 'admin')->get();
-
         foreach ($admins as $admin) {
             $admin->notify(new NewBookUploaded($book));
         }
@@ -88,6 +92,7 @@ class AdminBookController extends Controller
             'description_ps' => 'nullable|string',
             'description_fa' => 'nullable|string',
         ]);
+        $thumbnailPath = $request->file('thumbnail') ? $request->file('thumbnail')->store('thumbnails','public') : null;
 
         $book->update([
             'title_ps' => $request->title_ps,
@@ -97,6 +102,7 @@ class AdminBookController extends Controller
             'title_en'=>$request->title_en,
             'author'=>$request->author,
             'isbn'=>$request->isbn,
+            'thumbnail' => $thumbnailPath,
             'category_id'=>$request->category_id,
             'description_en'=>$request->description_en,
         ]);
@@ -134,10 +140,11 @@ class AdminBookController extends Controller
         return back()->with('success', 'Book approved!');
     }
 
-    public function reject($id)
+    public function reject($id, request $request)
     {
         $book = Book::findOrFail($id);
         $book->status = 'rejected';
+        $book->rejection_reason=$request->reason;
         $book->save();
 
         return back()->with('error', 'Book rejected!');

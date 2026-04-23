@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Container\Attributes\DB as AttributesDB;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 use Illuminate\Http\Request;
 use App\Models\Book;
@@ -47,7 +48,30 @@ public function index()
         'labels' => $monthLabels,
         'data' => $monthData,
     ];
-     $rolesRaw = User::select('role',DB::raw('COUNT(*) as total'))
+
+    // Downloads Per Book (top 10)
+    $downloadsByBook = Download::selectRaw('book_id, COUNT(*) as total')
+        ->groupBy('book_id')
+        ->orderByDesc('total')
+        ->take(10)
+        ->get();
+
+    $downloadBookIds = $downloadsByBook->pluck('book_id')->toArray();
+    $bookTitles = Book::whereIn('id', $downloadBookIds)->pluck('title_en', 'id')->all();
+
+    $downloadBookLabels = [];
+    $downloadBookData = [];
+    foreach ($downloadsByBook as $stat) {
+        $downloadBookLabels[] = Str::limit($bookTitles[$stat->book_id] ?? "Book #{$stat->book_id}", 20);
+        $downloadBookData[] = $stat->total;
+    }
+
+    $downloadsPerBookData = [
+        'labels' => $downloadBookLabels,
+        'data' => $downloadBookData,
+    ];
+
+    $rolesRaw = User::select('role',DB::raw('COUNT(*) as total'))
                      ->groupBy('role')
                      ->get();
 
@@ -57,8 +81,9 @@ public function index()
       ];
 
     return view('admin.dashboard', compact(
-        'books','users','downloads','favorites','recentBooks','booksPerMonthData','rolesData'
-        ,'rolesData','notifications','newUser'));
+        'books','users','downloads','favorites','recentBooks','booksPerMonthData','downloadsPerBookData','rolesData',
+        'notifications','newUser'
+    ));
 }
 
 }

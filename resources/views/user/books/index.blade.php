@@ -17,7 +17,8 @@
                         <th>{{ __('message.table_author') }}</th>
                         <th>{{ __('message.table_category') }}</th>
                         <th>{{ __('message.table_status') }}</th>
-                        <th>{{ __('message.table_uploaded') }}</th>
+                       
+                         <th>{{ __('message.table_rejection_reason') }}</th>
                         <th>{{ __('message.table_actions') }}</th>
                     </tr>
                 </thead>
@@ -29,14 +30,19 @@
                             <td>{{ $book->author }}</td>
                             <td>{{ $book->category->getname() ?? 'N/A' }}</td> 
                             <td>{{ $book->status??  'N/A' }}</td> 
-                            <td>{{ $book->created_at->format('Y-m-d') }}</td>
+                            <td>{{ $book->rejection_reason}}</td>
                             <td> 
                                 @if($book->status == 'pending' || $book->status =="rejected")
                                  <a href="{{ route('books.show', $book->id) }}" class="btn btn-info btn-sm disabled" >{{ __('message.view') }}</a>
                                 @else
                                  <a href="{{ route('books.show', $book->id) }}" class="btn btn-info btn-sm " >{{ __('message.view') }}</a>
                                 @endif
-                                <a href="{{ route('user.books.edit', $book->id) }}" class="btn btn-primary btn-sm">{{ __('message.edit') }}</a>
+                                   @if($book->status == 'rejected')
+                                   <a href="{{ route('user.books.edit', $book->id) }}" class="btn btn-primary btn-sm">{{ __('message.change') }}</a>
+
+                                   @else
+                                   <a href="{{ route('user.books.edit', $book->id) }}" class="btn btn-primary btn-sm">{{ __('message.edit') }}</a>
+                                   @endif
                                 <form action="{{ route('user.books.destroy', $book->id) }}" 
                                         method="POST" 
                                         class="d-inline-block" 

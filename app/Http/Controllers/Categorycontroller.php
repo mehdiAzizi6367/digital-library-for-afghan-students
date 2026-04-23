@@ -15,9 +15,13 @@ class CategoryController extends Controller
     }
     public function show($id)
     {
-         $category = Category::with('books')->findOrFail($id);
-         $book=Book::findOrFail($id);
-         return view('categories.show', compact('category','book'));
+        $category = Category::findOrFail($id);
+
+        $books = Book::where('category_id', $id)
+            ->where('status', 'approved')
+            ->get();
+
+        return view('categories.show', compact('category', 'books'));
     }
      public function create()
     {

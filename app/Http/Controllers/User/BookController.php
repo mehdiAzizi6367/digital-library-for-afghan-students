@@ -40,17 +40,39 @@ class BookController extends Controller
   public function store(Request $request)
 {
     // 1️⃣ Validate user input (English only)
+
+
     $request->validate([
         'title_en' => 'required|string|max:255',
         'description_en' => 'nullable|string',
         'author' => 'required|string|max:255',
         'edition' => 'required|string|max:255',
-        'category_id' => 'required|exists:categories,id',
+        // 'category_id' => 'required|exists:categories,id',
+        'category_id' => 'required',
+        'custom_category' => 'required_if:category_id,other|max:255',
         'file' => 'required|mimes:pdf,epub|max:10240', // 10MB
         'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         'isbn' => 'nullable|string|max:255',
     ]);
-    // 2️⃣ Handle file upload
+     
+     // ✅ CUSTOM CATEGORY LOGIC
+    if ($request->category_id === 'other') {
+
+        $category = Category::whereRaw('LOWER(name_en) = ?', [strtolower($request->custom_category)])
+            ->first();
+
+        if (!$category) {
+            $category = Category::create([
+                'name_en' => $request->custom_category
+            ]);
+        }
+
+        $categoryId = $category->id;
+
+    } else {
+        $categoryId = $request->category_id;
+    }
+        // 2️⃣ Handle file upload
      $filename=$request->file->getClientOriginalName();
     $filePath = $request->file('file')->storeAs('books', $filename);
     $thumbnailPath = $request->file('thumbnail') ? $request->file('thumbnail')->store('thumbnails','public') : null;
@@ -60,41 +82,37 @@ class BookController extends Controller
     
     
      $books=Book::all();
-     foreach($books as $tbook)
-    {   Global $tbook;
-        //  dd($tbook->author);
-    
-    }
-        //  dd($tbook->author);
-        //  dd($request->author);
-        //  dd($request->title_en);
-        //  dd($request->edition);
-     if($tbook->author == $request->author && $tbook->title_en ==$request->title_en && $tbook->edition == $request->edition)
-    {
-        // $msg ="<div class='badge bg-danger'>Book is already exist</div>" ;
-        return redirect()->route('user.books.create')->with('success', __('Book is already exist choose diffirent one'));;
+        $exists = Book::where('title_en', $request->title_en)
+        ->where('author', $request->author)
+        ->where('edition', $request->edition)
+        ->exists();
+
+        if ($exists) {
+           return redirect('user/books/create')->with('success', __('message.book_exists'));
+        }else
+        {
+            $msg=__('message.book_added_success');
+            $book = Book::create([
         
-    }else{
-        $book = Book::create([
-    
-            'title_en' => $request->title_en,
-            'description_en' => $request->description_en,
-            'author' => $request->author,
-            'edition'=>$request->edition,
-            'category_id' => $request->category_id,
-            'file_path' => $filePath,
-            'thumbnail' => $thumbnailPath,
-            'isbn' => $request->isbn,
-            'uploaded_by' => auth::id(),    
-            // ✅ Leave translations NULL for now
-            'title_ps' => null,
-            'title_fa' => null,
-            'description_ps' => null,
-            'description_fa' => null,
-        ]);
-        if(isset($msg)?? ' ');
-        return redirect()->route('user.books.index')->with('success', __('message.book_added_success'));
-    }
+                'title_en' => $request->title_en,
+                'description_en' => $request->description_en,
+                'author' => $request->author,
+                'edition'=>$request->edition,
+                'category_id' => $categoryId,
+                'file_path' => $filePath,
+                'thumbnail' => $thumbnailPath,
+                'isbn' => $request->isbn,
+                'uploaded_by' => auth::id(),    
+                // ✅ Leave translations NULL for now
+                'title_ps' => null,
+                'title_fa' => null,
+                'description_ps' => null,
+                'description_fa' => null,
+            ]);
+            if(isset($msg)?? ' ');
+            return redirect()->route('user.books.index')->with('success', __('message.book_added_success'));
+       
+        }
   
 }
 
@@ -141,7 +159,7 @@ class BookController extends Controller
         }
         // Validate request
         $validated = $request->validate([
-            'title'       => 'required|string|max:255',
+            'title_en'       => 'required|string|max:255',
             'author'      => 'required|string|max:255',
             'isbn' => 'nullable|string|unique:books,isbn,' . $book->id,
             'category_id' => 'nullable|exists:categories,id',
@@ -287,7 +305,7 @@ class BookController extends Controller
         
 
         if (!file_exists($filePath)) {
-            dd($filePath); // DEBUG (see exact path)
+            // dd($filePath); // DEBUG (see exact path)
         }
 
         return response()->download($filePath);
@@ -312,6 +330,11 @@ class BookController extends Controller
         return response()->json([
             'success' => true
         ]);
+    }
+    public function rejection_reason(){
+        $rejected_books=Book::all();
+         $categories=Category::all();
+       return view('user.books.rejected-books',compact('rejected_books','categories'));
     }
 
 }

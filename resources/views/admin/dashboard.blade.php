@@ -9,7 +9,6 @@
     </div>
     <div class="d-flex flex-column gap-2">
     <!-- New Users Alert -->
-     
      @if ($newUser==0)
 
      @else
@@ -48,6 +47,7 @@
                 </div>
             </div>
         </div>
+       
         <div class="col-md-3">
             <div class="card text-white bg-success mb-3">
                 <div class="card-body">
@@ -117,28 +117,16 @@
 </div>
 @endsection
 @section('scripts')
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<!-- Chart HTML -->
-<div class="card shadow-sm">
-    <div class="card-body">
-        <h5>📊 Book Downloads</h5>
-        <canvas id="downloadsChart"></canvas>
-    </div>
-</div>
-
-<!-- Chart JS -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const ctx = document.getElementById('downloadsChart');
     if (ctx) {
         new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: @json($booksPerMonthData['labels'] ?? []), // Correct labels
+                labels: @json($downloadsPerBookData['labels'] ?? []),
                 datasets: [{
-                    label: 'Books Uploaded',
-                    data: @json($booksPerMonthData['data'] ?? []), // Correct data
+                    label: 'Downloads per Book',
+                    data: @json($downloadsPerBookData['data'] ?? []),
                     backgroundColor: 'rgba(54, 162, 235, 0.6)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
