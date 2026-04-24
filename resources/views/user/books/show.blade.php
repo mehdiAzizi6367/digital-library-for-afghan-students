@@ -16,7 +16,7 @@
 
                 <!-- Title (Localization) -->
                 <h2 class="fw-bold mb-3">
-                   {{ __('message.book_title') }} :  {{ $book->getTitle()}}
+                   {{ __('message.book_title') }} :  {{ $book->getTitleAttribute()}}
                 </h2>
 
                 <!-- Author -->

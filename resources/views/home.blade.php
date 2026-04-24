@@ -129,7 +129,7 @@
                     <div class="card shadow-sm h-100 d-flex flex-column" style="max-height:600px">
                         <img src="{{ asset('/storage/'.$book->thumbnail) }}" class="card-img-top" style="height:200px; object-fit:cover;">
                         <div class="card-body text-center">
-                            <h5 class="card-title">{{ Str::limit($book->getTitle(), 10, '...') }}</h5>
+                            <h5 class="card-title">{{ Str::limit($book->getTitleAttribute(), 10, '...') }}</h5>
                             <p class="text-muted">{{ $book->author }}</p>
                             <a href="{{ route('books.show',$book->id) }}" class="btn btn-primary w-100">{{ __('message.view') }}</a>
                         </div>
@@ -139,7 +139,7 @@
                 <div class="card shadow-sm h-100 d-flex flex-column">
                     <img src="{{ asset('/storage/'.$book->thumbnail) }}" class="card-img-top" style="height:200px; object-fit:cover;">
                     <div class="card-body text-center">
-                        <h5 class="card-title">{{ Str::limit($book->getTitle(),10,'.. .')}}</h5>
+                        <h5 class="card-title">{{ Str::limit($book->getTitleAttribute(),10,'.. .')}}</h5>
                         <p class="text-muted">{{ $book->author }}</p>
                         <a href="{{ route('books.show',$book->id) }}" class="btn btn-primary w-100">{{ __('message.view') }}</a>
                     </div>

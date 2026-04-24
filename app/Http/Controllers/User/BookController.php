@@ -332,7 +332,7 @@ class BookController extends Controller
         ]);
     }
     public function rejection_reason(){
-        $rejected_books=Book::all();
+        $rejected_books=Book::all()->where('uploaded_by',Auth::id());
          $categories=Category::all();
        return view('user.books.rejected-books',compact('rejected_books','categories'));
     }

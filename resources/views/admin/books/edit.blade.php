@@ -70,7 +70,7 @@
                     {{-- ========================= --}}
                 <div class="mb-3">
                     <label class="form-label">{{ __('message.edition') }}<span class="text-danger">*</span></label>
-                    <input type="text" name="edition" class="form-control" value="{{ old("edition") }}" placeholder="{{ __('message.edition_placeholder') }}">
+                    <input type="text" name="edition" class="form-control" value="{{ old("edition",$book->edition) }}" placeholder="{{ __('message.edition_placeholder') }}">
                     @error('edition') <small class="text-danger">{{ $message }}</small> @enderror
                     {{-- ========================= --}}
                     

@@ -29,6 +29,7 @@ use App\Models\Book;
 | Public Routes
 |--------------------------------------------------------------------------
 */
+
 Route::get('/', [HomeController::class,'index'])->name('home');
 Route::get('/welcome', fn() => view('welcome'));
 Route::get('/about', fn() => view('about'))->name('about');
@@ -74,7 +75,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/search-books', function(Request $request){
         $query = $request->input('query');
-        $books = Book::where('title','LIKE',"%{$query}%")
+        $books = Book::where('title_en','LIKE',"%{$query}%")
+            ->orWhere('title_ps','LIKE',"%{$query}%")
+            ->orWhere('title_fa','LIKE',"%{$query}%")
             ->orWhere('author','LIKE',"%{$query}%")
             ->limit(6)
             ->get();

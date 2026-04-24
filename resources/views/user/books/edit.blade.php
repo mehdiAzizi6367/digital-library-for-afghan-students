@@ -16,14 +16,14 @@
 
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" name="title" id="title" value="{{ old('title', $book->getTitle()) }}" class="form-control @error('title') is-invalid @enderror">
-                @error('title')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                <input type="text" name="title_en" id="title" value="{{ old('title_en', $book->getTitleAttribute()) }}" class="form-control @error('title') is-invalid @enderror">
+                @error('title_en')<small class="text-danger"> {{ $message }}</span></small>@enderror
             </div>
 
             <div class="mb-3">
                 <label for="author" class="form-label">Author</label>
                 <input type="text" name="author" id="author" value="{{ old('author', $book->author) }}" class="form-control @error('author') is-invalid @enderror">
-                @error('author')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                @error('author')<small class="text-danger"> {{ $message }}</span></small>@enderror
             </div>
 
             <div class="mb-3">
@@ -34,13 +34,13 @@
                         <option value="{{ $category->id }}" @selected(old('category_id', $book->category_id) == $category->id)>{{ $category->getname()}}</option>
                     @endforeach
                 </select>
-                @error('category_id')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                @error('category_id')<small class="text-danger"> {{ $message }}</span></small>@enderror
             </div>
 
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
                 <textarea name="description" id="description" rows="4" class="form-control @error('description') is-invalid @enderror">{{ old('description', $book->description) }}</textarea>
-                @error('description')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                @error('description')<small class="text-danger"> {{ $message }}</span></small>@enderror
             </div>
 
             <div class="mb-3">
@@ -49,7 +49,7 @@
                 @if($book->thumbnail)
                     <img src="{{ asset('storage/'.$book->thumbnail) }}" alt="Thumbnail" class="mt-2" style="height:100px; object-fit:cover;">
                 @endif
-                @error('thumbnail')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                @error('thumbnail')<small class="text-danger"> {{ $message }}</span></small>@enderror
             </div>
 
             <button type="submit" class="btn btn-primary">Update Book</button>

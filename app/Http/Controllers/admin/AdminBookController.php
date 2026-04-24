@@ -20,7 +20,6 @@ class AdminBookController extends Controller
         $books = Book::with(['category', 'user'])->latest()->paginate(10);
          $notifications=Book::where('status','pending')->count('status');
          $newUser=User::whereNotNull('name_ps')->count();
-         dd($newUser);
         return view('admin.books.index', compact('books','notifications','newUser'));
     }
     // Show create form
@@ -87,6 +86,7 @@ class AdminBookController extends Controller
     public function update(Request $request, Book $book)
     {
         $request->validate([
+            'title_en'=>'required',
             'title_ps' => 'nullable|string|max:255|required',
             'title_fa' => 'nullable|string|max:255',
             'description_ps' => 'nullable|string',

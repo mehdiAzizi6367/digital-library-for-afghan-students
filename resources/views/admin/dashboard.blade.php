@@ -103,7 +103,7 @@
                     @foreach($recentBooks as $book)
                     <tr>
                         <td>{{ $book->id }}</td>
-                        <td>{{ $book->getTitle()}}</td>
+                        <td>{{ $book->getTitleAttribute()}}</td>
                         <td>{{ $book->author }}</td>
                         <td>{{ $book->category->getname() ?? '-' }}</td>
                         <td>{{ $book->user->name ?? '-' }}</td>

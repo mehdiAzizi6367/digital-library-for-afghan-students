@@ -28,7 +28,7 @@
                     <!-- @if($book->status == 'approved') -->
                         <tr>
                             <td>{{ $book->id}}</td>
-                        <td>{{ $book->getTitle() }}</td>
+                        <td>{{ $book->getTitleAttribute() }}</td>
                         <td>{{ substr($book->category->getname(),0,15) ?? '-' }}</td>
                         <td>{{ $book->author }}</td>
                             <td>{{ $book->user->name ?? '-' }}</td>

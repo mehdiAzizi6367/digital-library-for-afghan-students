@@ -28,7 +28,7 @@
      
              @forelse($books as $book)
                  <tr>
-                     <td>{{ $book->getTitle() }}</td>
+                     <td>{{ $book->getTitleAttribute() }}</td>
                      <td>{{ $book->user->name }}</td>
                      <td>{{ $book->category->getname()}}</td>
                      <td>{{ Str::limit($book->created_at,11) }}</td>

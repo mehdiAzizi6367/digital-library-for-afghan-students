@@ -18,7 +18,7 @@
                         <th>{{ __('message.table_category') }}</th>
                         <th>{{ __('message.table_status') }}</th>
                        
-                         <th>{{ __('message.table_rejection_reason') }}</th>
+                         <th>{{ __('message.published_at') }}</th>
                         <th>{{ __('message.table_actions') }}</th>
                     </tr>
                 </thead>
@@ -26,11 +26,11 @@
                     @forelse($userBooks as $key => $book)
                         <tr>
                             <td>{{ $book->id }}</td>
-                            <td>{{ $book->getTitle() }}</td>
+                            <td>{{ $book->getTitleAttribute() }}</td>
                             <td>{{ $book->author }}</td>
                             <td>{{ $book->category->getname() ?? 'N/A' }}</td> 
                             <td>{{ $book->status??  'N/A' }}</td> 
-                            <td>{{ $book->rejection_reason}}</td>
+                            <td>{{ $book->created_at}}</td>
                             <td> 
                                 @if($book->status == 'pending' || $book->status =="rejected")
                                  <a href="{{ route('books.show', $book->id) }}" class="btn btn-info btn-sm disabled" >{{ __('message.view') }}</a>

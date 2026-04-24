@@ -41,7 +41,7 @@
             <p>Ratted:{{ $avg ?? 'No rating yet' }} {{ ($avg>1)?'times': 'time' }}</p>
             <!-- Title -->
             <h5 class="card-title" style="min-height:40px;">
-                {{ Str::limit($fav->book->getTitle(), 40) }}
+                {{ Str::limit($fav->book->getTitleAttribute(), 40) }}
             </h5>
             <!-- Author -->
             <p class="text-muted ">

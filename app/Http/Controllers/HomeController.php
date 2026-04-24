@@ -15,12 +15,8 @@ class HomeController extends Controller
     
     $categories= Category::withCount('books')->get();
     $books = Book::where('status', 'approved')->latest()->paginate(4);
-      // $categories = Category::all();
-        // $Books=Book::count();
-        // $Categories=Category::count();
-        // $Students=User::count();
-        // $Downloads=Download::count();
-      return view('home', compact('books', 'categories'));
+  
+       return view('home', compact('books', 'categories'));
   }
   
 

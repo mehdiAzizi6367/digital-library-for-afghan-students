@@ -30,6 +30,8 @@ class Book extends Model
     'uploaded_by',
     'status',
     ];
+
+    protected $appends = ['title'];
     public function user() {
        return $this->belongsTo(User::class, 'uploaded_by');
     }
@@ -39,7 +41,7 @@ class Book extends Model
     }
 
     // retrive data from data base
-    public function getTitle()
+    public function getTitleAttribute()
     {
         return $this->{'title_' . app()->getLocale()} ?? $this->title_en;
     }

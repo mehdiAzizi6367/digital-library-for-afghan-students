@@ -39,7 +39,7 @@
                                 $avg = round($book->ratings->avg('rating'), 1);
                             @endphp
                             <p>Ratted:{{ $avg ?? 'No rating yet' }} {{ ($avg>1)?'times': 'time' }}</p>
-                        <h6 class="card-title h5">{{ $book->getTitle() }}</h6>
+                        <h6 class="card-title h5">{{ $book->getTitleAttribute() }}</h6>
                         <p class="text-muted">{{ $book->author }}</p>
 
                         <a href="{{ route('books.read', $book->id) }}" 
