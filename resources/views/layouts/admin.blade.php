@@ -41,7 +41,7 @@
         /* CONTENT */
         .content {
             width: calc(100% - 250px);
-            margin-left: 250px;
+            margin-left: 230px;
             margin-top: 60px;
             min-height: calc(100vh - 60px);
             overflow-y: auto;
@@ -140,7 +140,8 @@
     }
 
     /* Content full width */
-    .content {
+     .content {
+        width: 100% !important;   /* 🔥 THIS WAS MISSING */
         margin-left: 0 !important;
         margin-right: 0 !important;
     }
