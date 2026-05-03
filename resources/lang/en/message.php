@@ -11,7 +11,7 @@ return [
     'register' => 'Register',
     'dashboard' => 'Dashboard',
     'admin_dashboard' => 'Admin dashboard',
-    'notitifacation'=>'notitifactions',
+    'notitifacation'=>'notifactions',
     'logout' => 'Logout',
     'add_record'=>'Add Book',
     'hero_title' => 'Digital Library for Afghan Students',

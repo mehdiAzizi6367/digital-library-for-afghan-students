@@ -19,7 +19,8 @@ class AdminBookController extends Controller
     {
         $books = Book::with(['category', 'user'])->latest()->paginate(10);
          $notifications=Book::where('status','pending')->count('status');
-         $newUser=User::whereNotNull('name_ps')->count();
+         $newUser=User::where('name_ps','0')->count();
+
         return view('admin.books.index', compact('books','notifications','newUser'));
     }
     // Show create form
@@ -33,7 +34,7 @@ class AdminBookController extends Controller
     {
          $categories = Category::all();
          $notifications=Book::where('status','pending')->count('status');
-    $newUser=User::where('name_ps','0')->count();
+         $newUser=User::where('name_ps','0')->count();
 
         return view('admin.books.create',compact('categories','notifications','newUser'));
     }
@@ -44,7 +45,7 @@ class AdminBookController extends Controller
         $request->validate([
             'title_en' => 'required|string|max:255',
             'author' => 'required|string|max:255',
-             'edition'=>'required|string|max:255',
+            'edition'=>'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'description_en'=>'nullable',
             'file' => 'required|mimes:pdf|max:20480', // max 20MB
@@ -69,9 +70,6 @@ class AdminBookController extends Controller
 
         // after saving book
         $admins = User::where('role', 'admin')->get();
-        foreach ($admins as $admin) {
-            $admin->notify(new NewBookUploaded($book));
-        }
         return redirect()->route('admin.books.index')->with('success', 'Book added successfully.');
     }
     public function edit(Book $book)
@@ -87,10 +85,11 @@ class AdminBookController extends Controller
     {
         $request->validate([
             'title_en'=>'required',
-            'title_ps' => 'nullable|string|max:255|required',
+            'title_ps' => 'nullable|string|max:255',
             'title_fa' => 'nullable|string|max:255',
             'description_ps' => 'nullable|string',
             'description_fa' => 'nullable|string',
+           
         ]);
         $thumbnailPath = $request->file('thumbnail') ? $request->file('thumbnail')->store('thumbnails','public') : null;
 
@@ -134,9 +133,6 @@ class AdminBookController extends Controller
         $book->status = 'approved';
         $book->rejection_reason = null;
         $book->save();
-
-        // 🔔 notify user
-        $book->user->notify(new BookApproved($book));
         return back()->with('success', 'Book approved!');
     }
 
@@ -154,6 +150,6 @@ class AdminBookController extends Controller
         $book=Book::findOrFail($id);
         return view('admin.books.trasnlate',compact('book'));
     }
-
+ 
 
 }

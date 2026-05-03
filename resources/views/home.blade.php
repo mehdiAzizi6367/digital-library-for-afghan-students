@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ __('message.site_title') }}</title>
-
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -27,7 +26,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
     <div class="container">
         <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
-            <img src="{{ asset('storage/logo.png') }}" width="45" height="45" class="me-2">
+            <img src="{{ asset('uploads/'.$setting->logo)}}" width="45" height="45" class="me-2">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -45,7 +44,6 @@
                 <li class="nav-item"><a class="nav-link text-white" href="/about">    <i class="fas fa-info-circle me-2"></i>{{ __('message.about') }}</a></li>
                 <li class="nav-item"><a class="nav-link text-white" href="/contact"><i class="fas fa-phone ms-2"></i> {{ __('message.contact') }}</a></li>
             </ul>
-
             <!-- Right Side -->
             <div class="d-flex align-items-center">
                 @guest
@@ -70,9 +68,9 @@
 <!-- Hero Section -->
 <section class="hero-section text-white text-center d-flex align-items-center py-5">
     <div class="container">
-        <h2 class="display-5 fw-bold mb-3">{{ __('message.hero_title') }}</h2>
-        <p class="lead mb-4">{{ __('message.hero_subtitle') }}</p>
-        <small class="d-block mb-4">{{ __('message.hero_description') }}</small>
+        <h2 class="display-5 fw-bold mb-3">{{$setting->hero_title}}</h2>
+        <p class="lead mb-4">{{ $setting->hero_description }}</p>
+  
         @auth
             <a href="{{ route('allbooks') }}" class="btn btn-warning btn-lg">{{ __('message.browse_books') }}</a>
         @endauth

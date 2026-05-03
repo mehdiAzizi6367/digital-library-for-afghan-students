@@ -41,17 +41,15 @@ class UserController extends Controller
         $user = Auth::user();
         Auth::logout();
         $user->delete();
-
         return redirect('/')->with('success', 'Your account has been deleted.');
     }
     public function toggleStatus($id)
     {
-
-       
         $user = User::findOrFail($id);
         $user->is_active = !$user->is_active;
         $user->save();
-        return back()->with('success', 'User status updated successfully');
+
+        return back()->with('success', 'User status updated');
     }
 }
 

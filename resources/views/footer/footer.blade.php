@@ -59,9 +59,8 @@
 
             <!-- About -->
             <div class="col-md-4 social_media">
-                <h4 class="mb-3 h2">{{ __('message.hero_title') }}</h4>
-                <p style="line-height: 2rem;">{{ __('message.hero_description') }}</p>
-
+                <h4 class="mb-3 h2">{{ $setting->hero_title?? " " }}</h4>
+                <p style="line-height: 2rem;">{{$setting->hero_description ?? "" }}</p>
                 <div class="d-flex gap-3">
                     <a href="#" class="text-white"><i class="fab fa-facebook"></i></a>
                     <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
@@ -103,3 +102,4 @@
         </div>
     </div>
 </footer>
+

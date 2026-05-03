@@ -39,6 +39,10 @@ class User extends Authenticatable
     {
         return $this->{'name_' . app()->getLocale()} ?? $this->name;
     }
+    public function isActive()
+    {
+        return $this->is_active;
+    }
 
     /**
      * Get the attributes that should be cast.

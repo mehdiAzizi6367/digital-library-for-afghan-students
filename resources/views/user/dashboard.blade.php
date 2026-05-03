@@ -30,7 +30,7 @@
                     <div class="col-md-12">               
                         <div class="">
                             <span><i class="fas fa-book me-2"></i> </span> 
-                            <span style="cursor: pointer" class="py-1  ">
+                            <span style="cursor: pointer" class="py-1  text-danger fw-bold" >
                                 @php
                                 $reject_="Your $book_reasons book was rejected! due to this ";
                                 $rejects= "Your $book_reasons books were rejected";

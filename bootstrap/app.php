@@ -16,8 +16,9 @@ return Application::configure(basePath: dirname(__DIR__))
         // ✅ Your existing alias
         $middleware->alias([
             'role' => \App\Http\Middleware\RoleMiddleware::class,
+            'active' => \App\Http\Middleware\CheckUserActive::class,
+            
         ]);
-
         // ✅ ADD THIS (your localization middleware)
         $middleware->web(append: [
             SetLocale::class,

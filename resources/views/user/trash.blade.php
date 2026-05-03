@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="container py-5">
-    <h2 class="fw-bold mb-4">📚 {{ __('dashboard.my_books') }}</h2>
-      
-    <a href="{{ route('book.trash') }}" class="btn btn-danger mb-3">trashed</a>
-    <a href="{{ route('user.books.create') }}" class="btn btn-success mb-3">+{{ __('message.add_record') }}</a>
+    <h2 class="fw-bold mb-4">📚Recycle books or book that you trashed</h2>
+    <h2 class="fw-bold mb-4 text-danger"> Notice: if you click delete you will unable to recover the book!</h2>
+
+    <a href="{{ route('user.books.index') }}" class="btn btn-success mb-3">Back</a>
 
     <div class="card p-4 shadow-sm">
         <div class="table-responsive">
@@ -23,8 +23,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($userBooks as $key => $book)
+                    @forelse($books as $key => $book)
                         <tr>
+                         
                             <td>{{ $book->id }}</td>
                             <td>{{ $book->getTitleAttribute() }}</td>
                             <td>{{ $book->author }}</td>
@@ -32,30 +33,23 @@
                             <td>{{ $book->status??  'N/A' }}</td> 
                             <td>{{ $book->created_at}}</td>
                             <td> 
-                                @if($book->status == 'pending' || $book->status =="rejected")
-                                 <a href="{{ route('books.show', $book->id) }}" class="btn btn-info btn-sm disabled" >{{ __('message.view') }}</a>
-                                @else
-                                 <a href="{{ route('books.show', $book->id) }}" class="btn btn-info btn-sm " >{{ __('message.view') }}</a>
-                                @endif
-                                   @if($book->status == 'rejected')
-                                   <a href="{{ route('user.books.edit', $book->id) }}" class="btn btn-primary btn-sm">{{ __('message.change') }}</a>
-
-                                   @else
-                                   <a href="{{ route('user.books.edit', $book->id) }}" class="btn btn-primary btn-sm">{{ __('message.edit') }}</a>
-                                   @endif
-                                <form action="{{ route('user.books.destroy', $book->id) }}" 
+                              
+                                   <a href="{{ route('book.restore',$book->id) }}" class="btn btn-success btn-sm">Restore</a>
+                                <form action="{{ route('book.delete', $book->id) }}" 
                                         method="POST" 
                                         class="d-inline-block" 
                                         onsubmit="return confirm('{{ __('message.confirm_delete') }}')">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-danger btn-sm">{{ __('message.delete') }}</button>
-                                    </form>
-                                                                </td>
+                                </form>
+                            
+                            </td>
+
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center">{{ __('message.no_books');}}</td>
+                            <td colspan="6" class="text-center">No book Trashed yet!</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -64,11 +58,10 @@
             
         </div>
     </div>
-    {{-- This will render the pagination links (works out-of-the-box with Bootstrap 5 if you are using it). --}}
     <!-- Pagination links -->
 <div class="d-flex justify-content-center my-5">
-    {{ $userBooks->links() }}
+    {{ $books->links() }}
 </div>
 </div>
-@include('footer.footer')
+
 @endsection

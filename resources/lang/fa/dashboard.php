@@ -26,6 +26,8 @@ return [
     'Hide'=>'مخفی کردن',
     'download_books'=>'كتاهاي داونلود شده',
     'favorite_books'=>'كتاهاي برګزیده شده',
+    'setting'=>'تنظیمات'
+
 
     
 

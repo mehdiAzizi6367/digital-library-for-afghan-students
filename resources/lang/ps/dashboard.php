@@ -25,5 +25,7 @@ return [
     'Hide'=>'پټول',
      'download_books'=>' ډاونلوډ شوي كتابونه ',
     'favorite_books'=>'خوښ شوي کتابونه',
+    'setting'=>'تنظیمات'
+
 
 ];

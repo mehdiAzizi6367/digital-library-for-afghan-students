@@ -195,7 +195,7 @@
                 <i class="bi bi-people me-1"></i> {{ __('dashboard.manage_users') }}
             </a>
 
-            <div class="collapse {{ request()->routeIs('admin.users.*') ? 'show' : '' }}" id="usersMenu">
+            <div class="collapse {{ request()->routeIs('admin.users.*') ? 'active' : '' }}" id="usersMenu">
                 <ul class="nav flex-column ms-3">
                     <li>
                         <a href="{{ route('admin.users.index') }}"
@@ -234,6 +234,12 @@
                class="nav-link {{ request()->routeIs('admin.reports.*') ? 'active' : '' }}">
                 <i class="bi bi-bar-chart-line me-2"></i>
                 {{ __('dashboard.report') }}
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.settings.edit') }}" class="nav-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
+                <i class="fas fa-gear me-2"></i>
+                {{ __('dashboard.setting') }}
             </a>
         </li>
 

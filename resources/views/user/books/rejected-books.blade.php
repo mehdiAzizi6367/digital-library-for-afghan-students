@@ -35,7 +35,7 @@
                                 <td>{{ $book->author }}</td>
                                 <td>{{ $book->category->getname() ?? 'N/A' }}</td> 
                                 <td>{{ $book->status??  'N/A' }}</td> 
-                                <td>{{ $book->rejection_reason}}</td>
+                                <td class="text-danger fw-bold">{{ $book->rejection_reason}}</td>
                                 <td class="d-flex align-items-center"> 
                                     @if($book->status =="rejected")
                                     @else

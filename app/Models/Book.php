@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 
 class Book extends Model
 {
+    use HasFactory,SoftDeletes;
+    
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -65,6 +69,11 @@ class Book extends Model
             }
 
         });
+    }
+    // App\Models\Book.php
+    public function favorites()
+    {
+        return $this->hasMany(\App\Models\Favorite::class);
     }
 
 }

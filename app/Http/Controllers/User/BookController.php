@@ -46,8 +46,6 @@ class BookController extends Controller
         'title_en' => 'required|string|max:255',
         'description_en' => 'nullable|string',
         'author' => 'required|string|max:255',
-        'edition' => 'required|string|max:255',
-        // 'category_id' => 'required|exists:categories,id',
         'category_id' => 'required',
         'custom_category' => 'required_if:category_id,other|max:255',
         'file' => 'required|mimes:pdf,epub|max:10240', // 10MB
@@ -77,10 +75,6 @@ class BookController extends Controller
     $filePath = $request->file('file')->storeAs('books', $filename);
     $thumbnailPath = $request->file('thumbnail') ? $request->file('thumbnail')->store('thumbnails','public') : null;
 
-    // 3️⃣ Create book record
-    // 4️⃣ Redirect with success message 
-    
-    
      $books=Book::all();
         $exists = Book::where('title_en', $request->title_en)
         ->where('author', $request->author)
@@ -260,8 +254,8 @@ class BookController extends Controller
                     ->where(function ($q) use ($query) {
                         $q->where('title_en', 'LIKE', "%{$query}%")
                         ->orWhere('author', 'LIKE', "%{$query}%");
-                    })
-                    ->paginate(12);
+                       
+                    })->paginate(12);
         return view('search-results', compact('books', 'query'));
     }
     
@@ -335,6 +329,22 @@ class BookController extends Controller
         $rejected_books=Book::all()->where('uploaded_by',Auth::id());
          $categories=Category::all();
        return view('user.books.rejected-books',compact('rejected_books','categories'));
+    }
+    public function trash(){
+        $books=Book::onlyTrashed()->paginate(5);
+        return view('user.trash',compact('books'));
+    }
+    public function delete($id){
+        $post=Book::withTrashed()->where('id',$id)->first();
+        $post->forceDelete();
+        return redirect()->back();
+
+    }
+    public function restore($id){
+        $post=Book::withTrashed()->where('id',$id)->first();
+        $post->restore();
+        return redirect()->back();
+
     }
 
 }
