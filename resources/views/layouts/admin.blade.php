@@ -222,6 +222,7 @@
         </li>
 
         <li>
+        
             <a href="{{ route('admin.categories.index') }}"
                class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
                 <i class="bi bi-tags me-2"></i>
@@ -240,6 +241,12 @@
             <a href="{{ route('admin.settings.edit') }}" class="nav-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
                 <i class="fas fa-gear me-2"></i>
                 {{ __('dashboard.setting') }}
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin.contact.message') }}" class="nav-link {{ request()->routeIs('admin.message.*') ? 'active' : '' }}">
+                <i class="fas fa-message me-2"></i>
+                {{ __('dashboard.message') }}
             </a>
         </li>
 

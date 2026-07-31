@@ -16,9 +16,10 @@ class HomeController extends Controller
     
     $categories= Category::withCount('books')->get();
     $setting = Setting::first();
+    $users=User::all();
     $books = Book::where('status', 'approved')->latest()->paginate(4);
 
-       return view('home', compact('books', 'categories','setting'));
+       return view('home', compact('books', 'categories','setting','users'));
   }
   
 

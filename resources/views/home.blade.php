@@ -33,16 +33,24 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <!-- Center Menu -->
+         
+              @foreach ($users as $user )
+                    @php
+                        global $user;
+                    @endphp
+              
+              @endforeach
             <ul class="navbar-nav mx-auto fw-bold">
                 <li class="nav-item"><a class="nav-link text-white" href="/"><i class="fas fa-home"></i> {{ __('message.home') }}</a></li>
+                      
                 @auth
-                    @if(auth()->user()->role == 'admin' || auth()->user()->role == 'user')
+                    @if(auth()->user()->role == 'admin' || auth()->user()->role == 'user' && $user->is_active)
                         <li class="nav-item"><a class="nav-link text-white" href="{{ url('allbooks') }}"> <i class="bi bi-book me-1"></i> {{ __('message.books') }}</a></li>
                         <li class="nav-item"><a class="nav-link text-white" href="#cateSection"> <i class="fas fa-tags me-1"></i>{{ __('message.categories') }}</a></li>
                     @endif
                 @endauth
-                <li class="nav-item"><a class="nav-link text-white" href="/about">    <i class="fas fa-info-circle me-2"></i>{{ __('message.about') }}</a></li>
-                <li class="nav-item"><a class="nav-link text-white" href="/contact"><i class="fas fa-phone ms-2"></i> {{ __('message.contact') }}</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="#aboutSection" >    <i class="fas fa-info-circle me-2"></i>{{ __('message.about') }}</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="#contact"><i class="fas fa-phone ms-2"></i> {{ __('message.contact') }}</a></li>
             </ul>
             <!-- Right Side -->
             <div class="d-flex align-items-center">
@@ -145,6 +153,111 @@
                 @endif
             </div>
             @endforeach
+        </div>
+    </div>
+</section>
+
+<!-- about section  -->
+    <section id="aboutSection">
+        <div class="container py-5">
+
+        <h2 class="text-center fw-bold mb-4">About Afghan Digital Library</h2>
+
+        <p class="lead text-center mb-5">
+        Afghan Digital Library is an online platform designed to provide
+        free access to educational books and learning materials for students
+        across Afghanistan.
+        A Digital Library is an online platform that provides access to books, research materials, and educational resources through the internet. Instead of visiting a physical library, students can search, read, and download books anytime and from anywhere.
+
+        The Afghan Digital Library is designed to help students easily find academic books and learning materials. It collects books from different subjects such as computer science, literature, science, history, and many others.
+
+        This platform aims to support students who may not have easy access to physical libraries. By using a digital system, students can quickly search for books, explore categories, and read materials online.
+
+        The goal of this digital library is to promote education, improve access to knowledge, and support the learning journey of Afghan students.
+        </p>
+
+        <div class="row">
+
+        <div class="col-md-6">
+            <h4 class="fw-bold">Our Mission & vision</h4>
+            <p>
+            Our mission is to provide Afghan students with easy and free access to educational books and learning resources through a digital platform. We aim to support students in their academic journey by making knowledge available anytime and anywhere. This digital library helps students discover, read, and download useful books from different subjects in a simple and organized way.<br>
+            Our mission is to provide Afghan students with easy and free access to educational books and learning resources through a digital platform. We aim to support students in their academic journey by making knowledge available anytime and anywhere. This digital library helps students discover, read, and download useful books from different subjects in a simple and organized way.
+            </p>
+        </div>
+
+        <div class="col-md-6">
+            <h4 class="fw-bold">Why This Library?</h4>
+            <p>
+                Many students in Afghanistan face difficulty accessing
+                educational resources. This digital library helps students
+                find books quickly and learn from anywhere.
+            </p>
+        </div>
+
+        </div>
+
+        </div>
+    </section>
+<section id="contact">
+    <div class="container py-5">
+        <h2 class="text-center fw-bold mb-4">{{ __('message.contact') }}</h2>
+        <p class="text-center text-muted mb-5">
+        {{ __('message.message') }}
+        </p>
+        <div class="row g-4">
+        <!-- Contact Form -->
+        <div class="col-md-7">
+            <div class="card shadow-sm p-4">
+            <h4 class="fw-bold mb-3">{{ __('message.send_message') }}</h4>
+            <form action="{{ route('contact') }}" method="POST">
+                @csrf
+                <div class="mb-3">
+                    <label class="form-label">{{ __('message.name') }}<sup class="text-danger fw-bold">*</sup> </label>
+                    <input type="text" class="form-control" name="name" placeholder="{{ __('message.name') }}" value="{{ old('name') }}">
+                    @error('name') <small  class="text-danger">{{ $message }}</small>@enderror
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">{{ __('message.email') }} <sup class="text-danger fw-bold">*</sup></label>
+                    <input type="email" class="form-control" name="email" placeholder="{{ __('message.email') }}" value="{{ old('email') }}">
+                    @error('email') <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">{{ __('message.book_title') }}<sup class="text-danger fw-bold">*</sup></label>
+                    <input type="text" class="form-control" name="subject" placeholder="{{ __('message.book_title') }}"  value="{{ old('subject') }}">
+                    @error('subject')<small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">{{ __('message.send_message') }}<sup class="text-danger fw-bold">*</sup></label>
+                    <textarea class="form-control" rows="5" name="message" placeholder="{{ __('message.send_message') }}" value="{{ old('message') }}"></textarea>
+                    @error('message') <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <button class="btn btn-primary w-100">
+                {{ __('message.send_message') }}
+                </button>
+            </form>
+            </div>
+        </div>
+        <!-- Contact Information -->
+        <div class="col-md-5">
+        <div class="card shadow-sm p-4">
+        <h4 class="fw-bold mb-3">{{ __('message.contact') }}</h4>
+        <p><strong >{{ __('message.email') }}:</strong> <a href="mailto:">samiaziziazizi6367@gmail.com</a></p>
+        <p><strong>{{ __('message.mobile') }}:</strong> +93 770216367</p>
+        <p><strong>{{ __('message.mobile') }}:</strong> +93 731777395</p>
+        <p><strong>{{ __('message.email') }}:</strong><a href="mailto:"> maaznaizi2001@gmail.com</a></p>
+        <p><strong>{{ __('message.mobile') }}:</strong> +93 784763743</p>
+        <p><strong>{{ __('message.address') }}:</strong> Jalalabad, Nangarhar, Afghanistan</p>
+        <hr>
+        <p class="text-muted">
+        Our team will respond to your message as soon as possible.
+        </p>
+        </div>
+        </div>
         </div>
     </div>
 </section>

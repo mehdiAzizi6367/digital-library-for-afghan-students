@@ -1,6 +1,5 @@
 @extends('layouts.admin')
 @section('title','Books')
-
 @section('content')
 <div class="container-fluid"> 
     <div class="d-flex justify-content-between mb-3">

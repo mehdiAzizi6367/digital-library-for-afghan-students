@@ -60,7 +60,10 @@
             <!-- About -->
             <div class="col-md-4 social_media">
                 <h4 class="mb-3 h2">{{ $setting->hero_title?? " " }}</h4>
-                <p style="line-height: 2rem;">{{$setting->hero_description ?? "" }}</p>
+                <p id="moreText" style="line-height: 2rem;">{{$setting->hero_description ?? "" }}</p>
+                    <button id="toggleBtn" class="btn-read p-2">
+                        Learn More
+                    </button>
                 <div class="d-flex gap-3">
                     <a href="#" class="text-white"><i class="fab fa-facebook"></i></a>
                     <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
@@ -73,14 +76,18 @@
             <div class="col-md-4 categories">
                 <h4 class="mb-3 h2 text-center">{{ __('message.categories') }}</h4>
                 <ul class="list-unstyled">
-                    @foreach ($categories as $category)
-                        <li class="mb-2">
+                    @foreach ($categories as $index => $category)
+                        <li class="category-item mb-1 {{ $index >= 4 ? 'd-none extra-category' : '' }}">
                             <a href="{{ route('categories.show', $category->id) }}" class="text-white text-decoration-none " style="line-height:1px;">
                                 {{ $category->getname() ?? 0}}
                             </a>
                         </li>
+                        
                     @endforeach
                 </ul>
+                @if(count($categories)>4)
+                <button id="toggleCategories" class="btn btn-primary btn-sm">More</button>
+                @endif
             </div>
 
             <!-- Quick Links -->
@@ -102,4 +109,29 @@
         </div>
     </div>
 </footer>
+  <script>
+    const btn = document.getElementById('toggleBtn');
+    const moreText = document.getElementById('moreText');
+
+    btn.addEventListener('click', function () {
+      if (moreText.style.display === 'none') {
+        moreText.style.display = 'block';
+        btn.innerText = 'Show Less';
+      } else {
+        moreText.style.display = 'none';
+        btn.innerText = 'Learn More';
+      }
+    });
+
+ 
+    document.getElementById('toggleCategories')?.addEventListener('click', function () {
+      let hiddenItems = document.querySelectorAll('.extra-category');
+      hiddenItems.forEach(item => {
+        item.classList.toggle('d-none');
+      });
+
+      // Change button text
+      this.textContent = this.textContent === 'More' ? 'Less' : 'More';
+    });
+  </script>
 

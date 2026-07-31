@@ -25,7 +25,8 @@ return [
     'Hide'=>'hide',
     'download_books'=>'Downloaded books',
     'favorite_books'=>'Favorite books',
-    'setting'=>'setting'
+    'setting'=>'Setting',
+    'message'=>"Mesaage"
     
 
 ];
