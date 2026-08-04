@@ -14,10 +14,10 @@ class HomeController extends Controller
   public function index()
   {
     
-    $categories= Category::withCount('books')->get();
+    $categories= Category::paginate(8);
     $setting = Setting::first();
     $users=User::all();
-    $books = Book::where('status', 'approved')->latest()->paginate(4);
+    $books = Book::where('status','approved')->latest()->paginate(8);
 
        return view('home', compact('books', 'categories','setting','users'));
   }

@@ -76,15 +76,6 @@
                                value="{{ old('author', $book->author) }}">
                     </div>
 
-                    {{-- ISBN --}}
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">
-                            <i class="bi bi-upc-scan"></i> {{ __('message.isbn') }}
-                        </label>
-                        <input type="text" name="isbn" class="form-control"
-                               value="{{ old('isbn', $book->isbn) }}">
-                    </div>
-
                     {{-- Edition --}}
                     <div class="col-md-6 mb-3">
                         <label class="form-label">

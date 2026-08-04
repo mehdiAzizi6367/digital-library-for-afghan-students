@@ -1,5 +1,6 @@
 <?php
 return [
+    'dashboard'=>'Dashboard',
     'title' => 'Dashboard',
     'add_record'=> 'Add book',
     'total_books'=>'Total books',
@@ -26,7 +27,30 @@ return [
     'download_books'=>'Downloaded books',
     'favorite_books'=>'Favorite books',
     'setting'=>'Setting',
-    'message'=>"Mesaage"
-    
+    'message'=>"Mesaage",
+    'my_books_hint' => 'Manage and read all your uploaded books',
+    // ── Layout / Sidebar ───────────────────────────
+    'user_panel'         => 'User Panel',
+    'online'             => 'Online',
+    'main'               => 'Main',
+    'account'            => 'Account',
+    'books'              => 'Books',
+    'add_book'           => 'Add New Book',
+    'profile'            => 'My Profile',
+    'settings'           => 'Settings',
+    'share_site'         => 'Share Site',
+    'share_hint'         => 'Invite your friends to join',
+    'share_text'         => 'Check out this amazing library platform!',
+    'link_copied'        => '✅ Link copied to clipboard!',
+    'search_placeholder' => 'Search anything...',
+
+    // ── Dashboard Page ─────────────────────────────
+    'welcome_hint'       => 'Here is what is happening with your books today',
+    'this_month'         => 'This month',
+    'active'             => 'Active',
+    'saved'              => 'Saved',
+    'uploaded_books'     => 'Uploaded Books',
+    'chart_hint'         => 'Monthly upload activity overview',
+        
 
 ];

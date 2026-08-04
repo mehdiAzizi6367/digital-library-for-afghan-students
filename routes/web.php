@@ -9,11 +9,9 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\User\BookController;
 use App\Http\Controllers\User\UserDashboardController;
-
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\adminController;
-
 use App\Http\Controllers\Admin\AdminBookController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminCategoryController;
@@ -23,6 +21,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Book;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -203,7 +202,7 @@ Route::post('/books/{book}/rate', [BookController::class, 'rate'])
     ->name('books.rate');
 
 Route::get('/lang/{locale}', function ($locale) {
-    if (in_array($locale, ['en', 'ps', 'fa'])) {
+    if (in_array($locale, ['en', 'ps'])) {
         session(['locale' => $locale]);
     }
     return redirect()->back();
@@ -219,3 +218,10 @@ Route::delete('/delete/{id}',[BookController::class,'delete'])->name('book.delet
 Route::get('/rejected-books',[BookController::class,'rejection_reason'])->name('Rj_reason');
 
 require __DIR__.'/auth.php';
+// for practice.
+route::get('/user-data',function(){
+    // return   Auth::user()->name_ps;
+    return auth()->user();
+
+
+});

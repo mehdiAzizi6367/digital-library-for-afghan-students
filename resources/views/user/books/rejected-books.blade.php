@@ -1,76 +1,167 @@
-{{-- resources/views/user/books/index.blade.php --}}
-@extends('layouts.app')
+@extends('layouts.user')
+
+@section('title', __('dashboard.my_books'))
 
 @section('content')
-<div class="container py-5">
-    <h2 class="fw-bold mb-4">📚 {{ __('dashboard.my_books') }}</h2>
+<div class="books-page">
 
-    <a href="{{ route('user.books.create') }}" class="btn btn-success mb-3">+{{ __('message.add_record') }}</a>
+<div class="container">
 
-    <div class="card p-4 shadow-sm">
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered text-center">
-                <thead class="table-dark">
-                    <tr>
-                        <th>{{ __('message.table_hash') }}</th>
-                        <th>{{ __('message.table_title') }}</th>
-                        <th>{{ __('message.table_author') }}</th>
-                        <th>{{ __('message.table_category') }}</th>
-                        <th>{{ __('message.table_status') }}</th>
-                       
-                         <th>{{ __('message.table_rejection_reason') }}</th>
-                        <th>{{ __('message.table_actions') }}</th>
-                    </tr>
-                </thead>
-                
-                <tbody>
-                  
-                        @forelse($rejected_books as $book)
-                          @if($book->status == 'rejected')
-                
-                            <tr>
 
-                                <td>{{ $book->id }}</td>
-                                <td>{{ $book->getTitleAttribute() }}</td>
-                                <td>{{ $book->author }}</td>
-                                <td>{{ $book->category->getname() ?? 'N/A' }}</td> 
-                                <td>{{ $book->status??  'N/A' }}</td> 
-                                <td class="text-danger fw-bold">{{ $book->rejection_reason}}</td>
-                                <td class="d-flex align-items-center"> 
-                                    @if($book->status =="rejected")
-                                    @else
-                                     <a href="{{ route('books.show', $book->id) }}" class="btn btn-info btn-sm " >{{ __('message.view') }}</a>
-                                    @endif
-                                       @if($book->status == 'rejected')
-                                       <a href="{{ route('user.books.edit', $book->id) }}" class="btn btn-primary btn-sm">{{ __('message.change') }}</a>
-    
-                                       @else
-                                       <a href="{{ route('user.books.edit', $book->id) }}" class="btn btn-primary btn-sm">{{ __('message.edit') }}</a>
-                                       @endif
-                                    <form action="{{ route('user.books.destroy', $book->id) }}" 
-                                            method="POST" 
-                                            class="d-inline-block" 
-                                            onsubmit="return confirm('{{ __('message.confirm_delete') }}')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger btn-sm">{{ __('message.delete') }}</button>
-                                        </form>
-                                     </td>
-                            </tr>
-                            @endif
-                        @empty
-                            <tr>
-                                <td colspan="6" class="text-center">{{ __('message.no_books');}}</td>
-                            </tr>
-                        @endforelse
-    
-                </tbody>
-            </table>
-        </div>
-    </div>
-    {{-- This will render the pagination links (works out-of-the-box with Bootstrap 5 if you are using it). --}}
-    <!-- Pagination links -->
+{{-- ================= HEADER ================= --}}
+
+
+<div class="books-header">
+
+
+<div class="books-header-content">
+
+
+<div class="row align-items-center">
+
+
+<div class="col-md-8">
+
+
+<div class="books-icon">
+
+<i class="fas fa-book"></i>
 
 </div>
-@include('footer.footer')
-@endsection
+
+
+<h1 class="books-title">
+
+{{ __('dashboard.my_books') }}
+
+</h1>
+
+
+<p class="books-subtitle">
+
+{{ __('message.rejected_books_hint') }}
+
+</p>
+
+
+</div>
+
+
+
+<div class="col-md-4 text-md-end">
+
+
+<a href="{{ route('user.books.create') }}"
+class="add-book-btn">
+
+
+<i class="fas fa-plus-circle"></i>
+
+{{ __('message.add_record') }}
+
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+{{-- ================= INFO ================= --}}
+
+
+@php
+
+$rejectedCount = $rejected_books
+->where('status','rejected')
+->count();
+
+@endphp
+
+
+
+@if($rejectedCount > 0)
+
+
+<div class="warning-card">
+
+
+<div class="warning-icon">
+
+<i class="fas fa-exclamation-triangle"></i>
+
+</div>
+
+
+<div>
+
+
+<h6 class="fw-bold mb-1">
+
+{{ __('message.attention_needed') }}
+
+</h6>
+
+
+<p class="mb-0 text-muted">
+
+{{ __('message.rejected_count_hint',
+['count'=>$rejectedCount]) }}
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+@endif
+
+
+
+
+
+{{-- ================= TABLE CARD ================= --}}
+
+
+<div class="books-card">
+
+
+<div class="card-header-custom">
+
+
+<div class="card-title-custom">
+
+<i class="fas fa-times-circle text-danger me-2"></i>
+
+{{ __('message.rejected_books') }}
+
+</div>
+
+
+<div class="count-pill">
+
+
+<i class="fas fa-list"></i>
+
+{{ $rejectedCount }}
+
+{{ __('message.total') }}
+
+
+</div>
+
+
+</div>

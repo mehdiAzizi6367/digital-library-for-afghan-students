@@ -15,7 +15,6 @@ class AdminUserController extends Controller
     {
         $users = User::latest()->paginate(10);
        $newUser=User::where('name_ps','0')->count();
-        
         $notifications=Book::where('status','pending')->count('status');
         return view('admin.users.index', compact('notifications','users','newUser'));
     }

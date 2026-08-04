@@ -32,7 +32,11 @@ class AuthenticatedSessionController extends Controller
             return redirect('/admin/dashboard');
         }
 
-        return redirect('/');
+        if(Auth::user()->is_active ==0){
+            return redirect('/');
+        }else{
+            return redirect()->route('login');
+        }
     }
     
 

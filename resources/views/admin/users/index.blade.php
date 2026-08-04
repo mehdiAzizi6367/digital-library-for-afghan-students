@@ -39,7 +39,7 @@
                      <form action="{{ route('admin.users.toggle', $user->id) }}" method="POST" style="display:inline-block;">
                         @csrf
                         <button class="btn btn-sm {{ $user->is_active ? 'btn-danger' : 'btn-success' }}">
-                            {{ $user->is_active ? 'Disable' : 'Activate' }}
+                            {{ $user->is_active ?'disabled':'Activate' }}
                         </button>
                     </form>
                     

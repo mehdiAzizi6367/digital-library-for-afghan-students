@@ -12,12 +12,17 @@ use App\Models\User;
 use App\Notifications\NewBookUploaded;
 use App\Notifications\BookApproved;
 use App\Notifications\BookRejected;
+use Illuminate\Support\Facades\Cache;
+
 class AdminBookController extends Controller
 {
     // Show all books
     public function index()
     {
-        $books = Book::with(['category', 'user'])->latest()->paginate(10);
+        // added cache 
+        $books=Cache::remember('books-page-'.request('page',1),10,function(){
+            return Book::with(['category', 'user'])->latest()->paginate(10);
+        });
          $notifications=Book::where('status','pending')->count('status');
          $newUser=User::where('name_ps','0')->count();
 
@@ -26,13 +31,17 @@ class AdminBookController extends Controller
     // Show create form
     public function show()
     {
-        $books=Book::all();
+        $books=cache::remember('books-page-'.request('page',1),60*60,function(){
+            return  Book::all();
+        });
         $notifications=Book::where('status','pending')->count('status');
         return view('admin.books.pending',compact('books','notifications'));
     }
     public function create()
     {
-         $categories = Category::all();
+         $categories =Cache::remember('categories'.request('page',1),60*60,function(){
+                return  Category::all();
+         });
          $notifications=Book::where('status','pending')->count('status');
          $newUser=User::where('name_ps','0')->count();
 
@@ -74,7 +83,7 @@ class AdminBookController extends Controller
     }
     public function edit(Book $book)
     {
-         $categories = Category::all();
+           $categories = Category::all();
     $newUser=User::where('name_ps','0')->count();
 
          $notifications=Book::where('status','pending')->count('status');
@@ -100,7 +109,6 @@ class AdminBookController extends Controller
             'description_fa' => $request->description_fa,
             'title_en'=>$request->title_en,
             'author'=>$request->author,
-            'isbn'=>$request->isbn,
             'thumbnail' => $thumbnailPath,
             'category_id'=>$request->category_id,
             'description_en'=>$request->description_en,
