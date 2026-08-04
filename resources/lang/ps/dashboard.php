@@ -61,6 +61,217 @@ return [
 'uploaded_books'     => 'اپلوډ شوي کتابونه',
 'chart_hint'         => 'د میاشتني اپلوډ فعالیت کتنه',
 
+    // ... your existing keys ...
+
+    'admin_panel'      => 'د مدیر پینل',
+    'management'       => 'مدیریت',
+    'main_menu'        => 'اصلي مینو',
+    'content'          => 'منځپانګه',
+    'system'           => 'سیسټم',
+    'toggle_sidebar'   => 'سایډبار بدلول',
+    'new_users'        => 'نوي کارونکي',
+    'administrator'    => 'مدیر',
+  
+    // ... your existing keys ...
+    
+    'welcome_back'          => 'بیرته ښه راغلاست',
+    'welcome_message'       => 'دلته ستاسو د کتابتون نن ورځ حالت دی.',
+    'new_user_registered'   => 'نوی کارونکی ثبت شوی!',
+    'new_users_registered'  => 'نوي کارونکي ثبت شوي!',
+    'book_pending'          => 'کتاب د تصویب په انتظار دی!',
+    'books_pending'         => 'کتابونه د تصویب په انتظار دي!',
+    'in_library'            => 'په کتابتون کې',
+    'registered'            => 'ثبت شوي',
+    'total_downloads'       => 'ټول ډاونلوډونه',
+    'saved_by_users'        => 'د کارونکو لخوا خوندي شوي',
+    'download_analytics'    => 'د ډاونلوډ تحلیل',
+    'downloads_per_book'    => 'د هر کتاب ډاونلوډونه',
+    'system_overview'       => 'د سیسټم کتنه',
+    'awaiting_approval'     => 'د تصویب په انتظار',
+    'recently_joined'       => 'پدې وروستیو کې یوځای شوي',
+    'book_categories'       => 'د کتاب کتګورۍ',
+    'library_status'        => 'د کتابتون حالت',
+    'system_health'         => 'د سیسټم روغتیا',
+    'recently_added_books'  => 'پدې وروستیو کې اضافه شوي کتابونه',
+    'view_all'              => 'ټول وګورئ',
+    'approved'              => 'تصویب شوی',
+    'pending'               => 'په انتظار',
+    'rejected'              => 'رد شوی',
+    'no_recent_books'       => 'هیڅ وروستي کتابونه ونه موندل شول',
+    'quick_actions'         => 'چټکې کړنې',
+
+    // ... your existing keys ...
+
+    'add_book_subtitle'      => 'د کتابتون ته د نوي کتاب اضافه کولو لپاره لاندې توضیحات ډک کړئ',
+    'book_details'           => 'د کتاب توضیحات',
+    'upload_files'           => 'فایلونه اپلوډ کړئ',
+    'title_placeholder'      => 'د کتاب سرلیک ولیکئ...',
+    'author_placeholder'     => 'د لیکوال نوم ولیکئ...',
+    'select_category'        => 'کتګوري وټاکئ',
+    'description'            => 'تفصیل',
+    'description_placeholder'=> 'د کتاب په اړه لنډ تفصیل ولیکئ...',
+    'cover_image'            => 'د کتاب پوښ عکس',
+    'book_file'              => 'د کتاب فایل (PDF)',
+    'drag_drop_image'        => 'خپل پوښ عکس دلته کش کړئ',
+    'drag_drop_pdf'          => 'خپل PDF فایل دلته کش کړئ',
+    'or'                     => 'یا',
+    'browse_files'           => 'فایلونه وپلټئ',
+    'max_size'               => 'اعظمي اندازه',
+    'tips'                   => 'ګټورې لارښوونې',
+    'tip_cover'              => 'د ښه پریزنټیشن لپاره د لوړ کیفیت پوښ عکس وکاروئ.',
+    'tip_pdf'                => 'ډاډ ترلاسه کړئ چې PDF فایل د لوستلو وړ دی.',
+    'tip_description'        => 'یو ښه تفصیل کارونکو سره مرسته کوي چې کتاب په اسانۍ سره ومومي.',
+
+
+
+
+    // ... your existing keys ...
+
+    'edit_book_subtitle'          => 'لاندې د کتاب معلومات تازه کړئ',
+    'multilingual_titles'         => 'ګڼ ژبیز سرلیکونه',
+    'multilingual_descriptions'   => 'ګڼ ژبیز تفصیلونه',
+    'optional'                    => 'اختیاري',
+    'fix_errors'                  => 'مهرباني وکړئ لاندې غلطۍ سمې کړئ',
+    'current_cover'               => 'اوسنی پوښ',
+    'current'                     => 'اوسنی',
+    'replace_cover'               => 'پوښ عکس بدل کړئ',
+    'book_info'                   => 'د کتاب معلومات',
+    'uploaded_by'                 => 'د چا لخوا اپلوډ شوی',
+    'created_at'                  => 'د جوړیدو نیټه',
+
+    // ... your existing keys ...
+
+    'manage_all_books'          => 'د کتابتون ټول کتابونه اداره او تنظیم کړئ',
+    'all_books'                 => 'ټول کتابونه',
+    'search'                    => 'لټون',
+    'search_books_placeholder'  => 'د سرلیک یا لیکوال په واسطه لټون...',
+    'all_statuses'              => 'ټول حالتونه',
+    'all_categories'            => 'ټولې کتګورۍ',
+    'view'                      => 'کتنه',
+    'no_books_found'            => 'هیڅ کتاب ونه موندل شو',
+    'no_books_found_hint'       => 'خپل لټون یا فلټرونه تنظیم کړئ، یا نوی کتاب اضافه کړئ.',
+    'showing'                   => 'ښودل',
+    'of'                        => 'له',
+    'results'                   => 'پایلو',
+
+
+    'pending_books_subtitle' => 'سپارل شوي کتابونه وڅېړئ او پرېکړه وکړئ چې منظور یې کړئ که رد.',
+    'total_pending' => 'ټول منتظر',
+    'success' => 'بریالی!',
+    'error' => 'تېروتنه!',
+    'close' => 'بندول',
+    'pending_books_list' => 'د منتظرو کتابونو لېست',
+    'review_and_manage_books' => 'ټول د انتظار سپارښتنې وڅېړئ او مدیریت یې کړئ.',
+  
+    'user' => 'کارن',
+    'category' => 'کټګوري',
+
+    'action' => 'عمل',
+    'preview' => 'مخکتنه',
+    'approve' => 'منظور',
+    'reject' => 'رد',
+    'reject_book' => 'کتاب رد کړئ',
+    'rejection_reason' => 'د ردولو دلیل',
+    'rejection_reason_placeholder' => 'د ردولو دلیل ولیکئ...',
+    'rejection_note' => 'مهرباني وکړئ واضح دلیل ورکړئ څو کارن پوه شي چې څه باید ښه کړي.',
+    'cancel' => 'لغوه',
+    'submit_reject' => 'د ردولو ثبت',
+    'review' => 'کتنه',
+    'no_pending_books' => 'هیڅ منتظر کتاب ونه موندل شو',
+    'no_pending_books_message' => 'اوس مهال هېڅ کتاب د منظورۍ لپاره انتظار نه باسي.',
+// د فهرست پاڼه
+
+    'all_categories_subtitle'     => 'د خپلو کتابونو ټولې کټګورۍ وګورئ، مدیریت او تنظیم یې کړئ.',
+    'total'                       => 'ټول',
+    'add_category'                => 'کټګوري اضافه کړئ',
+    'categories_list'             => 'د کټګوریو لېست',
+    'name_en'                     => 'نوم (انګلیسي)',
+    'name_fa'                     => 'نوم (دري)',
+    'name_ps'                     => 'نوم (پښتو)',
+   
+    'actions'                     => 'عملونه',
+    'edit'                        => 'سمول',
+    'delete'                      => 'ړنګول',
+
+    'no_categories'               => 'هېڅ کټګوري ونه موندل شوه',
+    'no_categories_message'       => 'تاسو تر اوسه هېڅ کټګوري نه ده جوړه کړې. د یوې اضافه کولو سره پیل وکړئ!',
+    'add_first_category'          => 'لومړۍ کټګوري اضافه کړئ',
+    'delete_confirm_title'        => 'کټګوري ړنګه کړئ؟',
+    'delete_confirm_message'      => 'دا عمل بېرته نه شي اخیستل کېدی. د دې کټګورۍ لاندې ټول کتابونه متاثر کېدی شي.',
+
+    // د جوړولو پاڼه
+    'add_new_category'            => 'نوې کټګوري اضافه کړئ',
+    'add_new_category_subtitle'   => 'د خپلو کتابونو تنظیم لپاره نوې کټګوري جوړه کړئ.',
+    'category_details'            => 'د کټګورۍ تفصیلات',
+    'category_name_en'            => 'د کټګورۍ نوم (انګلیسي)',
+    'category_name_en_placeholder'=> 'د بېلګې په توګه: ساینس، ادبیات، تاریخ...',
+    'category_name_ps'            => 'د کټګورۍ نوم (پښتو)',
+    'category_name_ps_placeholder'=> 'د بېلګې په توګه: ساینس، ادبیات...',
+    'category_name_fa'            => 'د کټګورۍ نوم (دري)',
+    'category_name_fa_placeholder'=> 'مثلاً: علوم، ادبیات، تاریخ...',
+
+    // د سمون پاڼه
+    'edit_category'               => 'کټګوري سمول',
+    'edit_category_subtitle'      => 'د ټاکل شوې کټګورۍ تفصیلات تازه کړئ.',
+    'update_category'             => 'کټګوري تازه کړئ',
+      'admin_settings'            => 'د اډمین تنظیمات',
+    'admin_settings_subtitle'   => 'د ویب پاڼې ټول مینځپانګه، بڼه او ترتیب له یوې ځایه مدیریت کړئ.',
+
+    // د اصلي برخه
+    'hero_section'              => 'اصلي برخه',
+    'hero_section_subtitle'     => 'د خپلې کور پاڼې لپاره اصلي بینر سرلیک او تشریح تنظیم کړئ.',
+    'hero_title_en'             => 'اصلي سرلیک (انګلیسي)',
+    'hero_title_en_placeholder' => 'اصلي سرلیک په انګلیسي ولیکئ...',
+    'hero_title_ps'             => 'اصلي سرلیک (پښتو)',
+    'hero_title_ps_placeholder' => 'اصلي سرلیک په پښتو ولیکئ...',
+    'hero_desc_en'              => 'اصلي تشریح (انګلیسي)',
+    'hero_desc_en_placeholder'  => 'اصلي تشریح په انګلیسي ولیکئ...',
+    'hero_desc_ps'              => 'اصلي تشریح (پښتو)',
+    'hero_desc_ps_placeholder'  => 'اصلي تشریح په پښتو ولیکئ...',
+
+    // د ډیجیټل کتابتون په اړه
+    'about_library'             => 'د ډیجیټل کتابتون په اړه',
+    'about_library_subtitle'    => 'تشریح کړئ چې ستاسو ډیجیټل کتابتون د څه په اړه دی.',
+    'about_en'                  => 'په اړه (انګلیسي)',
+    'about_en_placeholder'      => 'د ډیجیټل کتابتون په اړه انګلیسي ولیکئ...',
+    'about_ps'                  => 'په اړه (پښتو)',
+    'about_ps_placeholder'      => 'د ډیجیټل کتابتون په اړه پښتو ولیکئ...',
+
+    // ماموریت او لید
+    'mission_vision'            => 'ماموریت او لید',
+    'mission_vision_subtitle'   => 'د خپل سازمان ماموریت او لید بیان تعریف کړئ.',
+    'mission_en'                => 'ماموریت او لید (انګلیسي)',
+    'mission_en_placeholder'    => 'ماموریت او لید انګلیسي ولیکئ...',
+    'mission_ps'                => 'ماموریت او لید (پښتو)',
+    'mission_ps_placeholder'    => 'ماموریت او لید پښتو ولیکئ...',
+
+    // موخې
+    'purposes'                  => 'زموږ موخې',
+    'purposes_subtitle'         => 'د خپل کتابتون اصلي موخې او اهداف بیان کړئ.',
+    'purpose_en'                => 'موخې (انګلیسي)',
+    'purpose_en_placeholder'    => 'موخې انګلیسي ولیکئ...',
+    'purpose_ps'                => 'موخې (پښتو)',
+    'purpose_ps_placeholder'    => 'موخې پښتو ولیکئ...',
+
+    // فوټر
+    'footer_section'            => 'د فوټر متن',
+    'footer_section_subtitle'   => 'د هرې پاڼې په ښکته کې ښودل شوی فوټر مینځپانګه تنظیم کړئ.',
+    'footer_en'                 => 'د فوټر متن (انګلیسي)',
+    'footer_en_placeholder'     => 'د فوټر انګلیسي متن ولیکئ...',
+    'footer_ps'                 => 'د فوټر متن (پښتو)',
+    'footer_ps_placeholder'     => 'د فوټر پښتو متن ولیکئ...',
+
+    // لوګو
+    'logo_section'              => 'د ویب پاڼې لوګو',
+    'logo_section_subtitle'     => 'د خپلې ویب پاڼې لوګو عکس اپلوډ یا تازه کړئ.',
+    'upload_logo'               => 'نوی لوګو اپلوډ کړئ',
+    'current_logo'              => 'اوسنی لوګو',
+    'no_logo'                   => 'هیڅ لوګو اپلوډ شوی نه دی',
+    'logo_hint'                 => 'ملاتړ شوي فارمټونه: PNG, JPG, SVG. اعظمي اندازه: 2MB.',
+    'new_logo_preview'          => 'د نوي لوګو مخکتنه:',
+
+    // خوندي کول
+    'save_settings'             => 'تنظیمات خوندي کړئ',
 
 
 ];

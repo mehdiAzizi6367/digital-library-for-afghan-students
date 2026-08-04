@@ -22,7 +22,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TestMail;
 /*
 |--------------------------------------------------------------------------
 | Public Routes
@@ -33,7 +34,22 @@ Route::get('/welcome', fn() => view('welcome'));
 Route::get('/about', fn() => view('about'))->name('about');
 Route::get('/contact', fn() => view('contact'))->name('contact');
 Route::post('/contact', [ContactController::class,'store'])->name('contact.store');
+
+
+
+Route::get('/test-mail', function () {
+
+    Mail::to('samiaziziazizi6367@gmail.c.com')
+        ->send(new TestMail());
+
+    return "Email sent successfully";
+
+});
+
+
+
 /*
+
 |--------------------------------------------------------------------------
 | Books (Authenticated)
 |--------------------------------------------------------------------------
@@ -49,6 +65,24 @@ Route::middleware(['auth','active'])->group(function(){
     Route::get('/books/search', [BookController::class,'search'])->name('books.search');
     Route::get('/search', [BookController::class,'searchPage'])->name('search.page');
     Route::get('/books/{book}', [BookController::class,'show'])->name('books.show');
+      // User favorite books page
+    Route::get('/favorites', [FavoriteController::class, 'index'])
+        ->name('favorites.index');
+
+
+    // Add book to favorites
+    Route::post('/books/{book}/favorite', [FavoriteController::class, 'store'])
+        ->name('books.favorite');
+
+
+    // Remove book from favorites
+    Route::delete('/books/{book}/favorite', [FavoriteController::class, 'destroy'])
+        ->name('books.unfavorite');
+
+
+    // Download book
+    Route::get('/books/{book}/download', [BookController::class, 'download'])
+        ->name('books.download');
 });
 
 /*
@@ -116,8 +150,7 @@ Route::prefix('admin')
         Route::resource('users', AdminUserController::class);
     Route::resource('categories', AdminCategoryController::class);
 
-    Route::get('/reports', [AdminReportController::class,'index'])
-        ->name('reports.index');
+   
 
     // ✅ Settings
     Route::get('/settings', [SettingController::class, 'edit'])->name('settings.edit');

@@ -17,17 +17,55 @@ use Illuminate\Support\Facades\Cache;
 class AdminBookController extends Controller
 {
     // Show all books
-    public function index()
-    {
-        // added cache 
-        $books=Cache::remember('books-page-'.request('page',1),10,function(){
-            return Book::with(['category', 'user'])->latest()->paginate(10);
+    // added cache 
+    public function index(Request $request)
+{
+    $query = Book::with(['category', 'user'])->latest();
+    
+    $books=Cache::remember('books-page-'.request('page',1),10,function(){return Book::with(['category', 'user'])->latest()->paginate(10);
+    });
+    $notifications=Book::where('status','pending')->count('status');
+    $newUser=User::where('name_ps','0')->count();
+    // Search
+    if ($request->filled('search')) {
+        $search = $request->search;
+        $query->where(function ($q) use ($search) {
+            $q->where('title_en', 'like', "%{$search}%")
+              ->orWhere('title_ps', 'like', "%{$search}%")
+              ->orWhere('author', 'like', "%{$search}%");
         });
-         $notifications=Book::where('status','pending')->count('status');
-         $newUser=User::where('name_ps','0')->count();
-
-        return view('admin.books.index', compact('books','notifications','newUser'));
     }
+
+    // Status filter
+    if ($request->filled('status')) {
+        $query->where('status', $request->status);
+    }
+
+    // Category filter
+    if ($request->filled('category')) {
+        $query->where('category_id', $request->category);
+    }
+
+    $books = $query->paginate(15);
+
+    // Stats
+    $approvedCount = Book::where('status', 'approved')->count();
+    $pendingCount  = Book::where('status', 'pending')->count();
+    $rejectedCount = Book::where('status', 'rejected')->count();
+
+    // Categories for filter dropdown
+    $categories = Category::all();
+
+    return view('admin.books.index', compact(
+        'books',
+        'approvedCount',
+        'pendingCount',
+        'rejectedCount',
+         'notifications',
+         'newUser',
+        'categories',
+    ));
+}
     // Show create form
     public function show()
     {

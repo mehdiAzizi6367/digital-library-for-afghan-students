@@ -265,10 +265,13 @@
         </div>
         
          <nav class="sidebar-nav ">
-            <a href="{{ route('logout') }}" class="sidebar-nav-item bg-danger">
-                <i class="bi bi-person-circle"></i>
-                <span>{{ __('message.logout') }}</span>
-            </a>
+             <form method="POST" action="{{ route('logout') }}" class="m-0">
+                 @csrf
+                 <button class="btn btn-danger btn-lg text-center sidebar-nav-item w-100 ">
+                                <i class="bi bi-person-circle "></i>
+                                {{ __('message.logout') }}
+                            </button>
+                </form>
         
         </nav>
 

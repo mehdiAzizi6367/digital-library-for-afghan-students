@@ -143,6 +143,17 @@ return [
     'trash_empty_hint' => 'No deleted items are currently available.',
     'trash_empty' => 'Trash is empty.',
     'trash_list_hint' => 'The list below contains all soft-deleted items. You can restore them or permanently delete them.',
-        
+     'messages'          => 'Messages',
+    'messages_subtitle' => 'View and respond to all contact messages sent by users.',
+    'success'           => 'Success!',
+    'error'             => 'Error!',
+    'close'             => 'Close',
+    'inbox'             => 'Inbox',
+    'inbox_subtitle'    => 'All incoming contact messages from users.',
+    'subject'           => 'Subject',
+    'action'            => 'Action',
+    'respond'           => 'Respond',
+    'no_messages'       => 'No messages found',
+    'no_messages_subtitle' => 'Your inbox is empty. No contact messages have been received yet.',
 
     ];
