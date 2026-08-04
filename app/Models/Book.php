@@ -28,7 +28,6 @@ class Book extends Model
     'edition',
     'category_id',
     'rejection_reason',
-    'isbn',
     'file_path',
     'thumbnail',
     'uploaded_by',

@@ -33,14 +33,16 @@
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->role }}</td>
                 <td>{{ $user->created_at->format('d M Y') }}</td>
+                
                 <td class="">
                     <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-warning">Edit</a>
                      <form action="{{ route('admin.users.toggle', $user->id) }}" method="POST" style="display:inline-block;">
                         @csrf
                         <button class="btn btn-sm {{ $user->is_active ? 'btn-danger' : 'btn-success' }}">
-                            {{ $user->is_active ? 'Disable' : 'Activate' }}
+                            {{ $user->is_active ?'disabled':'Activate' }}
                         </button>
                     </form>
+                    
                     <form action="{{ route('admin.users.destroy', $user) }}" method="POST" style="display:inline-block;">
                         @csrf
                         @method('DELETE')

@@ -37,17 +37,6 @@
                     </div>
         </div>
         <div class="col-md-6">
-                    {{-- ISBN --}}
-                    <div class="mb-3">
-                        <!-- pattern="^(97(8|9))?\d{9}(\d|X)$" isbn for book  -->
-                        <label class="form-label"> ISBN (for English books)</label>
-                        <input type="text" name="isbn" class="form-control"
-                        placeholder="978-0132350884"
-                        title="Enter a valid ISBN-10 or ISBN-13"
-                        >
-                        @error('isbn') <small class="text-danger">{{ $message }}</small> @enderror
-                     </div>
-                
                     {{-- Book Cover Image --}}
                     <div class="mb-3">
                         <label class="form-label"> <i class="fas fa-book"></i> Book Cover Image</label>

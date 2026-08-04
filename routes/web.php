@@ -9,11 +9,9 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\User\BookController;
 use App\Http\Controllers\User\UserDashboardController;
-
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\adminController;
-
 use App\Http\Controllers\Admin\AdminBookController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminCategoryController;
@@ -23,6 +21,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\Book;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +33,6 @@ Route::get('/welcome', fn() => view('welcome'));
 Route::get('/about', fn() => view('about'))->name('about');
 Route::get('/contact', fn() => view('contact'))->name('contact');
 Route::post('/contact', [ContactController::class,'store'])->name('contact.store');
-
 /*
 |--------------------------------------------------------------------------
 | Books (Authenticated)
@@ -73,15 +71,15 @@ Route::middleware(['auth','active'])->group(function () {
 
     Route::get('/search-books', function(Request $request){
         $query = $request->input('query');
-
+        
         $books = Book::where('title_en','LIKE',"%{$query}%")
             ->orWhere('title_ps','LIKE',"%{$query}%")
             ->orWhere('title_fa','LIKE',"%{$query}%")
             ->orWhere('author','LIKE',"%{$query}%")
             ->limit(6)
             ->get();
-
-        return response()->json($books);
+            
+            return response()->json($books);
     });
 });
 
@@ -100,8 +98,8 @@ Route::prefix('admin')
 
     Route::get('/books/create',[AdminBookController::class,'create'])
         ->name('books.create');
-
-    Route::post('/books/{id}/approve', [AdminBookController::class, 'approve'])
+        
+        Route::post('/books/{id}/approve', [AdminBookController::class, 'approve'])
         ->name('books.approve');
 
     Route::post('/books/{id}/reject', [AdminBookController::class, 'reject'])
@@ -114,8 +112,8 @@ Route::prefix('admin')
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
 
-    Route::resource('books', AdminBookController::class);
-    Route::resource('users', AdminUserController::class);
+        Route::resource('books', AdminBookController::class);
+        Route::resource('users', AdminUserController::class);
     Route::resource('categories', AdminCategoryController::class);
 
     Route::get('/reports', [AdminReportController::class,'index'])
@@ -124,6 +122,7 @@ Route::prefix('admin')
     // ✅ Settings
     Route::get('/settings', [SettingController::class, 'edit'])->name('settings.edit');
     Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
+    route::get('/message',[ContactController::class,'message'])->name('contact.message');
 });
 
 /*
@@ -203,7 +202,7 @@ Route::post('/books/{book}/rate', [BookController::class, 'rate'])
     ->name('books.rate');
 
 Route::get('/lang/{locale}', function ($locale) {
-    if (in_array($locale, ['en', 'ps', 'fa'])) {
+    if (in_array($locale, ['en', 'ps'])) {
         session(['locale' => $locale]);
     }
     return redirect()->back();
@@ -219,3 +218,10 @@ Route::delete('/delete/{id}',[BookController::class,'delete'])->name('book.delet
 Route::get('/rejected-books',[BookController::class,'rejection_reason'])->name('Rj_reason');
 
 require __DIR__.'/auth.php';
+// for practice.
+route::get('/user-data',function(){
+    // return   Auth::user()->name_ps;
+    return auth()->user();
+
+
+});

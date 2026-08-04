@@ -19,6 +19,9 @@ class SettingController extends Controller
                 'hero_title' => '',
                 'hero_description' => '',
                 'footer_text' => '',
+                'mission_vision'=>'',
+                'purpose'=>'',
+                'about_digital_library'=>'',
                 'logo' => ''
             ]);
         }
@@ -30,11 +33,21 @@ class SettingController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'hero_title' => 'required|string',
-            'hero_description' => 'nullable|string',
-            'footer_text' => 'nullable|string',
+            'hero_title_en' => 'required|string',
+            'hero_title_ps' => 'required|string',
+            'hero_description_en' => 'nullable|string',
+            'hero_description_ps' => 'nullable|string',
+            'footer_text_en' => 'nullable|string',
+            'footer_text_ps' => 'nullable|string',
+            'mission_vision_en'=> "nullable|string",
+            'mission_vision_ps'=> "nullable|string",
+            'purpose_en'=> "nullable|string",
+            'purpose_ps'=> "nullable|string",
+            'about_digital_library_en'=>'nullable|string',
+            'about_digital_library_ps'=>'nullable|string',
             'logo' => 'nullable|image|mimes:png,jpg,jpeg'
         ]);
+        
 
         $setting = Setting::first();
 
@@ -55,10 +68,18 @@ class SettingController extends Controller
         }
 
         // Save text fields
-        $setting->hero_title = $request->hero_title;
-        $setting->hero_description = $request->hero_description;
-        $setting->footer_text = $request->footer_text;
-
+        $setting->hero_title_en = $request->hero_title_en;
+        $setting->hero_title_ps = $request->hero_title_ps;
+        $setting->hero_description_en = $request->hero_description_en;
+        $setting->hero_description_ps = $request->hero_description_ps;
+        $setting->footer_text_en = $request->footer_text_en;
+        $setting->footer_text_ps=$request->footer_text_ps;
+        $setting->mission_vision_en = $request->mission_vision_en;
+        $setting->mission_vision_ps = $request->mission_vision_ps;
+        $setting->purpose_en = $request->purpose_en;
+        $setting->purpose_ps = $request->purpose_ps;
+        $setting->about_digital_library_en = $request->about_digital_library_en;
+        $setting->about_digital_library_ps = $request->about_digital_library_ps;
         $setting->save();
 
         return redirect()->back()->with('success', 'Settings updated successfully!');

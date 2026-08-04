@@ -50,7 +50,6 @@ class BookController extends Controller
         'custom_category' => 'required_if:category_id,other|max:255',
         'file' => 'required|mimes:pdf,epub|max:10240', // 10MB
         'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        'isbn' => 'nullable|string|max:255',
     ]);
      
      // ✅ CUSTOM CATEGORY LOGIC
@@ -95,7 +94,6 @@ class BookController extends Controller
                 'category_id' => $categoryId,
                 'file_path' => $filePath,
                 'thumbnail' => $thumbnailPath,
-                'isbn' => $request->isbn,
                 'uploaded_by' => auth::id(),    
                 // ✅ Leave translations NULL for now
                 'title_ps' => null,
@@ -155,7 +153,6 @@ class BookController extends Controller
         $validated = $request->validate([
             'title_en'       => 'required|string|max:255',
             'author'      => 'required|string|max:255',
-            'isbn' => 'nullable|string|unique:books,isbn,' . $book->id,
             'category_id' => 'nullable|exists:categories,id',
             'description' => 'nullable|string',
             'file'        => 'nullable|file|mimes:pdf',
