@@ -207,7 +207,7 @@
 
                         <div class="category-count-badge">
                             <i class="bi bi-journal-bookmark"></i>
-                            
+                                                    
                             <span>{{ $category->books_count ?? 0 }} {{ __('message.books') }}</span>
                         </div>
 
@@ -225,8 +225,8 @@
 </section>
 
     {{-- ─── Latest Books ────────────────────────────────────── --}}
-<section class="latest-books-section py-5">
-    <div class="container position-relative">
+  <section class="latest-books-section py-5">
+     <div class="container position-relative">
 
         <div class="text-center mb-5" data-aos="fade-up">
             <h3 class="section-title">{{ __('message.latest_books') }}</h3>
@@ -279,54 +279,7 @@
 
     </div>
 </section>
-    {{-- ─── About Section ──────────────────────────────────── --}}
-    <section id="aboutSection" class="py-5">
-        <div class="container">
-            <div class="about-section">
-
-                <div class="text-center mb-5">
-                    <h2 class="section-title">About Afghan Digital Library</h2>
-                    <p class="text-muted mt-3 mx-auto" style="max-width:640px; font-size:1.05rem;">
-                        {{ ($setting->{'about_digital_library_'.app()->getLocale()}) }}
-                    </p>
-                </div>
-
-                <div class="row g-4">
-
-                    <div class="col-md-6">
-                        <div class="about-card">
-                            <div class="d-flex align-items-center gap-3 mb-3">
-                                <div class="d-flex align-items-center justify-content-center rounded-3"
-                                     style="width:44px;height:44px;background:#e8eaf6;color:#3949ab;font-size:1.3rem;">
-                                    🎯
-                                </div>
-                                <h4 class="fw-bold mb-0" style="color:#1a237e;">Our Mission & Vision</h4>
-                            </div>
-                            <p class="text-muted mb-0" style="line-height:1.8;">
-                                {{ ($setting->{'mission_vision_'.app()->getLocale()}) }}
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="about-card">
-                            <div class="d-flex align-items-center gap-3 mb-3">
-                                <div class="d-flex align-items-center justify-content-center rounded-3"
-                                     style="width:44px;height:44px;background:#e8eaf6;color:#3949ab;font-size:1.3rem;">
-                                    📖
-                                </div>
-                                <h4 class="fw-bold mb-0" style="color:#1a237e;">Why This Library?</h4>
-                            </div>
-                            <p class="text-muted mb-0" style="line-height:1.8;">
-                                {{ ($setting->{'purpose_'.app()->getLocale()}) }}
-                            </p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section>
+  
 
     {{-- ─── Contact Section ─────────────────────────────────── --}}
     <section id="contact" class="contact-section py-5">
@@ -508,6 +461,54 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </section>
+      {{-- ─── About Section ──────────────────────────────────── --}}
+    <section id="aboutSection" class="py-5">
+        <div class="container">
+            <div class="about-section">
+
+                <div class="text-center mb-5">
+                    <h2 class="section-title">{{ app()->getlocale() =='en'? 'About  Digital Library':'د ډیجیټل کتابتون په اړه' }}</h2>
+                    <p class="text-muted mt-3 mx-auto text-justify" style="max-width:640px; font-size:1.05rem;">
+                        {{ ($setting->{'about_digital_library_'.app()->getLocale()}) }}
+                    </p>
+                </div>
+
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+                        <div class="about-card">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <div class="d-flex align-items-center justify-content-center rounded-3"
+                                     style="width:44px;height:44px;background:#e8eaf6;color:#3949ab;font-size:1.3rem;">
+                                    🎯
+                                </div>
+                                <h4 class="fw-bold mb-0" style="color:#1a237e;">{{app()->getlocale()=='en'? 'Our Mission & Vision': 'زموږ لید لوری!'}}</h4>
+                            </div>
+                            <p class="text-muted mb-0" style="line-height:1.8;">
+                                {{ ($setting->{'mission_vision_'.app()->getLocale()}) }}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="about-card">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <div class="d-flex align-items-center justify-content-center rounded-3"
+                                     style="width:44px;height:44px;background:#e8eaf6;color:#3949ab;font-size:1.3rem;">
+                                    📖
+                                </div>
+                                <h4 class="fw-bold mb-0" style="color:#1a237e;">{{ app()->getlocale()=='en'? 'Why This Library?':'ددې کتابتون هدف؟'}}</h4>
+                            </div>
+                            <p class="text-muted mb-0" style="line-height:1.8;">
+                                {{ ($setting->{'purpose_'.app()->getLocale()}) }}
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </section>
