@@ -17,7 +17,175 @@
     <link rel="stylesheet" href="{{ asset('bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('style.css') }}">
     <link rel="stylesheet" href="{{ asset('all.css') }}">
+     {{-- ─── About Section ──────────────────────────────────── --}}
+ <style>
+/* ── Section Background ── */
+#aboutSection {
+    background: linear-gradient(160deg, #f0f4ff 0%, #faf5ff 50%, #f0f4ff 100%);
+    position: relative;
+    overflow: hidden;
+}
 
+/* Decorative blobs */
+#aboutSection::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: -100px;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(102,126,234,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+#aboutSection::after {
+    content: '';
+    position: absolute;
+    bottom: -120px;
+    right: -80px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(118,75,162,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* ── Section Title ── */
+#aboutSection .section-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    display: inline-block;
+}
+
+/* Underline decoration */
+#aboutSection .section-title::after {
+    content: '';
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 10px;
+    margin: 12px auto 0;
+}
+
+/* ── Description Text ── */
+#aboutSection .text-muted.text-justify {
+    color: #666 !important;
+    line-height: 1.9;
+    font-size: 1.05rem;
+}
+
+/* ── About Container ── */
+.about-section {
+    position: relative;
+    z-index: 1;
+}
+
+/* ── About Card ── */
+.about-card {
+    background: white;
+    border-radius: 20px;
+    padding: 32px 28px;
+    height: 100%;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+    box-shadow: 0 8px 30px rgba(102, 126, 234, 0.08);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Card top accent line */
+.about-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 20px 20px 0 0;
+}
+
+/* Card hover glow */
+.about-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    background: linear-gradient(135deg,
+        rgba(102,126,234,0.04),
+        rgba(118,75,162,0.04));
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+}
+
+.about-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(102, 126, 234, 0.18);
+}
+
+.about-card:hover::after {
+    opacity: 1;
+}
+
+/* ── Icon Box ── */
+.about-card .rounded-3 {
+    width: 52px !important;
+    height: 52px !important;
+    background: linear-gradient(135deg,
+        rgba(102,126,234,0.15),
+        rgba(118,75,162,0.15)) !important;
+    color: #667eea !important;
+    font-size: 1.5rem !important;
+    border-radius: 14px !important;
+    transition: transform 0.3s ease, background 0.3s ease;
+    flex-shrink: 0;
+}
+
+.about-card:hover .rounded-3 {
+    transform: rotate(-6deg) scale(1.1);
+    background: linear-gradient(135deg,
+        rgba(102,126,234,0.25),
+        rgba(118,75,162,0.25)) !important;
+}
+
+/* ── Card Title ── */
+.about-card h4 {
+    font-size: 1.15rem !important;
+    font-weight: 700 !important;
+    color: #2d1b6e !important;
+    letter-spacing: -0.2px;
+}
+
+/* ── Card Text ── */
+.about-card .text-muted {
+    color: #777 !important;
+    line-height: 1.85 !important;
+    font-size: 0.97rem;
+}
+
+/* ── Stat chips (decorative) ── */
+.about-stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #667eea11, #764ba211);
+    border: 1px solid rgba(102,126,234,0.2);
+    border-radius: 50px;
+    padding: 5px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #667eea;
+    margin: 4px;
+}
+</style>
 
 
 </head>
@@ -29,8 +197,11 @@
         <div class="container">
 
             <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
-                <img src="{{ asset('uploads/'.$setting->logo) }}" width="45" height="45" class="me-2">
-            </a>
+                        <img src="{{ asset('uploads/' . optional($setting)->logo) }}"
+                            width="45"
+                            height="45"
+                            class="me-2">
+        </a>
 
             <button class="navbar-toggler border-0" type="button"
                     data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -53,7 +224,10 @@
                     </li>
 
                     @auth
-                        @if(auth()->user()->role == 'admin' || auth()->user()->role == 'user' && $user->is_active)
+                      @if( auth()->user()->role == 'admin' || (auth()->user()->role == 'user' && auth()->user()->is_active)
+                            
+                                    
+                                )
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="{{ url('allbooks') }}">
                                     <i class="bi bi-book me-1"></i>
@@ -131,11 +305,18 @@
             </div>
 
             <h2 class="display-5 fw-bold mb-3">
-                {{ ($setting->{'hero_title_'.app()->getLocale()}) }}
+               @php
+                    $locale = app()->getLocale();
+                    $heroTitle = $setting?->{'hero_title_'.$locale} ?? 'Afghan Digital Library';
+                @endphp
+
+                <h2 class="display-5 fw-bold mb-3">
+                    {{ $heroTitle }}
+                </h2>
             </h2>
 
             <p class="lead mb-4">
-                {{ ($setting->{'hero_description_'.app()->getLocale()}) }}
+                {{ ($setting->{'hero_description_'.app()->getLocale()}) ?? " No description" }}
             </p>
 
             @auth
@@ -154,26 +335,223 @@
 
     <div class="container">
         <div class="search-wrapper">
-            <p class="text-center text-muted small fw-semibold mb-3 text-uppercase letter-spacing-1">
-                🔍 {{ __('message.search_placeholder') }}
-            </p>
-            <form action="/search" method="GET" id="searchForm">
-                <div class="col-md-7 position-relative mx-auto">
-                    <div class="input-group shadow-sm">
-                        <input
-                            type="text"
-                            id="searchInput"
-                            name="query"
-                            class="form-control"
-                            placeholder="{{ __('message.search_placeholder') }}">
-                        <button class="btn btn-primary search-btn">
-                            <i class="bi bi-search me-1"></i>
-                            {{ __('message.search') }}
-                        </button>
-                    </div>
-                    <div id="searchResults" class="search-dropdown"></div>
+            <style>
+/* ── Wrapper ── */
+.search-wrapper {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 50px 30px;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(102, 126, 234, 0.35);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background decoration circles */
+.search-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 220px;
+    height: 220px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+}
+
+.search-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    left: -40px;
+    width: 280px;
+    height: 280px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+}
+
+/* ── Label text ── */
+.search-wrapper p {
+    color: rgba(255,255,255,0.85) !important;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ── Input Group ── */
+.search-wrapper .input-group {
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2) !important;
+    position: relative;
+    z-index: 1;
+}
+
+.search-wrapper .form-control {
+    border: none;
+    padding: 16px 24px;
+    font-size: 15px;
+    color: #333;
+    background: white;
+    border-radius: 0 !important;
+    outline: none;
+    box-shadow: none !important;
+}
+
+.search-wrapper .form-control::placeholder {
+    color: #bbb;
+    font-size: 14px;
+}
+
+.search-wrapper .form-control:focus {
+    background: #fafafa;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* ── Search Button ── */
+.search-wrapper .search-btn {
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+    border: none;
+    padding: 16px 30px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    border-radius: 0 !important;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+}
+
+.search-wrapper .search-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #e97cf3, #e04458);
+    transform: scale(1.03);
+    color: white;
+}
+
+.search-wrapper .search-btn:disabled {
+    background: linear-gradient(135deg, #ccc, #bbb);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* ── Dropdown ── */
+.search-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 16px 45px rgba(0,0,0,0.15);
+    z-index: 9999;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+    animation: fadeSlideDown 0.2s ease;
+}
+
+@keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.search-dropdown:empty {
+    display: none;
+}
+
+/* Dropdown Items */
+.search-dropdown .search-item {
+    padding: 13px 18px;
+    border-bottom: 1px solid #f5f5f5;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.search-dropdown .search-item:last-child {
+    border-bottom: none;
+}
+
+.search-dropdown .search-item:hover {
+    background: #f8f0ff;
+}
+
+.search-dropdown .search-item .search-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.search-dropdown .search-item .search-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #222;
+}
+
+.search-dropdown .search-item .search-author {
+    font-size: 12px;
+    color: #999;
+    margin-top: 2px;
+}
+
+/* No results */
+.search-dropdown .no-result {
+    padding: 20px;
+    text-align: center;
+    color: #bbb;
+    font-size: 14px;
+}
+
+.search-dropdown .no-result i {
+    display: block;
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+/* ── Position relative fix ── */
+.col-md-7.position-relative {
+    z-index: 2;
+}
+</style>
+
+<div class="container">
+    <div class="search-wrapper">
+        <p class="text-center text-muted small fw-semibold mb-3 text-uppercase letter-spacing-1">
+            🔍 {{ __('message.search_placeholder') }}
+        </p>
+        <form action="/search" method="GET" id="searchForm">
+            <div class="col-md-7 position-relative mx-auto">
+                <div class="input-group shadow-sm">
+                    <input
+                        type="text"
+                        id="searchInput"
+                        name="query"
+                        class="form-control"
+                        placeholder="{{ __('message.search_placeholder') }}"
+                        autocomplete="off">
+                    <button
+                        class="btn btn-primary search-btn"
+                        type="submit"
+                        id="searchBtn"
+                        disabled>
+                        <i class="bi bi-search me-1"></i>
+                        {{ __('message.search') }}
+                    </button>
                 </div>
-            </form>
+                <div id="searchResults" class="search-dropdown"></div>
+            </div>
+        </form>
+    </div>
+</div>
         </div>
     </div>
 
@@ -464,55 +842,120 @@
             </div>
         </div>
     </section>
-      {{-- ─── About Section ──────────────────────────────────── --}}
-    <section id="aboutSection" class="py-5">
-        <div class="container">
-            <div class="about-section">
+ <!-- about section  -->
 
-                <div class="text-center mb-5">
-                    <h2 class="section-title">{{ app()->getlocale() =='en'? 'About  Digital Library':'د ډیجیټل کتابتون په اړه' }}</h2>
-                    <p class="text-muted mt-3 mx-auto text-justify" style="max-width:640px; font-size:1.05rem;">
-                        {{ ($setting->{'about_digital_library_'.app()->getLocale()}) }}
-                    </p>
+<section id="aboutSection" class="py-5">
+    <div class="container">
+        <div class="about-section">
+
+            {{-- ── HEADER ── --}}
+            <div class="text-center mb-5" data-aos="fade-up">
+
+                {{-- Decorative label --}}
+                <span class="about-stat mb-3">
+                    <i class="bi bi-stars"></i>
+                    {{ app()->getLocale() == 'en' ? 'Know More About Us' : 'زموږ په اړه نور معلومات' }}
+                </span>
+
+                <h2 class="section-title mt-3">
+                    {{ app()->getLocale() == 'en'
+                        ? 'About Digital Library'
+                        : 'د ډیجیټل کتابتون په اړه' }}
+                </h2>
+
+                <p class="text-muted mt-3 mx-auto text-justify"
+                   style="max-width:640px; font-size:1.05rem;">
+                    {{ $setting->{'about_digital_library_' . app()->getLocale()} ?? 'No text yet!' }}
+                </p>
+
+                {{-- Decorative stats row --}}
+                <div class="mt-4 d-flex flex-wrap justify-content-center gap-2">
+                    <span class="about-stat">
+                        📚 {{ app()->getLocale() == 'en' ? 'Free Access' : 'وړیا لاسرسی' }}
+                    </span>
+                    <span class="about-stat">
+                        🌐 {{ app()->getLocale() == 'en' ? 'Multi Language' : 'ډیری ژبې' }}
+                    </span>
+                    <span class="about-stat">
+                        🔒 {{ app()->getLocale() == 'en' ? 'Secure Platform' : 'خوندي پلیټ فارم' }}
+                    </span>
+                    <span class="about-stat">
+                        📖 {{ app()->getLocale() == 'en' ? 'Rich Content' : 'بډایه منځپانګه' }}
+                    </span>
                 </div>
 
-                <div class="row g-4">
-
-                    <div class="col-md-6">
-                        <div class="about-card">
-                            <div class="d-flex align-items-center gap-3 mb-3">
-                                <div class="d-flex align-items-center justify-content-center rounded-3"
-                                     style="width:44px;height:44px;background:#e8eaf6;color:#3949ab;font-size:1.3rem;">
-                                    🎯
-                                </div>
-                                <h4 class="fw-bold mb-0" style="color:#1a237e;">{{app()->getlocale()=='en'? 'Our Mission & Vision': 'زموږ لید لوری!'}}</h4>
-                            </div>
-                            <p class="text-muted mb-0" style="line-height:1.8;">
-                                {{ ($setting->{'mission_vision_'.app()->getLocale()}) }}
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="about-card">
-                            <div class="d-flex align-items-center gap-3 mb-3">
-                                <div class="d-flex align-items-center justify-content-center rounded-3"
-                                     style="width:44px;height:44px;background:#e8eaf6;color:#3949ab;font-size:1.3rem;">
-                                    📖
-                                </div>
-                                <h4 class="fw-bold mb-0" style="color:#1a237e;">{{ app()->getlocale()=='en'? 'Why This Library?':'ددې کتابتون هدف؟'}}</h4>
-                            </div>
-                            <p class="text-muted mb-0" style="line-height:1.8;">
-                                {{ ($setting->{'purpose_'.app()->getLocale()}) }}
-                            </p>
-                        </div>
-                    </div>
-
-                </div>
             </div>
-        </div>
-    </section>
 
+            {{-- ── CARDS ── --}}
+            <div class="row g-4">
+
+                {{-- Mission & Vision --}}
+                <div class="col-md-6" data-aos="fade-right" data-aos-delay="100">
+                    <div class="about-card">
+
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="d-flex align-items-center justify-content-center rounded-3"
+                                 style="width:44px;height:44px;background:#e8eaf6;
+                                        color:#3949ab;font-size:1.3rem;">
+                                🎯
+                            </div>
+                            <h4 class="fw-bold mb-0" style="color:#1a237e;">
+                                {{ app()->getLocale() == 'en'
+                                    ? 'Our Mission & Vision'
+                                    : 'زموږ لید لوری!' }}
+                            </h4>
+                        </div>
+
+                        <p class="text-muted mb-0" style="line-height:1.8;">
+                            {{ $setting->{'mission_vision_' . app()->getLocale()} ?? 'No text yet!' }}
+                        </p>
+
+                        {{-- Bottom tag --}}
+                        <div class="mt-4 pt-3" style="border-top:1px dashed #e8eaf6;">
+                            <span class="about-stat" style="font-size:12px;">
+                                🎯 {{ app()->getLocale() == 'en' ? 'Purpose Driven' : 'موخه لرونکی' }}
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+
+                {{-- Why This Library --}}
+                <div class="col-md-6" data-aos="fade-left" data-aos-delay="200">
+                    <div class="about-card">
+
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="d-flex align-items-center justify-content-center rounded-3"
+                                 style="width:44px;height:44px;background:#e8eaf6;
+                                        color:#3949ab;font-size:1.3rem;">
+                                📖
+                            </div>
+                            <h4 class="fw-bold mb-0" style="color:#1a237e;">
+                                {{ app()->getLocale() == 'en'
+                                    ? 'Why This Library?'
+                                    : 'ددې کتابتون هدف؟' }}
+                            </h4>
+                        </div>
+
+                        <p class="text-muted mb-0" style="line-height:1.8;">
+                            {{ $setting->{'purpose_' . app()->getLocale()} ?? 'No text yet!' }}
+                        </p>
+
+                        {{-- Bottom tag --}}
+                        <div class="mt-4 pt-3" style="border-top:1px dashed #e8eaf6;">
+                            <span class="about-stat" style="font-size:12px;">
+                                💡 {{ app()->getLocale() == 'en' ? 'Knowledge First' : 'پوهه لومړی' }}
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
     {{-- ─── Footer ──────────────────────────────────────────── --}}
     @include('footer.footer')
     

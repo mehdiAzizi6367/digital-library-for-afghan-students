@@ -1,123 +1,376 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
-    <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('home') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}" dir="{{ in_array(app()->getLocale(), ['ps']) ? 'rtl' : 'ltr' }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{{ asset('all.css') }}" rel="stylesheet">
+    <!-- Custom Bootstrap -->
+    <link rel="stylesheet" href="{{ asset('bootstrap.css') }}">
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="{{ asset('style.css') }}">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <!-- Vite -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <style>
+        /* Navbar Professional Style */
+        .navbar {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+            padding: 10px 20px;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff !important;
+            letter-spacing: 1px;
+        }
+
+        .navbar-brand i {
+            color: #f0a500;
+            margin-right: 8px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.85) !important;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #f0a500 !important;
+        }
+
+        /* Profile Dropdown */
+        .profile-dropdown .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 6px 14px;
+            color: #fff !important;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .profile-dropdown .dropdown-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-dropdown .dropdown-toggle::after {
+            display: none; /* hide default arrow */
+        }
+
+        .profile-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f0a500, #e63946);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .profile-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .profile-chevron {
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+
+        /* Dropdown Menu */
+        .profile-dropdown .dropdown-menu {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 10px;
+            min-width: 200px;
+            margin-top: 10px;
+        }
+
+        .profile-dropdown .dropdown-item {
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #333;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-dropdown .dropdown-item:hover {
+            background: #f0f4ff;
+            color: #1a1a2e;
+        }
+
+        .dropdown-item.logout-btn {
+            color: #e63946;
+        }
+
+        .dropdown-item.logout-btn:hover {
+            background: #fff0f1;
+            color: #e63946;
+        }
+
+        .dropdown-divider {
+            margin: 6px 0;
+        }
+
+        /* Language Switcher */
+        .language-switcher .dropdown-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 6px 14px;
+            color: #fff !important;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .language-switcher .dropdown-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .language-switcher .dropdown-menu {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 10px;
+            min-width: 150px;
+        }
+
+        .language-switcher .dropdown-item {
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .language-switcher .dropdown-item:hover {
+            background: #f0f4ff;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: #fff;
+            border-bottom: 1px solid #e9ecef;
+            padding: 18px 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased">
+    <div class="min-h-screen bg-gray-100">
+
+        {{-- ===================== NAVBAR ===================== --}}
+        {{-- ===================== NAVBAR ===================== --}}
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid px-4">
+
+        {{-- 
+            This group stays together:
+            LTR (English): logo + language + profile on the LEFT
+            RTL (Pashto):  logo + language + profile on the RIGHT
+        --}}
+        <div class="navbar-brand-area">
+
+            {{-- Brand / Logo --}}
+            <a class="navbar-brand" href="{{ url('/') }}">
+                <i class="fas fa-book-open"></i>
+                {{ config('app.name', 'Library') }}
+            </a>
+
+            {{-- Language + Profile are beside the logo --}}
+            <div class="navbar-utilities">
+
+                {{-- ===== Language Switcher ===== --}}
+                <div class="dropdown language-switcher">
+                    <a class="dropdown-toggle" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-translate"></i>
+                        {{ strtoupper(app()->getLocale()) }}
                     </a>
+
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="{{ url('lang/en') }}">
+                                🇺🇸 English
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ url('lang/ps') }}">
+                                🇦🇫 پښتو
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ url('lang/fa') }}">
+                                🇮🇷 دری
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                       @auth
-                        @if(auth()->user()->role === 'admin')
-                            <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
-                                {{ __('message.dashboard') }}
-                            </x-nav-link>
-                        @else
-                            <x-nav-link :href="route('user.dashboard')" :active="request()->routeIs('user.dashboard')">
-                                {{ __('dashboard.title') }}
-                            </x-nav-link>
-                            <x-nav-link :href="route('user.books.create')" :active="request()->routeIs('user.books.create')">
-                                   {{ __('dashboard.add_record') }}
-                            </x-nav-link>
-                            <x-nav-link :href="route('user.books.index')" :active="request()->routeIs('user.books.index')">
-                                   {{ __('dashboard.manage_books') }}
-                            </x-nav-link>
-                        @endif
-                     @endauth                  
-                </div>
-            </div>
-            <!-- Settings Dropdown -->
-            @auth
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
-                  
-                    <x-dropdown align="right" width="48">
-                        <x-slot name="trigger">
-                            <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                <div>{{ Auth::user()->getUsername() }}</div>
 
-                                <div class="ms-1">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                            </button>
-                        </x-slot>
-
-                        <x-slot name="content">
-                            <x-dropdown-link :href="route('profile.edit')">
-                                {{ __('message.profile') }}
-                            </x-dropdown-link>
-
-                            <!-- Authentication -->
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-
-                                <x-dropdown-link :href="route('logout')"
-                                        onclick="event.preventDefault();
-                                                    this.closest('form').submit();">
-                                    {{ __('message.logout') }}
-                                </x-dropdown-link>
-                            </form>
-                        </x-slot>
-                    </x-dropdown>
-                    <x-translator></x-translator>
-
-                </div>
-            @endauth
-
-            <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-         <x-nav-link :href="route('user.books.create')" :active="request()->routeIs('user.books.create')">
-    {{ __('message.add record') }}
-  </x-nav-link>
-        </div>
-
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800">
-                    @if(Auth::check())
-                        {{ Auth::user()->name }}
-                    @endif
-                </div>
+                {{-- ===== User Profile Dropdown ===== --}}
                 @auth
-                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                    <div class="dropdown profile-dropdown">
+                        <a class="dropdown-toggle" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+
+                            {{-- First letter of the user's name --}}
+                            <span class="profile-avatar">
+                                {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                            </span>
+
+                            {{-- Username --}}
+                            <span class="profile-name">
+                                {{ auth()->user()->name }}
+                            </span>
+
+                            <i class="bi bi-chevron-down profile-chevron"></i>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            {{-- User information --}}
+                            <li class="px-3 py-2">
+                                <div class="fw-bold text-dark">
+                                    {{ auth()->user()->name }}
+                                </div>
+                                <small class="text-muted">
+                                    {{ auth()->user()->email }}
+                                </small>
+                            </li>
+
+                            <li><hr class="dropdown-divider"></li>
+
+                            {{-- Breeze profile page --}}
+                            <li>
+                                <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                                    <i class="bi bi-person-circle text-primary"></i>
+                                    Profile
+                                </a>
+                            </li>
+
+                            <li><hr class="dropdown-divider"></li>
+
+                            {{-- Logout must use POST in Laravel Breeze --}}
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+
+                                    <button type="submit" class="dropdown-item logout-btn w-100">
+                                        <i class="bi bi-box-arrow-right"></i>
+                                        Logout
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
                 @endauth
-            </div>
 
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('message.profile') }}
-                </x-responsive-nav-link>
+                {{-- Guest user buttons --}}
+                @guest
+                    <a class="btn btn-outline-light btn-sm rounded-pill px-3"
+                        href="{{ route('login') }}">
+                        <i class="bi bi-box-arrow-in-right"></i>
+                        Login
+                    </a>
 
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
+                    <a class="btn btn-warning btn-sm rounded-pill px-3 text-dark fw-semibold"
+                        href="{{ route('register') }}">
+                        Register
+                    </a>
+                @endguest
 
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
             </div>
         </div>
+
+        {{-- Mobile menu button --}}
+        <button class="navbar-toggler border-0" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <i class="bi bi-list text-white fs-3"></i>
+        </button>
+
+        {{-- Navigation links go to the OTHER side --}}
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav navbar-links mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/') }}">
+                        <i class="bi bi-house"></i>
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-book"></i>
+                        Books
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-grid"></i>
+                        Categories
+                    </a>
+                </li>
+            </ul>
+        </div>
+
     </div>
 </nav>
+{{-- ===================== END NAVBAR ===================== --}}
+        {{-- ===================== END NAVBAR ===================== --}}
+
+        {{-- Include Navigation (if you have separate file) --}}
+        {{-- @include('layouts.navigation') --}}
+
+        {{-- Page Heading --}}
+        @isset($header)
+            <header class="page-header">
+                <div class="container">
+                    {{ $header }}
+                </div>
+            </header>
+        @endisset
+
+        {{-- Page Content --}}
+        <main>
+            @yield('content')
+        </main>
+
+    </div>
+
+    <!-- Bootstrap JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

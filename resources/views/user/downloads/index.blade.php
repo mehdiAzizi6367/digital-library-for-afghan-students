@@ -444,14 +444,7 @@
                                     <i class="fas fa-check"></i>
                                 </div>
 
-                                {{-- Rating Badge --}}
-                                @if($avg > 0)
-                                    <div class="rating-cover-badge">
-                                        <i class="fas fa-star"></i>
-                                        {{ $avg }}
-                                    </div>
-                                @endif
-
+                        
                                 {{-- Quick Download Overlay --}}
                                 <div class="quick-overlay">
                                     <a href="{{ route('books.download', $download->book->id) }}"
@@ -465,29 +458,7 @@
                             {{-- Card Body --}}
                             <div class="card-body p-3 d-flex flex-column text-center">
 
-                                {{-- Star Rating --}}
-                                <div class="star-rating" data-book="{{ $download->book->id }}">
-                                    @for($i = 1; $i <= 5; $i++)
-                                        <button type="button"
-                                                class="star-btn {{ $i <= $userRating ? 'active' : '' }}"
-                                                data-value="{{ $i }}">
-                                            ⭐
-                                        </button>
-                                    @endfor
-                                </div>
 
-                                {{-- Rating Info --}}
-                                <div class="rating-info">
-                                    @if($avg > 0)
-                                        <i class="fas fa-star text-warning" style="font-size:10px;"></i>
-                                        {{ $avg }}
-                                        <span class="mx-1">•</span>
-                                        {{ $download->book->ratings->count() }}
-                                        {{ $download->book->ratings->count() > 1 ? 'ratings' : 'rating' }}
-                                    @else
-                                        No rating yet
-                                    @endif
-                                </div>
 
                                 {{-- Title --}}
                                 <div class="book-title">
@@ -546,11 +517,6 @@
     </div>
 </div>
 
-{{-- Rating Toast --}}
-<div class="rating-toast" id="ratingToast">
-    <i class="fas fa-star text-warning me-2"></i>
-    <span id="ratingToastText">Thanks for your feedback! 👍❤️</span>
-</div>
 
 {{-- ═══════════════════════════════════════════
      SCRIPTS
@@ -585,69 +551,6 @@ document.addEventListener('DOMContentLoaded', function () {
         ratingToast.classList.add('show');
         setTimeout(() => ratingToast.classList.remove('show'), 2800);
     }
-
-    /* ═══ STAR RATING ═══ */
-    document.querySelectorAll('.star-rating').forEach(container => {
-        const stars  = container.querySelectorAll('.star-btn');
-        const bookId = container.dataset.book;
-
-        stars.forEach((star, index) => {
-
-            // Hover effect
-            star.addEventListener('mouseenter', () => {
-                stars.forEach((s, i) => {
-                    s.style.filter = i <= index
-                        ? 'grayscale(0) opacity(1)'
-                        : 'grayscale(1) opacity(0.3)';
-                });
-            });
-
-            // Click to rate
-            star.addEventListener('click', () => {
-                const rating = star.dataset.value;
-
-                stars.forEach((s, i) => {
-                    if (i <= index) {
-                        s.classList.add('active');
-                        s.style.filter = 'grayscale(0) opacity(1)';
-                        s.style.transform = 'scale(1.4)';
-                        setTimeout(() => s.style.transform = '', 250);
-                    } else {
-                        s.classList.remove('active');
-                        s.style.filter = 'grayscale(1) opacity(0.3)';
-                    }
-                });
-
-                // Send rating
-                fetch(`/books/${bookId}/rate`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                    },
-                    body: JSON.stringify({ rating: rating })
-                })
-                .then(res => res.json())
-                .then(() => {
-                    showToast(`⭐ Rated ${rating} star${rating > 1 ? 's' : ''}! Thanks for your feedback! 👍❤️`);
-                })
-                .catch(() => {
-                    showToast('❌ Rating failed. Please try again.');
-                });
-            });
-        });
-
-        // Reset on mouse leave
-        container.addEventListener('mouseleave', () => {
-            stars.forEach(s => {
-                const isActive = s.classList.contains('active');
-                s.style.filter = isActive
-                    ? 'grayscale(0) opacity(1)'
-                    : 'grayscale(1) opacity(0.3)';
-                s.style.transform = '';
-            });
-        });
-    });
 
     /* ═══ CARD ROW STAGGER ═══ */
     document.querySelectorAll('.book-card').forEach((card, i) => {

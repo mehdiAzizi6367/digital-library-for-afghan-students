@@ -152,14 +152,7 @@
         filter: grayscale(1) opacity(0.3);
         transform: scale(1);
     }
-    .star-rating:hover .star-btn {
-        filter: grayscale(0) opacity(1);
-        transform: scale(1.1);
-    }
-    .star-rating:hover .star-btn:hover ~ .star-btn {
-        filter: grayscale(1) opacity(0.3);
-        transform: scale(1);
-    }
+   
 
     /* ── Rating Toast ── */
     .rating-toast {
@@ -395,15 +388,7 @@
                             <div class="stats-pill-icon bg-warning bg-opacity-25">
                                 <i class="fas fa-star text-warning"></i>
                             </div>
-                            <div>
-                                @php
-                                    $globalAvg = $favorites->count() > 0
-                                        ? round($favorites->avg(fn($f) => $f->book->ratings->avg('rating')), 1)
-                                        : 0;
-                                @endphp
-                                <div class="stats-pill-value">{{ $globalAvg }}</div>
-                                <div class="stats-pill-label">{{ __('message.avg_rating') ?? 'Avg Rating' }}</div>
-                            </div>
+                          
                         </div>
                     </div>
                 </div>
@@ -459,32 +444,9 @@
                             {{-- Card Body --}}
                             <div class="card-body p-3 d-flex flex-column">
 
-                                {{-- Star Rating --}}
-                                <div class="star-rating" data-book="{{ $fav->book->id }}">
-                                    @for($i = 1; $i <= 5; $i++)
-                                        <button type="button"
-                                                class="star-btn {{ $i <= $userRating ? 'active' : '' }}"
-                                                data-value="{{ $i }}"
-                                                title="{{ $i }} star">
-                                            ⭐
-                                        </button>
-                                    @endfor
-                                </div>
+                               
 
-                                {{-- Rating Info --}}
-                                <div class="text-center mb-2">
-                                    <span class="small" style="color:#94a3b8; font-size:11px;">
-                                        @if($avg > 0)
-                                            <i class="fas fa-star text-warning" style="font-size:10px;"></i>
-                                            {{ $avg }}
-                                            <span class="mx-1">•</span>
-                                            {{ $fav->book->ratings->count() }}
-                                            {{ $fav->book->ratings->count() > 1 ? 'ratings' : 'rating' }}
-                                        @else
-                                            {{ __('message.no_rating') ?? 'No rating yet' }}
-                                        @endif
-                                    </span>
-                                </div>
+                                
 
                                 {{-- Title --}}
                                 <h6 class="book-title">

@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminReportController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -102,6 +103,11 @@ Route::middleware(['auth','active'])->group(function () {
     Route::get('/profile', [ProfileController::class,'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class,'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class,'destroy'])->name('profile.destroy');
+
+    /*===========admin profle routes=============== */
+    Route::get('/admin-profile', [AdminProfileController::class,'edit'])->name('admin.profile.edit');
+    Route::patch('/admin-profile', [AdminProfileController::class,'update'])->name('admin.profile.update');
+    Route::delete('/admin-profile', [AdminProfileController::class,'destroy'])->name('admin.profile.destroy');
 
     Route::get('/search-books', function(Request $request){
         $query = $request->input('query');

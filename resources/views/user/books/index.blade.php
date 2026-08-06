@@ -164,7 +164,7 @@
                                                 <form action="{{ route('user.books.destroy', $book->id) }}"
                                                       method="POST"
                                                       class="d-inline-block"
-                                                      onsubmit="return confirm('{{ __('message.confirm_delete') }}')">
+                                                      onsubmit="return confirm('are you sure?') ">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn-danger btn-sm action-btn">

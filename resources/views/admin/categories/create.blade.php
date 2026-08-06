@@ -3,7 +3,7 @@
 @section('title', __('dashboard.add_category'))
 
 @section('content')
-<div class="container py-4">
+<div class="container py-4 ">
 
     {{-- Breadcrumb --}}
     <nav aria-label="breadcrumb" class="mb-3">

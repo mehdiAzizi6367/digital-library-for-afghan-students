@@ -96,7 +96,7 @@
         {{-- ═══════════════════════════════
              PAGE HEADER
         ═══════════════════════════════ --}}
-        <div class="page-header">
+        <div class="page-header" style="background-color: blue;">
             <div class="header-content text-center text-md-start">
                 <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
 

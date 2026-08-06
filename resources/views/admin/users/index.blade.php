@@ -79,7 +79,6 @@
                             <th class="py-3 ps-4">#</th>
                             <th class="py-3">{{ __('users.name') }}</th>
                             <th class="py-3">{{ __('users.email') }}</th>
-                            <th class="py-3 text-center">{{ __('users.role') }}</th>
                             <th class="py-3 text-center">{{ __('users.status') }}</th>
                             <th class="py-3">{{ __('users.joined_at') }}</th>
                             <th class="py-3 text-center">{{ __('users.actions') }}</th>
@@ -126,26 +125,6 @@
                                     {{ $user->email }}
                                 </a>
                             </td>
-
-                            {{-- Role Badge --}}
-                            <td class="text-center">
-                                @if($user->role === 'admin')
-                                    <span class="badge bg-warning-subtle text-warning border rounded-pill px-3 py-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="me-1" viewBox="0 0 16 16">
-                                            <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2z"/>
-                                        </svg>
-                                        {{ __('users.role_admin') }}
-                                    </span>
-                                @else
-                                    <span class="badge bg-primary-subtle text-primary border rounded-pill px-3 py-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="me-1" viewBox="0 0 16 16">
-                                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                                        </svg>
-                                        {{ __('users.role_user') }}
-                                    </span>
-                                @endif
-                            </td>
-
                             {{-- Status Badge --}}
                             <td class="text-center">
                                 @if($user->is_active)

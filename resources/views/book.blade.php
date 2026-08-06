@@ -1,256 +1,337 @@
-@extends('layouts.app') 
+@extends('layouts.app')
 
-@section('content') 
+@section('content')
+
 <style>
-    /* Global Overrides & Smoothness */
-    body {
-        background-color: #f8fafc;
-        color: #334155;
-    }
+/* ── Search ── */
+.search-wrapper {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+}
 
-    /* Modern Dropdown Search */
-    .search-dropdown {
-        position: absolute;
-        top: calc(100% + 8px);
-        left: 0;
-        width: 100%;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        border-radius: 12px;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-        overflow: hidden;
-        border: 1px solid rgba(226, 232, 240, 0.8);
-    }
-    
-    .search-item {
-        padding: 14px 20px;
-        border-bottom: 1px solid #f1f5f9;
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-    
-    .search-item:last-child {
-        border-bottom: none;
-    }
-    
-    .search-item:hover {
-        background: #f1f5f9;
-        padding-left: 24px;
-    }
-    
-    .search-title {
-        font-weight: 600;
-        color: #1e293b;
-        font-size: 15px;
-    }
-    
-    .search-author {
-        font-size: 13px;
-        color: #64748b;
-        margin-top: 2px;
-    }
+.search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    z-index: 1000;
+    overflow: hidden;
+    border: 1px solid #eee;
+}
 
-    /* Enhanced Premium Cards */
-    .book-card {
-        border-radius: 16px;
-        overflow: hidden;
-        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
-        background: #ffffff;
-        border: 1px solid #e2e8f0 !important;
-    }
-    
-    .book-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
-    }
+.search-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: background .2s;
+}
 
-    .image-container {
-        position: relative;
-        overflow: hidden;
-        border-radius: 16px 16px 0 0;
-    }
+.search-item:last-child {
+    border-bottom: none;
+}
 
-    .book-card img {
-        transition: transform 0.5s ease;
-    }
+.search-item:hover {
+    background: #f8f9fa;
+}
 
-    .book-card:hover img {
-        transform: scale(1.05);
-    }
+.search-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #222;
+}
 
-    /* Average Rating Badge */
-    .avg-rating-badge {
-        position: absolute;
-        top: 12px;
-        right: 12px;
-        background: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(4px);
-        padding: 4px 10px;
-        border-radius: 20px;
-        font-weight: 700;
-        font-size: 13px;
-        color: #eab308;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        display: flex;
-        align-items: center;
-        gap: 4px;
-    }
+.search-author {
+    font-size: 12px;
+    color: #888;
+    margin-top: 2px;
+}
 
-    /* Interactive Buttons */
-    .btn-action {
-        border-radius: 10px;
-        padding: 8px 12px;
-        font-weight: 500;
-        transition: all 0.2s ease;
-    }
+/* ── Book Card ── */
+.book-card {
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform .3s, box-shadow .3s;
+    border: none;
+}
 
-    .btn-action:hover {
-        transform: translateY(-1px);
-    }
+.book-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 30px rgba(0,0,0,0.12);
+}
+
+.book-card .card-img-top {
+    height: 220px;
+    object-fit: cover;
+}
+
+/* ── Search Input ── */
+#searchInput:focus {
+    box-shadow: none;
+    border-color: #86b7fe;
+}
+
+/* ── No results ── */
+.empty-state {
+    padding: 60px 20px;
+    text-align: center;
+    color: #aaa;
+}
+
+.empty-state i {
+    font-size: 50px;
+    margin-bottom: 15px;
+    display: block;
+}
 </style>
 
 <div class="container py-5">
-    <!-- Header Title -->
-    <h2 class="text-center fw-extrabold text-dark mb-4 d-flex align-items-center justify-content-center gap-3">
-        <i class="fa-solid fa-book text-primary"></i> 
-        <span>{{ __('dashboard.total_books') }}</span>
+
+    {{-- ── PAGE TITLE ── --}}
+    <h2 class="text-center fw-bold mb-5">
+        <i class="fa-solid fa-book me-2"></i>
+        {{ __('dashboard.total_books') }}
     </h2>
 
-    {{-- SEARCH BAR --}}
-    <div class="col-md-6 position-relative mx-auto mb-5">
-        <form action="/search" method="GET">
-            <div class="input-group shadow-sm rounded-3 overflow-hidden border">
-                <input type="text" id="searchInput" class="form-control border-0 p-3 bg-white" name="query" placeholder="{{ __('message.search_placeholder') }}" autocomplete="off" style="box-shadow: none;">
-                <button class="btn btn-primary px-4">
-                    <i class="fa-solid fa-magnifying-glass fs-5"></i>
+    {{-- ── SEARCH ── --}}
+    <div class="search-wrapper">
+        <form action="{{ route('search.page') }}" method="GET" id="searchForm">
+            <div class="input-group shadow-sm rounded-3 overflow-hidden">
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="form-control p-3 border-0"
+                    name="query"
+                    placeholder="{{ __('message.search_placeholder') }}"
+                    autocomplete="off"
+                    minlength="2">
+
+                <button
+                    class="btn btn-primary px-4"
+                    type="submit"
+                    id="searchBtn"
+                    disabled>
+                    <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
-            <div id="searchResults" class="search-dropdown" style="display: none;"></div>
+
+            <div id="searchResults" class="search-dropdown mt-1"></div>
         </form>
     </div>
 
-    {{-- BOOKS GRID --}}
+    {{-- ── ADMIN PANEL BUTTON (Role Check) ── --}}
+    @auth
+        @if(auth()->user()->role === 'admin')
+            <div class="text-end mb-4">
+                <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-danger">
+                    <i class="fa-solid fa-shield-halved me-1"></i>
+                    Admin Panel
+                </a>
+            </div>
+        @endif
+    @endauth
+
+    {{-- ── BOOKS GRID ── --}}
     <div class="row g-4">
-        @forelse ($books as $book)
+
+        @forelse($books as $book)
+
             @php
-                $avg = round($book->ratings->avg('rating'), 1);
-                $isFavorite = $book->favorites->where('user_id', auth()->id())->count();
+                $isFavorite = $book->favorites->contains('user_id', auth()->id());
             @endphp
+
             <div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="card book-card h-100 shadow-sm border-0">
-                    
-                    {{-- IMAGE & BADGE --}}
-                    <div class="image-container">
-                        <img src="{{ asset('storage/'.$book->thumbnail) }}" class="card-img-top" style="height:240px; object-fit:cover;" alt="Book Thumbnail">
-                        <div class="avg-rating-badge">
-                            <i class="fa-solid fa-star"></i> {{ $avg ?: '0.0' }}
-                        </div>
-                    </div>
 
-                    <div class="card-body d-flex flex-column p-4">
-                        {{-- CATEGORY --}}
-                        <div class="mb-2">
-                            <span class="badge bg-light text-primary border px-2 py-1d-inline-flex align-items-center gap-1">
-                                <i class="fa-solid fa-tag"></i> {{ $book->category->getname() }}
-                            </span>
-                        </div>
+                <div class="card book-card h-100 shadow-sm">
 
-                        {{-- TITLE --}}
-                        <h5 class="fw-bold text-dark mb-1 text-truncate" title="{{ $book->{'title_' . app()->getLocale()} ?? $book->title_en }}">
-                            {{ Str::limit($book->{'title_' . app()->getLocale()} ?? $book->title_en, 22) }}
-                        </h5>
+                    {{-- Thumbnail --}}
+                    <img
+                        src="{{ asset('storage/' . $book->thumbnail) }}"
+                        class="card-img-top"
+                        alt="{{ $book->title_en }}">
 
-                        {{-- AUTHOR --}}
-                        <p class="text-muted small mb-4">
-                            <i class="fa-solid fa-user-feather me-1"></i> {{ $book->author }}
-                        </p>
+                    <div class="card-body d-flex flex-column text-center px-3 py-3">
 
-                        {{-- ACTION BUTTONS --}}
+                        {{-- Title --}}
+                        <h6 class="fw-bold mb-1">
+                            {{ Str::limit(
+                                $book->{'title_' . app()->getLocale()} ?? $book->title_en,
+                                25
+                            ) }}
+                        </h6>
+
+                        {{-- Author --}}
+                        <small class="text-muted mb-1">
+                            <i class="fa-solid fa-user me-1"></i>
+                            {{ $book->author }}
+                        </small>
+
+                        {{-- Category --}}
+                        <small class="text-muted mb-3">
+                            <i class="fa-solid fa-tag me-1"></i>
+                            {{ $book->category->getname() }}
+                        </small>
+
+                        {{-- ── Action Buttons ── --}}
                         <div class="mt-auto d-flex gap-2">
-                            <!-- Read Button -->
-                            <a href="{{ route('books.read', $book->id) }}" class="btn btn-primary btn-action w-100 d-flex align-items-center justify-content-center" title="Read Book">
+
+                            {{-- Read --}}
+                            <a href="{{ route('books.read', $book->id) }}"
+                               class="btn btn-primary btn-sm flex-fill"
+                               title="Read">
                                 <i class="fa-solid fa-book-open"></i>
                             </a>
-                            
-                            <!-- Favorite Button -->
-                            <form action="{{ route('books.favorite', $book->id) }}" method="POST" class="w-100">
+
+                            {{-- Favorite --}}
+                            <form
+                                action="{{ route('books.favorite', $book->id) }}"
+                                method="POST"
+                                class="flex-fill">
                                 @csrf
-                                <button class="btn btn-action w-100 d-flex align-items-center justify-content-center {{ $isFavorite ? 'btn-warning text-white' : 'btn-outline-danger' }}">
+                                <button
+                                    type="submit"
+                                    class="btn btn-sm w-100 {{ $isFavorite ? 'btn-warning' : 'btn-outline-danger' }}"
+                                    title="{{ $isFavorite ? 'Remove Favorite' : 'Add Favorite' }}">
                                     <i class="fa-solid {{ $isFavorite ? 'fa-heart-crack' : 'fa-heart' }}"></i>
                                 </button>
                             </form>
-                            
-                            <!-- Download Button -->
-                            <a href="{{ route('books.download', $book->id) }}" class="btn btn-success btn-action w-100 d-flex align-items-center justify-content-center" title="Download Book">
+
+                            {{-- Download --}}
+                            <a href="{{ route('books.download', $book->id) }}"
+                               class="btn btn-success btn-sm flex-fill"
+                               title="Download">
                                 <i class="fa-solid fa-download"></i>
                             </a>
+
                         </div>
+
                     </div>
+
+                </div>
+
+            </div>
+
+        @empty
+
+            <div class="col-12">
+                <div class="empty-state">
+                    <i class="fa-solid fa-book-open"></i>
+                    <h5 class="text-muted">No books found.</h5>
                 </div>
             </div>
-        @empty
-            <div class="col-12 py-5 text-center">
-                <div class="text-muted mb-3"><i class="fa-regular fa-folder-open fs-1"></i></div>
-                <p class="text-secondary fw-medium">No books found.</p>
-            </div>
+
         @endforelse
+
     </div>
 
-    {{-- PAGINATION --}}
-    <div class="d-flex justify-content-center mt-5">
+    {{-- ── Pagination ── --}}
+    <div class="mt-5 d-flex justify-content-center">
         {{ $books->links() }}
     </div>
+
 </div>
 
 @include('footer.footer')
 
-{{-- SCRIPTS --}}
 <script>
-    // SEARCH BAR FUNCTIONALITY
-    const input = document.getElementById("searchInput");
-    const results = document.getElementById("searchResults");
+document.addEventListener('DOMContentLoaded', function () {
 
-    document.addEventListener("click", function(e) {
-        if (!input.contains(e.target) && !results.contains(e.target)) {
-            results.style.display = "none";
-            results.innerHTML = "";
+    const input     = document.getElementById('searchInput');
+    const results   = document.getElementById('searchResults');
+    const searchBtn = document.getElementById('searchBtn');
+    const form      = document.getElementById('searchForm');
+
+    // ── 1. Enable / Disable search button ──────────────────────────
+    input.addEventListener('input', function () {
+        const val = input.value.trim();
+
+        // Enable button only when 2+ chars
+        searchBtn.disabled = val.length < 2;
+
+        // Clear dropdown if input is too short
+        if (val.length < 2) {
+            results.innerHTML = '';
         }
     });
 
+    // ── 2. Block form submit if empty ──────────────────────────────
+    form.addEventListener('submit', function (e) {
+        if (input.value.trim().length < 2) {
+            e.preventDefault();
+        }
+    });
+
+    // ── 3. Close dropdown on outside click ────────────────────────
+    document.addEventListener('click', function (e) {
+        if (!input.contains(e.target) && !results.contains(e.target)) {
+            results.innerHTML = '';
+        }
+    });
+
+    // ── 4. Live search dropdown ────────────────────────────────────
     let timeout;
-    input.addEventListener("keyup", function() {
+
+    input.addEventListener('keyup', function () {
         clearTimeout(timeout);
+
+        const query = input.value.trim();
+
+        if (query.length < 2) {
+            results.innerHTML = '';
+            return;
+        }
+
         timeout = setTimeout(() => {
-            let query = input.value;
-            if (query.length < 2) {
-                results.style.display = "none";
-                results.innerHTML = "";
-                return;
-            }
-            
-            fetch(`/search-books?query=` + encodeURIComponent(query))
+
+            fetch(`/search-books?query=${encodeURIComponent(query)}`)
                 .then(res => res.json())
                 .then(data => {
-                    let html = "";
-                    results.style.display = "block";
-                    
+
                     if (data.length === 0) {
-                        html = `<div class="search-item text-center text-muted">No results found</div>`;
-                    } else {
-                        data.forEach(book => {
-                            html += `
-                                <div class="search-item">
-                                    <a href="/books/${book.id}" style="text-decoration:none; display:block;">
-                                        <div class="search-title">${book.title}</div>
-                                        <div class="search-author"><i class="fa-solid fa-user fa-sm me-1"></i> ${book.author}</div>
-                                    </a>
-                                </div>`;
-                        });
+                        results.innerHTML = `
+                            <div class="search-item text-muted">
+                                <i class="fa-solid fa-circle-xmark me-2"></i>
+                                No results found.
+                            </div>`;
+                        return;
                     }
-                    results.innerHTML = html;
+
+                    results.innerHTML = data.map(book => `
+                        <div class="search-item">
+                            <a href="/books/${book.id}"
+                               style="text-decoration:none;color:inherit;">
+                                <div class="search-title">${escapeHtml(book.title)}</div>
+                                <div class="search-author">
+                                    <i class="fa-solid fa-user me-1"></i>
+                                    ${escapeHtml(book.author)}
+                                </div>
+                            </a>
+                        </div>
+                    `).join('');
+
+                })
+                .catch(() => {
+                    results.innerHTML = `
+                        <div class="search-item text-danger">
+                            <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                            Something went wrong.
+                        </div>`;
                 });
+
         }, 300);
     });
+
+    // ── 5. Escape HTML to prevent XSS ─────────────────────────────
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.appendChild(document.createTextNode(text));
+        return div.innerHTML;
+    }
+
+});
 </script>
+
 @endsection

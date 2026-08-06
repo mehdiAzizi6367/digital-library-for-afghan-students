@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('layouts.app')
 
 
 <style>
@@ -509,7 +509,7 @@
         <div class="hero-shape"></div>
         <div class="hero-shape"></div>
 
-        <div class="container position-relative" style="z-index: 2;">
+        <div class="container position-relative" style="z-index: 2; ">
 
             {{-- Breadcrumb --}}
             <div class="hero-breadcrumb" data-aos="fade-right" data-aos-duration="500">
@@ -523,7 +523,7 @@
             </div>
 
             {{-- Category Tag --}}
-            <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="500">
+            <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="500" >
                 <span class="hero-category-tag">
                     <i class="fas fa-tag"></i>
                     {{ $book->category->getname() ?? 'General' }}
@@ -570,7 +570,7 @@
     </div>
 
     {{-- ===== Main Content ===== --}}
-    <div class="main-layout">
+    <div class="main-layout" >
         <div class="container">
             <div class="row g-4">
 

@@ -26,6 +26,7 @@ return [
     'no_results' => 'No results found',
     'description'=>'description',
     'book_title'=> 'Title',
+    'book_file'=> 'file',
     'author'=>'author',
     'select_category'=>'Select category',
     'upload_book'=>'upload book',
@@ -155,5 +156,8 @@ return [
     'respond'           => 'Respond',
     'no_messages'       => 'No messages found',
     'no_messages_subtitle' => 'Your inbox is empty. No contact messages have been received yet.',
-
+     'books_found'=>':count books found',
+      'no_favorites' => 'No favorite books found',
+    'no_favorites_hint' => 'You have not added any books to your favorites yet. Explore books and save your favorite ones.',
+    'explore_books' => 'Explore Books',
     ];

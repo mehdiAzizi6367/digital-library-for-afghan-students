@@ -1,6 +1,42 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+<x-guest-layout >
+    <style>
+          .min-h-screen, body {
+           
+            background-image: url('https://www.freepik.com/search?query=library') !important;
+        background-size: cover;
+        background-position: center;
+            background-repeat: no-repeat;
+    
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            display: flex !important;
+            justify-content: center !important; 
+            align-items: center !important;     
+            min-height: 100vh !important;
+        }
+        .register-card{
+              background: #ffffff;
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            padding: 2.5rem;
+            max-width: 450px;
+            width: 100%;
+            margin: auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        }
+        body{
+            background-image: url('/assets/l2.jpg') !important;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            }
+    </style>
+
+    <form method="POST" class="register-card" action="{{ route('register') }}" >
         @csrf
+          <h1 class="text-center"> Registraion page </h1>
         
         <!-- Name -->
         <div>

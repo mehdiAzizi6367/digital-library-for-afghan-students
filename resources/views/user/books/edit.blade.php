@@ -270,7 +270,7 @@
                                     <i class="fas fa-file-upload text-danger" style="font-size:18px;"></i>
                                 </div>
                                 <div class="file-upload-text" id="fileText">
-                                    {{ $book->file ? __('message.upload_new_file') : __('message.upload_book_file') }}
+                                    {{ $book->file ? __('message.upload_new_file') : __('message.upload_book') }}
                                 </div>
                                 <div class="file-upload-hint">PDF, DOC, DOCX (Max 10MB)</div>
                                 <input type="file"

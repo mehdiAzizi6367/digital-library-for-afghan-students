@@ -154,6 +154,166 @@
             }
         }
 
+        /* // navbar */
+   .navbar {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+            padding: 10px 20px;
+            border-radius: 30px;
+           
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff !important;
+            letter-spacing: 1px;
+        }
+
+        .navbar-brand i {
+            color: #f0a500;
+            margin-right: 8px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.85) !important;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #f0a500 !important;
+        }
+
+        /* Profile Dropdown */
+        .profile-dropdown .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 6px 14px;
+            color: #fff !important;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .profile-dropdown .dropdown-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-dropdown .dropdown-toggle::after {
+            display: none; /* hide default arrow */
+        }
+
+        .profile-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f0a500, #e63946);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .profile-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .profile-chevron {
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+
+        /* Dropdown Menu */
+        .profile-dropdown .dropdown-menu {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 10px;
+            min-width: 200px;
+            margin-top: 10px;
+        }
+
+        .profile-dropdown .dropdown-item {
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #333;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-dropdown .dropdown-item:hover {
+            background: #f0f4ff;
+            color: #1a1a2e;
+        }
+
+        .dropdown-item.logout-btn {
+            color: #e63946;
+        }
+
+        .dropdown-item.logout-btn:hover {
+            background: #fff0f1;
+            color: #e63946;
+        }
+
+        .dropdown-divider {
+            margin: 6px 0;
+        }
+
+        /* Language Switcher */
+        .language-switcher .dropdown-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            padding: 6px 14px;
+            color: #fff !important;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .language-switcher .dropdown-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .language-switcher .dropdown-menu {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 10px;
+            min-width: 150px;
+        }
+
+        .language-switcher .dropdown-item {
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .language-switcher .dropdown-item:hover {
+            background: #f0f4ff;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: #fff;
+            border-bottom: 1px solid #e9ecef;
+            padding: 18px 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
     </style>
       @yield('styles')
 </head>
@@ -162,7 +322,7 @@
     <!-- ═══════════════════════════════════════════
          SIDEBAR
     ═══════════════════════════════════════════ -->
-    <aside class="app-sidebar" id="appSidebar">
+    <aside class="app-sidebar" id="appSidebar" >
 
         <!-- Header -->
         <div class="sidebar-header">
@@ -250,11 +410,13 @@
         <!-- ACCOUNT Section -->
         <div class="sidebar-label">{{ __('dashboard.account') }}</div>
         <nav class="sidebar-nav">
-            <a href="{{ route('profile.edit') }}" class="sidebar-nav-item">
+             
+       <a href="{{ auth()->user()->role === 'admin' ? route('admin.profile.edit') : route('profile.edit') }}"
+            class="sidebar-nav-item">
                 <i class="bi bi-person-circle"></i>
                 <span>{{ __('dashboard.profile') }}</span>
-            </a>
-        
+        </a>
+                
         </nav>
 
         <!-- Share Button -->
@@ -278,7 +440,7 @@
     </aside>
 
     <!-- Overlay -->
-    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()" ></div>
 
     <!-- ═══════════════════════════════════════════
          MAIN CONTENT
@@ -286,16 +448,10 @@
     <main class="app-main">
 
         <!-- Top Bar -->
-        <div class="app-topbar">
+        <div class="app-topbar" style="background:#1d2c83">
             <button class="topbar-toggle" onclick="toggleSidebar()">
-                <i class="bi bi-list"></i>
+                <i class="bi bi-list text-white"></i>
             </button>
-         
-            
-            <div class="topbar-search">
-                <input type="text" placeholder="{{ __('dashboard.search_placeholder') }}">
-                <i class="bi bi-search"></i>
-            </div>
 
             <div class="d-flex align-items-center gap-3">
                 <button class="btn btn-light rounded-circle position-relative" style="width:40px;height:40px;">
@@ -312,6 +468,54 @@
                   
                 </button>
             </div>
+            <nav class="navbar navbar-expand-lg d-none d-sm-block" >
+            <div class="container-fluid px-4">
+
+
+            </div>
+            
+                {{-- ===== COLLAPSIBLE CONTENT ===== --}}
+                <div class="collapse navbar-collapse" id="mainNavbar">
+
+                    {{-- ===== CENTER NAV LINKS (auto margin both sides) ===== --}}
+                    {{-- ===== RIGHT SIDE: Language + Profile/Guest ===== --}}
+                    <ul class="navbar-nav align-items-center gap-2 mb-2 mb-lg-0">
+
+                        {{-- ----- Language Switcher ----- --}}
+                        <li class="nav-item dropdown language-switcher">
+                            <a class="dropdown-toggle" href="#"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <i class="bi bi-translate"></i>
+                                {{ strtoupper(app()->getLocale()) }}
+                                <i class="bi bi-chevron-down profile-chevron ms-1"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item {{ app()->getLocale() == 'en' ? 'active-lang' : '' }}"
+                                        href="{{ url('lang/en') }}">
+                                        🇺🇸 &nbsp; English
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item {{ app()->getLocale() == 'ps' ? 'active-lang' : '' }}"
+                                        href="{{ url('lang/ps') }}">
+                                        🇦🇫 &nbsp; پښتو
+                                    </a>
+                                </li>
+                            
+                            </ul>
+                        </li>
+
+                        
+
+                    </ul>
+                    {{-- ===== END RIGHT SIDE ===== --}}
+
+                </div>
+                {{-- ===== END COLLAPSIBLE ===== --}}
+        </nav>
         </div>
 
         <!-- Page Content -->
