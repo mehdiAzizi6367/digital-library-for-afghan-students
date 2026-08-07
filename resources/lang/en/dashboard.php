@@ -259,4 +259,6 @@ return [
 
     // Save
     'save_settings'             => 'Save Settings',
+    'contact'=>'Contact us',
+    'contacts_subtitle'=>'outline here your contact section emails, phone No and address'
 ];

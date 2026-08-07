@@ -286,6 +286,110 @@
             </div>
         </div>
 
+        {{-- ==================== SECTION 5: Contact Section ==================== --}}
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+            <div class="card-header bg-white border-bottom py-3 px-4">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="p-2 rounded-3" style="background-color: #dcfce7;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#16a34a" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h5 class="mb-0 fw-semibold text-dark">{{ __('dashboard.contact') }}</h5>
+                        <p class="mb-0 text-muted" style="font-size: 12px;">{{ __('dashboard.contacts_subtitle') }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body p-4">
+                <div class="row g-4">
+                    {{--  first email --}}
+                    <div class="col-md-6">
+                        <label class="form-label fw-medium text-dark small">
+                            {{ __('dashboard.email') }}
+                            <span class="badge bg-primary-subtle text-primary border ms-1" style="font-size:10px;">EN</span>
+                        </label>
+                        <input type="email" name="email"  value="{{ $setting->email }}"
+                            class="form-control @error('email') is-invalid @enderror"
+                            placeholder="{{ __('dashboard.purpose_en_placeholder') }}"
+                        >
+                        @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- second email --}}
+                    <div class="col-md-6">
+                        <label class="form-label fw-medium text-dark small">
+                            {{ __('dashboard.email') }}
+                            <span class="badge bg-success-subtle text-success border ms-1" style="font-size:10px;">PS</span>
+                        </label>
+                        <input name="email1" rows="4" value="{{ $setting->email1 }}"
+                            class="form-control @error('email1') is-invalid @enderror"
+                            placeholder="{{ __('dashboard.email_placeholder') }}"
+                            dir="{{ app()->getLocale() =='ps'? 'rtl':'ltr' }}"
+
+                        >
+                        @error('email1')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    {{--  first phone --}}
+                    <div class="col-md-6">
+                        <label class="form-label fw-medium text-dark small">
+                            {{ __('dashboard.phone') }}
+                            <span class="badge bg-primary-subtle text-primary border ms-1" style="font-size:10px;">EN</span>
+                        </label>
+                        <input type="number" name="phone" min="0" value="{{ $setting->phone }}"
+                            class="form-control @error('phone') is-invalid @enderror"
+                            placeholder="{{ __('dashboard.phone') }}"
+                           dir="{{ app()->getLocale() =='ps'? 'rtl':'ltr' }}"
+
+                        >
+                        @error('phone')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- second phone --}}
+                    <div class="col-md-6">
+                        <label class="form-label fw-medium text-dark small">
+                            {{ __('dashboard.phone1') }}
+                            <span class="badge bg-success-subtle text-success border ms-1" style="font-size:10px;">PS</span>
+                        </label>
+                        <input name="phone1"   min="0" value="{{ $setting->phone1 }}"
+                            class="form-control @error('phone1') is-invalid @enderror"
+                            placeholder="{{ __('dashboard.phone_placeholder') }}"
+                            dir="{{ app()->getLocale() =='ps'? 'rtl':'ltr' }}"
+                        >
+                        @error('phone1')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    {{-- Addrss --}}
+                    <div class="col-md-12">
+                        <label class="form-label fw-medium text-dark small">
+                            {{ __('dashboard.Address') }}
+                            <span class="badge bg-success-subtle text-success border ms-1" style="font-size:10px;">PS</span>
+                        </label>
+                        <textarea rows="4" name="address" autocomplete="on"
+                            class="form-control @error('Address') is-invalid @enderror"
+                            placeholder="{{ __('dashboard.phone_placeholder') }}"
+                        dir="{{ app()->getLocale() =='ps'? 'rtl':'ltr' }}"
+}
+                        >{{ $setting->address }}</textarea>
+                        @error('address')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
         {{-- ==================== SECTION 5: Footer ==================== --}}
         <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
             <div class="card-header bg-white border-bottom py-3 px-4">

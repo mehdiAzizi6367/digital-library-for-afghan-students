@@ -21,6 +21,11 @@ class Setting extends Model
         'about_digital_library_ps',
         'purpose_en',
         'purpose_ps',
+        'email',
+        'email1',
+        'phone',
+        'phone1',
+        'address',
 
     ];
 }

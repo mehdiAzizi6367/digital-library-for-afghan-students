@@ -32,6 +32,7 @@ class SettingController extends Controller
     // Update settings
     public function update(Request $request)
     {
+       
         $request->validate([
             'hero_title_en' => 'required|string',
             'hero_title_ps' => 'required|string',
@@ -45,7 +46,12 @@ class SettingController extends Controller
             'purpose_ps'=> "nullable|string",
             'about_digital_library_en'=>'nullable|string',
             'about_digital_library_ps'=>'nullable|string',
-            'logo' => 'nullable|image|mimes:png,jpg,jpeg'
+            'logo' => 'nullable|image|mimes:png,jpg,jpeg',
+            'email'=>'nullable|string',
+            'email1'=>'nullable|string',
+            'phone'=>'nullable',
+            'phone1'=>'nullable',
+            'address'=>'nullable|string',
         ]);
         
 
@@ -80,6 +86,11 @@ class SettingController extends Controller
         $setting->purpose_ps = $request->purpose_ps;
         $setting->about_digital_library_en = $request->about_digital_library_en;
         $setting->about_digital_library_ps = $request->about_digital_library_ps;
+        $setting->email= $request->email;
+        $setting->email1= $request->email1;
+        $setting->phone= $request->phone;
+        $setting->phone1= $request->phone1;
+        $setting->address= $request->address;
         $setting->save();
 
         return redirect()->back()->with('success', 'Settings updated successfully!');

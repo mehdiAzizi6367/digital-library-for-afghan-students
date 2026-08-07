@@ -768,7 +768,7 @@
                                 <a href="mailto:samiaziziazizi6367@gmail.com"
                                    class="text-decoration-none fw-semibold"
                                    style="color:#3949ab;font-size:0.9rem;">
-                                    samiaziziazizi6367@gmail.com
+                                    {{$setting->email}}
                                 </a>
                             </div>
                         </div>
@@ -779,7 +779,7 @@
                             </div>
                             <div>
                                 <small class="text-muted fw-semibold d-block">{{ __('message.mobile') }}</small>
-                                <span class="fw-semibold" style="font-size:0.9rem;">+93 770216367</span>
+                                <span class="fw-semibold" style="font-size:0.9rem;">{{ $setting->phone }}</span>
                             </div>
                         </div>
 
@@ -789,7 +789,7 @@
                             </div>
                             <div>
                                 <small class="text-muted fw-semibold d-block">{{ __('message.mobile') }}</small>
-                                <span class="fw-semibold" style="font-size:0.9rem;">+93 731777395</span>
+                                <span class="fw-semibold" style="font-size:0.9rem;">{{ $setting->phone1 }}</span>
                             </div>
                         </div>
 
@@ -802,7 +802,7 @@
                                 <a href="mailto:maaznaizi2001@gmail.com"
                                    class="text-decoration-none fw-semibold"
                                    style="color:#3949ab;font-size:0.9rem;">
-                                    maaznaizi2001@gmail.com
+                                    {{ $setting->email1 }}
                                 </a>
                             </div>
                         </div>
@@ -813,7 +813,7 @@
                             </div>
                             <div>
                                 <small class="text-muted fw-semibold d-block">{{ __('message.mobile') }}</small>
-                                <span class="fw-semibold" style="font-size:0.9rem;">+93 784763743</span>
+                                <span class="fw-semibold" style="font-size:0.9rem;">{{ $setting->phone1 }}</span>
                             </div>
                         </div>
 
@@ -824,7 +824,7 @@
                             <div>
                                 <small class="text-muted fw-semibold d-block">{{ __('message.address') }}</small>
                                 <span class="fw-semibold" style="font-size:0.9rem;">
-                                    Jalalabad, Nangarhar, Afghanistan
+                                    {{ $setting->address }}
                                 </span>
                             </div>
                         </div>
@@ -966,5 +966,47 @@
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
    <script src="{{ asset('homeSearch.js') }}"></script>
+   <script>
+    
+document.addEventListener('DOMContentLoaded', function () {
+
+    const input   = document.getElementById('searchInput');
+    const btn     = document.getElementById('searchBtn');
+    const results = document.getElementById('searchResults');
+    const form    = document.getElementById('searchForm');
+
+    // ── 1. Enable / Disable Button ─────────────────────────────────
+    function toggleBtn() {
+        btn.disabled = input.value.trim().length < 2;
+    }
+
+    toggleBtn();
+    input.addEventListener('input', toggleBtn);
+
+    // ── 2. Block form submit if empty ──────────────────────────────
+    form.addEventListener('submit', function (e) {
+        if (input.value.trim().length < 2) {
+            e.preventDefault();
+        }
+    });
+
+    // ── 3. Close dropdown on outside click ────────────────────────
+    document.addEventListener('click', function (e) {
+        if (!input.contains(e.target) && !results.contains(e.target)) {
+            results.innerHTML = '';
+        }
+    });
+
+    // ── 4. Live Search Dropdown ────────────────────────────────────
+  
+    // ── 5. Prevent XSS ────────────────────────────────────────────
+    function escapeHtml(text) {
+        const d = document.createElement('div');
+        d.appendChild(document.createTextNode(text));
+        return d.innerHTML;
+    }
+
+});
+   </script>
 </body>
 </html>
