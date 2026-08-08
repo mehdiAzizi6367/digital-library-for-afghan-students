@@ -455,13 +455,14 @@
 
             <div class="d-flex align-items-center gap-3">
                 <button class="btn btn-light rounded-circle position-relative" style="width:40px;height:40px;">
-                    <i class="bi bi-bell"></i>
+                    <i class="bi bi-bell" title="Reject books"></i>
                     @php
                          $books=App\Models\Book::all();
                     @endphp
                       <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:9px;">
                          
-                                   {{ App\Models\Book::where('status','rejected')->count() }}
+                                 {{ \App\Models\Book::whereBelongsTo(Auth::user())->where('status', 'rejected')
+    ->count() }}
                          
 
                       </span>

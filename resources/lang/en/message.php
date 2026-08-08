@@ -160,4 +160,49 @@ return [
       'no_favorites' => 'No favorite books found',
     'no_favorites_hint' => 'You have not added any books to your favorites yet. Explore books and save your favorite ones.',
     'explore_books' => 'Explore Books',
+    // resources/lang/en/message.php
+    'mark_as_read' => 'Mark as Read',
+    'mark_as_unread' => 'Mark as Unread',
+    'marked_as_read' => 'Message marked as read',
+    'marked_as_unread' => 'Message marked as unread',
+    'message_deleted' => 'Message deleted successfully',
+    'back_to_inbox' => 'Back to Inbox',
+    'view_message' => 'View Message',
+    'reply' => 'Reply',
+    'received_at' => 'Received At',
+    'delete_confirm' => 'Are you sure you want to delete?',
+    'unread' => 'Unread',
+
+    'all' => 'All',
+    // resources/lang/en/message.php
+
+    // Reply related
+
+    'reply_to_message' => 'Reply to Message',
+    'compose_reply' => 'Compose Reply',
+    'replying_to' => 'Replying to',
+    'original_message' => 'Original Message',
+    'previous_replies' => 'Previous Replies',
+    'admin_reply' => 'Admin Reply',
+
+    'to' => 'To',
+    'reply_subject' => 'Reply Subject',
+    'enter_reply_subject' => 'Enter reply subject...',
+    'your_reply' => 'Your Reply',
+    'type_your_reply' => 'Type your reply message here...',
+    'reply_hint' => 'Write a clear and helpful response. Supports both English and Pashto.',
+    'characters' => 'characters',
+    'send_reply' => 'Send Reply',
+    'send_and_mark_read' => 'Send & Mark as Read',
+    'back_to_message' => 'Back to Message',
+    'reply_sent_successfully' => 'Reply sent successfully via email!',
+    'reply_email_failed' => 'Reply saved but email could not be sent.',
+    'dear' => 'Dear',
+    'reply_email_intro' => 'Thank you for contacting us. Here is our reply to your message:',
+    'your_original_message' => 'Your Original Message',
+    'reply_email_footer' => 'If you have any further questions, please don\'t hesitate to reach out.',
+    'all_rights_reserved' => 'All rights reserved.',
+
+
+
     ];

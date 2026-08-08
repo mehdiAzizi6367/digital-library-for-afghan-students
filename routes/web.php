@@ -31,21 +31,11 @@ use App\Mail\TestMail;
 |--------------------------------------------------------------------------
 */
 Route::get('/', [HomeController::class,'index'])->name('home');
-Route::get('/welcome', fn() => view('welcome'));
 Route::get('/about', fn() => view('about'))->name('about');
 Route::get('/contact', fn() => view('contact'))->name('contact');
 Route::post('/contact', [ContactController::class,'store'])->name('contact.store');
 
 
-
-Route::get('/test-mail', function () {
-
-    Mail::to('samiaziziazizi6367@gmail.c.com')
-        ->send(new TestMail());
-
-    return "Email sent successfully";
-
-});
 
 
 
@@ -69,6 +59,16 @@ Route::middleware(['auth','active'])->group(function(){
       // User favorite books page
     Route::get('/favorites', [FavoriteController::class, 'index'])
         ->name('favorites.index');
+        // 
+        
+    // Contact / Messages
+     Route::get('/message', [ContactController::class, 'message'])->name('contact.message');
+    Route::get('/message/{contact}', [ContactController::class, 'show'])->name('contact.show');
+    Route::get('/message/{contact}/reply', [ContactController::class, 'reply'])->name('contact.reply');
+    Route::post('/message/{contact}/reply', [ContactController::class, 'sendReply'])->name('contact.reply.send');
+    Route::patch('/message/{contact}/toggle-read', [ContactController::class, 'toggleRead'])->name('contact.toggleRead');
+    Route::delete('/message/{contact}', [ContactController::class, 'destroy'])->name('contact.destroy');
+
 
 
     // Add book to favorites

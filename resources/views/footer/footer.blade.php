@@ -15,16 +15,16 @@
                 </button>
 
                 <div class="d-flex gap-3 flex-wrap">
-                    <a href="#" class="social-icon social-facebook" aria-label="Facebook">
+                    <a href="https://www.facebook.com/profile.php?id=100088910771928" class="social-icon social-facebook" aria-label="Facebook">
                         <i class="fab fa-facebook-f"></i>
                     </a>
-                    <a href="#" class="social-icon social-youtube" aria-label="YouTube">
+                    <a href="https://www.youtube.com/channel/UCe16HkuEz_DquaTpI7PV4EQ" class="social-icon social-youtube" aria-label="YouTube">
                         <i class="fab fa-youtube"></i>
                     </a>
                     <a href="https://github.com/mehdiAzizi6367" class="social-icon social-github" aria-label="GitHub">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="https://wa.me/message/BB2KIIABW4MEA1" class="social-icon social-whatsapp" aria-label="WhatsApp">
+                    <a href="https://wa.me/93770216367" class="social-icon social-whatsapp" aria-label="WhatsApp">
                         <i class="fab fa-whatsapp"></i>
                     </a>
                 </div>

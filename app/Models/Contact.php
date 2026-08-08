@@ -12,4 +12,12 @@ class Contact extends Model
     'subject',
     'message'
    ];
+   
+// app/Models/Contact.php
+
+// Add this method
+    public function replies()
+    {
+        return $this->hasMany(ContactReply::class)->latest();
+    }
 }
